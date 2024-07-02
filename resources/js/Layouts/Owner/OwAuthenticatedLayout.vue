@@ -44,8 +44,8 @@ const showingNavigationDropdown = ref(false);
 
                 <!-- Booking Management -->
                 <NavLink
-                    :href="route('owner.bookingnMgmt')"
-                    :active="route().current('owner.bookingnMgmt')"
+                    :href="route('owner.bookingMgmt')"
+                    :active="route().current('owner.bookingMgmt')"
                 >
                     Booking Management
                 </NavLink>
