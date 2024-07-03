@@ -1,9 +1,18 @@
 <script setup>
 import { ref } from "vue";
 import { Link } from "@inertiajs/vue3";
-import NavLink from "@/Components/NavLink.vue";
+import SideNavLink from "@/Components/SideNavLink.vue";
+import { LayoutDashboard,
+         Calendar,
+         Users,
+         Map,
+         UserCheck,
+         DollarSign,
+         Megaphone,
+         BarChart2,
+         User } from 'lucide-vue-next';
 
-const showingNavigationDropdown = ref(false);
+const showingSideNav = ref(false);
 </script>
 
 <style>
@@ -20,12 +29,11 @@ const showingNavigationDropdown = ref(false);
     <!-- Header -->
 
     <!-- Side Nav -->
-    <aside
-        :class="{ block: isOpen, hidden: !isOpen }"
-        @click.away="isOpen = false"
-        x-data="{subMenu:null}"
-        class="glass m-4 h-[96vh] w-64 p-6 transition-all duration-300 lg:block overflow-hidden fixed left-0 top-0 z-10 shadow-md shadow-gray-500/25"
-    >
+    <aside :class="{
+        'translate-x-0': showingSideNav,
+        '-translate-x-full  ': !showingSideNav,
+    }"
+        class="glass m-4 h-[96vh] w-64 p-6 transition-transform duration-300 lg:translate-x-0 lg:block overflow-hidden fixed left-0 top-0 z-10 shadow-md shadow-gray-500/25">
         <!-- {{-- Header Side Bar --}} -->
         <div class="text-indigo-950 mb-6 text-2xl font-semibold">
             Project Logo
@@ -33,84 +41,84 @@ const showingNavigationDropdown = ref(false);
 
         <!-- {{-- Side Nav Link --}} -->
         <nav class="h-full overflow-y-auto pr-4 -mr-4 relative pb-32">
-            <ul>
+            <ul class="space-y-1">
                 <!-- Dashboard -->
-                <NavLink
-                    :href="route('owner.dashboard')"
-                    :active="route().current('owner.dashboard')"
-                >
-                    Dashboard
-                </NavLink>
+                <SideNavLink :href="route('owner.dashboard')" :active="route().current('owner.dashboard')">
+                    <span class="flex items-center">
+                        <LayoutDashboard :size="18" class="mr-4"/>
+                        Dashboard
+                    </span>
+                </SideNavLink>
 
                 <!-- Booking Management -->
-                <NavLink
-                    :href="route('owner.bookingMgmt')"
-                    :active="route().current('owner.bookingMgmt')"
-                >
-                    Booking Management
-                </NavLink>
+                <SideNavLink :href="route('owner.bookingMgmt')" :active="route().current('owner.bookingMgmt')">
+                    <span class="flex items-center">
+                        <Calendar :size="18" class="mr-4"/>
+                        Booking Management
+                    </span>
+                </SideNavLink>
 
                 <!-- Customer Management -->
-                <NavLink
-                    :href="route('owner.customerMgmt')"
-                    :active="route().current('owner.customerMgmt')"
-                >
-                    Customer Management
-                </NavLink>
+                <SideNavLink :href="route('owner.customerMgmt')" :active="route().current('owner.customerMgmt')">
+                    <span class="flex items-center">
+                        <Users :size="18" class="mr-4"/>
+                        Customer Management
+                    </span>
+                </SideNavLink>
 
                 <!-- Field Management -->
-                <NavLink
-                    :href="route('owner.fieldMgmt')"
-                    :active="route().current('owner.fieldMgmt')"
-                >
-                    Field Management
-                </NavLink>
+                <SideNavLink :href="route('owner.fieldMgmt')" :active="route().current('owner.fieldMgmt')">
+                    <span class="flex items-center">
+                        <Map :size="18" class="mr-4"/>
+                        Field Management
+                    </span>
+                </SideNavLink>
 
                 <!-- Staff Management -->
-                <NavLink
-                    :href="route('owner.staffMgmt')"
-                    :active="route().current('owner.staffMgmt')"
-                >
-                    Staff Management
-                </NavLink>
+                <SideNavLink :href="route('owner.staffMgmt')" :active="route().current('owner.staffMgmt')">
+                    <span class="flex items-center">
+                        <UserCheck :size="18" class="mr-4" />
+                        Staff Management
+                    </span>
+                </SideNavLink>
 
                 <!-- Financial Management -->
-                <NavLink
-                    :href="route('owner.financialMgmt')"
-                    :active="route().current('owner.financialMgmt')"
-                >
-                    Financial Management
-                </NavLink>
+                <SideNavLink :href="route('owner.financialMgmt')" :active="route().current('owner.financialMgmt')">
+                    <span class="flex items-center">
+                       <DollarSign :size="18" class="mr-4" />
+                        Financial Management
+                    </span>
+                </SideNavLink>
 
                 <!-- Marketing Tools -->
-                <NavLink
-                    :href="route('owner.marketingTools')"
-                    :active="route().current('owner.marketingTools')"
-                >
-                    Marketing Tools
-                </NavLink>
+                <SideNavLink :href="route('owner.marketingTools')" :active="route().current('owner.marketingTools')">
+                    <span class="flex items-center">
+                        <Megaphone :size="18" class="mr-4" />
+                        Marketing Tools
+                    </span>
+                </SideNavLink>
 
                 <!-- Reporting Tools -->
-                <NavLink
-                    :href="route('owner.reportingTools')"
-                    :active="route().current('owner.reportingTools')"
-                >
-                    Reporting Tools
-                </NavLink>
+                <SideNavLink :href="route('owner.reportingTools')" :active="route().current('owner.reportingTools')">
+                    <span class="flex items-center">
+                        <BarChart2 :size="18" class="mr-4" />
+                        Reporting Tools
+                    </span>
+                </SideNavLink>
 
                 <!-- User Management -->
-                <NavLink
-                    :href="route('owner.userMgmt')"
-                    :active="route().current('owner.userMgmt')"
-                >
-                    User Management
-                </NavLink>
+                <SideNavLink :href="route('owner.userMgmt')" :active="route().current('owner.userMgmt')">
+                    <span class="flex items-center">
+                        <Users :size="18" class="mr-4" />
+                        User Management
+                    </span>
+                </SideNavLink>
             </ul>
         </nav>
     </aside>
 
     <!-- Page Content -->
-    <main class="bg-slate-100 min-h-screen h-full">
+    <main class="bg-slate-100 min-h-screen h-full transition-transform duration-300 lg:pl-64">
         <slot />
     </main>
 </template>
