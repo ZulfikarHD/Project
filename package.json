@@ -23,6 +23,6 @@
         "install": "^0.13.0",
         "lucide-vue-next": "^0.400.0",
         "npm": "^10.8.1",
-        "vue-apexcharts": "^1.6.2"
+        "vue3-apexcharts": "^1.5.3"
     }
 }

@@ -56,7 +56,7 @@ const showingSideNav = ref(false);
                 <!-- Booking Management -->
                 <SideNavLink :href="route('owner.bookingMgmt')" :active="route().current('owner.bookingMgmt')">
                     <span class="flex items-center">
-                        <Calendar :size="18" class="mr-2" />
+                        <Calendar :size="18" class="mr-2" :stroke-width="route().current('owner.bookingMgmt') ? 2 : 1" />
                         Booking Management
                     </span>
                 </SideNavLink>
@@ -64,7 +64,7 @@ const showingSideNav = ref(false);
                 <!-- Customer Management -->
                 <SideNavLink :href="route('owner.customerMgmt')" :active="route().current('owner.customerMgmt')">
                     <span class="flex items-center">
-                        <Users :size="18" class="mr-2" />
+                        <Users :size="18" class="mr-2" :stroke-width="route().current('owner.customerMgmt') ? 2 : 1" />
                         Customer Management
                     </span>
                 </SideNavLink>
@@ -72,7 +72,7 @@ const showingSideNav = ref(false);
                 <!-- Field Management -->
                 <SideNavLink :href="route('owner.fieldMgmt')" :active="route().current('owner.fieldMgmt')">
                     <span class="flex items-center">
-                        <Map :size="18" class="mr-2" />
+                        <Map :size="18" class="mr-2" :stroke-width="route().current('owner.fieldMgmt') ? 2 : 1" />
                         Field Management
                     </span>
                 </SideNavLink>
@@ -80,7 +80,7 @@ const showingSideNav = ref(false);
                 <!-- Staff Management -->
                 <SideNavLink :href="route('owner.staffMgmt')" :active="route().current('owner.staffMgmt')">
                     <span class="flex items-center">
-                        <UserCheck :size="18" class="mr-2" />
+                        <UserCheck :size="18" class="mr-2" :stroke-width="route().current('owner.staffMgmt') ? 2 : 1" />
                         Staff Management
                     </span>
                 </SideNavLink>
@@ -88,7 +88,8 @@ const showingSideNav = ref(false);
                 <!-- Financial Management -->
                 <SideNavLink :href="route('owner.financialMgmt')" :active="route().current('owner.financialMgmt')">
                     <span class="flex items-center">
-                        <DollarSign :size="18" class="mr-2" />
+                        <DollarSign :size="18" class="mr-2"
+                            :stroke-width="route().current('owner.financialMgmt') ? 2 : 1" />
                         Financial Management
                     </span>
                 </SideNavLink>
@@ -96,7 +97,7 @@ const showingSideNav = ref(false);
                 <!-- Marketing Tools -->
                 <SideNavLink :href="route('owner.marketingTools')" :active="route().current('owner.marketingTools')">
                     <span class="flex items-center">
-                        <Megaphone :size="18" class="mr-2" />
+                        <Megaphone :size="18" class="mr-2" :stroke-width="route().current('owner.marketingTools') ? 2 : 1" />
                         Marketing Tools
                     </span>
                 </SideNavLink>
@@ -104,7 +105,7 @@ const showingSideNav = ref(false);
                 <!-- Reporting Tools -->
                 <SideNavLink :href="route('owner.reportingTools')" :active="route().current('owner.reportingTools')">
                     <span class="flex items-center">
-                        <BarChart2 :size="18" class="mr-2" />
+                        <BarChart2 :size="18" class="mr-2" :stroke-width="route().current('owner.reportingTools') ? 2 : 1" />
                         Reporting Tools
                     </span>
                 </SideNavLink>
@@ -112,7 +113,7 @@ const showingSideNav = ref(false);
                 <!-- User Management -->
                 <SideNavLink :href="route('owner.userMgmt')" :active="route().current('owner.userMgmt')">
                     <span class="flex items-center">
-                        <Users :size="18" class="mr-2" />
+                        <User :size="18" class="mr-2" :stroke-width="route().current('owner.userMgmt') ? 2 : 1" />
                         User Management
                     </span>
                 </SideNavLink>
@@ -124,7 +125,7 @@ const showingSideNav = ref(false);
     <main class="bg-slate-100 min-h-screen h-full transition-transform duration-300 lg:pl-64">
 
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="container mx-auto sm:px-6 lg:px-8">
                 <slot />
             </div>
         </div>
