@@ -22,7 +22,6 @@ const showingSideNav = ref(false);
     background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border-radius: 15px;
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 </style>
@@ -35,7 +34,7 @@ const showingSideNav = ref(false);
         'translate-x-0': showingSideNav,
         '-translate-x-full  ': !showingSideNav,
     }"
-        class="glass m-4 h-[96vh] w-64 pl-3 pr-4 py-6 transition-transform duration-300 lg:translate-x-0 lg:block overflow-hidden fixed left-0 top-0 z-10 shadow-md shadow-gray-500/25 antialiased">
+        class="glass m-4 h-[96vh] w-64 pl-3 pr-4 py-6 transition-transform duration-300 lg:translate-x-0 lg:block overflow-hidden fixed left-0 top-0 z-10 shadow-md shadow-gray-500/25 antialiased rounded-lg">
         <!-- {{-- Header Side Bar --}} -->
         <div class="text-indigo-950 mb-6 text-2xl font-semibold">
             Project Logo
@@ -122,7 +121,7 @@ const showingSideNav = ref(false);
     </aside>
 
     <!-- Page Content -->
-    <main class="bg-slate-100 min-h-screen h-full transition-transform duration-300 lg:pl-64">
+    <main class="bg-slate-100 min-h-screen h-full transition-transform duration-300 lg:pl-64 antialiased">
 
         <div class="py-12">
             <div class="container mx-auto sm:px-6 lg:px-8">
