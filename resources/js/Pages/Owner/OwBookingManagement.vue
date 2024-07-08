@@ -26,7 +26,7 @@ import { Head } from '@inertiajs/vue3';
                 </Card>
 
                 <!-- Booking List -->
-                <Card class="w-full lg:max-w-[48rem]">
+                <Card    class="w-full lg:w-[48rem] h-full">
                     <div class="p-4">
                         <div class="w-full h-auto overflow-hidden">
                             <OwBookingList class="w-full h-auto" />
@@ -63,3 +63,4 @@ import { Head } from '@inertiajs/vue3';
         </div>
     </AuthenticatedLayout>
 </template>
+
