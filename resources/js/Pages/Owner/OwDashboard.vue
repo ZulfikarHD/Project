@@ -606,7 +606,7 @@ const ageRangeDemographicCtOpt = {
 
                             <!-- Pendapatan Dari User Tersebut -->
                             <div>
-                                <p class="font-semibold text-green-600">Rp. {{ (201 - index) * 125000 }}</p>
+                                <p class="font-semibold text-green-600">Rp. {{ ((201 - index) * 125000).toLocaleString() }}</p>
                             </div>
                         </div>
                     </template>
