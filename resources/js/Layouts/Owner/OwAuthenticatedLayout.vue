@@ -32,7 +32,7 @@ const showingSideNav = ref(false);
     <!-- Side Nav -->
     <aside :class="{
         'translate-x-0': showingSideNav,
-        '-translate-x-full  ': !showingSideNav,
+        '-translate-x-[110%]': !showingSideNav,
     }"
         class="glass m-4 h-[96vh] w-64 pl-3 pr-4 py-6 transition-transform duration-300 lg:translate-x-0 lg:block overflow-hidden fixed left-0 top-0 z-10 shadow-md shadow-gray-500/25 antialiased rounded-lg">
         <!-- {{-- Header Side Bar --}} -->
