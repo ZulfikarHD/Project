@@ -15,9 +15,7 @@ import { Head } from '@inertiajs/vue3';
             </div>
 
             <!-- Staff List -->
-            <!-- <Card class="flex-auto"> -->
-                <OwStaffList />
-            <!-- </Card> -->
+            <OwStaffList />
         </div>
     </AuthenticatedLayout>
 </template>

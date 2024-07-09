@@ -1,5 +1,12 @@
 <?php
 
+use App\Http\Controllers\Owner\FinancialManagement\OwFmBudgetingController;
+use App\Http\Controllers\Owner\FinancialManagement\OwFmExpensesController;
+use App\Http\Controllers\Owner\FinancialManagement\OwFmInvoicesController;
+use App\Http\Controllers\Owner\FinancialManagement\OwFmPaymentsController;
+use App\Http\Controllers\Owner\FinancialManagement\OwFmReportsController;
+use App\Http\Controllers\Owner\FinancialManagement\OwFmRevenueController;
+use App\Http\Controllers\Owner\FinancialManagement\OwFmSettingsController;
 use App\Http\Controllers\Owner\OwBookingManagementController;
 use App\Http\Controllers\Owner\OwCustomerManagementController;
 use App\Http\Controllers\Owner\OwFieldManagementController;
@@ -44,7 +51,19 @@ Route::get('/owner/user-management', [OwUserManagementController::class, 'index'
 Route::get('/owner/marketing-tools', [OwMarketingToolsController::class, 'index'])->name('owner.marketingTools');
 Route::get('/owner/reporting-tools', [OwReportingToolsController::class, 'index'])->name('owner.reportingTools');
 Route::get('/owner/customer-management', [OwCustomerManagementController::class, 'index'])->name('owner.customerMgmt');
-Route::get('/owner/financial-management', [OwFinancialManagementController::class, 'index'])->name('owner.financialMgmt');
+
+/**
+ * Financial Management Section
+ */
+Route::get('/owner/financial-management', [OwFinancialManagementController::class, 'index'])->name('owner.financialMgmt');  // Main
+Route::get('/owner/financial-management/revenue', [OwFmRevenueController::class, 'index'])->name('owner.fm.revenue');
+Route::get('/owner/financial-management/budgeting', [OwFmBudgetingController::class, 'index'])->name('owner.fm.budgeting');
+Route::get('/owner/financial-management/expenses', [OwFmExpensesController::class, 'index'])->name('onwer.fm.expenses');
+Route::get('/owner/financial-management/invoices', [OwFmInvoicesController::class, 'index'])->name('owner.fm.invoices');
+Route::get('/owner/financial-management/payments', [OwFmPaymentsController::class, 'index'])->name('owner.fm.payments');
+Route::get('/owner/financial-management/reports', [OwFmReportsController::class, 'index'])->name('owner.fm.reports');
+Route::get('/owner/financial-management/settings', [OwFmSettingsController::class, 'index'])->name('owner.fm.settings');
+
 
 
 
