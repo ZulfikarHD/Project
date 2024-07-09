@@ -8,8 +8,6 @@ const fields = ref([
 
 const searchQuery = ref('');
 const sortKey = ref('name');
-const showModal = ref(false);
-const newField = ref({ name: '', type: '', location: '', availability: '' });
 
 const filteredAndSortedFields = computed(() => {
     return fields.value
@@ -27,12 +25,6 @@ const filteredAndSortedFields = computed(() => {
             return 0;
         });
 });
-
-const addField = () => {
-    fields.value.push({ ...newField.value, id: Date.now() });
-    newField.value = { name: '', type: '', location: '', availability: '' };
-    showModal.value = false;
-};
 
 const deleteField = (id) => {
     fields.value = fields.value.filter(field => field.id !== id);
@@ -62,7 +54,7 @@ const deleteField = (id) => {
         </select>
 
         <!-- Add New Field Button -->
-        <button @click="showModal = true" class="mb-4 bg-blue-500 text-white px-4 py-2 rounded">Add New Field</button>
+        <button @click="$emit('show-modal')" class="mb-4 bg-blue-500 text-white px-4 py-2 rounded">Add New Field</button>
 
         <!-- Field List -->
         <table class="min-w-full bg-white">
@@ -87,32 +79,5 @@ const deleteField = (id) => {
                 </tr>
             </tbody>
         </table>
-
-        <!-- Add New Field Modal -->
-        <div v-if="showModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
-            <div class="bg-white p-4 rounded shadow-lg">
-                <h2 class="text-xl font-semibold mb-4">Add New Field</h2>
-                <div class="mb-4">
-                    <label class="block mb-2">Nama</label>
-                    <input v-model="newField.name" class="p-2 border border-gray-300 rounded w-full" />
-                </div>
-                <div class="mb-4">
-                    <label class="block mb-2">Tipe</label>
-                    <input v-model="newField.type" class="p-2 border border-gray-300 rounded w-full" />
-                </div>
-                <div class="mb-4">
-                    <label class="block mb-2">Lokasi</label>
-                    <input v-model="newField.location" class="p-2 border border-gray-300 rounded w-full" />
-                </div>
-                <div class="mb-4">
-                    <label class="block mb-2">Ketersediaan</label>
-                    <input v-model="newField.availability" class="p-2 border border-gray-300 rounded w-full" />
-                </div>
-                <div class="flex justify-end">
-                    <button @click="showModal = false" class="bg-gray-500 text-white px-4 py-2 rounded mr-2">Cancel</button>
-                    <button @click="addField" class="bg-blue-500 text-white px-4 py-2 rounded">Add</button>
-                </div>
-            </div>
-        </div>
     </div>
 </template>
