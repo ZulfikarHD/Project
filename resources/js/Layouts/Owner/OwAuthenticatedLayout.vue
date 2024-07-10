@@ -13,7 +13,12 @@ import {
     BarChart2,
     User,
     ChevronDown,
-    ChevronUp
+    ChevronUp,
+    PieChart,
+    CreditCard,
+    FileText,
+    BarChart,
+    Settings
 } from 'lucide-vue-next';
 import 'animate.css'; // Import Animate.css
 
@@ -117,48 +122,48 @@ if (isFinancialRouteActive.value) {
                             <span class="flex items-center">
                                 <DollarSign :size="18" class="mr-2"
                                     :stroke-width="route().current('owner.fm.revenue') ? 2 : 1" />
-                                Revenue
+                                Revenue Overview
                             </span>
                         </SideNavLink>
                         <SideNavLink :href="route('owner.fm.budgeting')"
                             :active="route().current('owner.fm.budgeting')">
                             <span class="flex items-center">
-                                <DollarSign :size="18" class="mr-2"
+                                <PieChart :size="18" class="mr-2"
                                     :stroke-width="route().current('owner.fm.budgeting') ? 2 : 1" />
-                                Budgeting
+                                Budgeting Planning
                             </span>
                         </SideNavLink>
                         <SideNavLink :href="route('owner.fm.expenses')" :active="route().current('owner.fm.expenses')">
                             <span class="flex items-center">
-                                <DollarSign :size="18" class="mr-2"
+                                <CreditCard :size="18" class="mr-2"
                                     :stroke-width="route().current('owner.fm.expenses') ? 2 : 1" />
                                 Expenses
                             </span>
                         </SideNavLink>
                         <SideNavLink :href="route('owner.fm.invoices')" :active="route().current('owner.fm.invoices')">
                             <span class="flex items-center">
-                                <DollarSign :size="18" class="mr-2"
+                                <FileText :size="18" class="mr-2"
                                     :stroke-width="route().current('owner.fm.invoices') ? 2 : 1" />
-                                Invoices
+                                Booking Invoices
                             </span>
                         </SideNavLink>
                         <SideNavLink :href="route('owner.fm.payments')" :active="route().current('owner.fm.payments')">
                             <span class="flex items-center">
-                                <DollarSign :size="18" class="mr-2"
+                                <CreditCard :size="18" class="mr-2"
                                     :stroke-width="route().current('owner.fm.payments') ? 2 : 1" />
-                                Payments
+                                Payments Management
                             </span>
                         </SideNavLink>
                         <SideNavLink :href="route('owner.fm.reports')" :active="route().current('owner.fm.reports')">
                             <span class="flex items-center">
-                                <DollarSign :size="18" class="mr-2"
+                                <BarChart :size="18" class="mr-2"
                                     :stroke-width="route().current('owner.fm.reports') ? 2 : 1" />
                                 Financial Reports
                             </span>
                         </SideNavLink>
                         <SideNavLink :href="route('owner.fm.settings')" :active="route().current('owner.fm.settings')">
                             <span class="flex items-center">
-                                <DollarSign :size="18" class="mr-2"
+                                <Settings :size="18" class="mr-2"
                                     :stroke-width="route().current('owner.fm.settings') ? 2 : 1" />
                                 Financial Settings
                             </span>
