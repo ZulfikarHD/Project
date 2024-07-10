@@ -1,4 +1,3 @@
-
 <script setup>
 import { ref, computed } from 'vue';
 import OwAuthenticatedLayout from '@/Layouts/Owner/OwAuthenticatedLayout.vue';
@@ -10,30 +9,6 @@ const expenses = ref([]);
 const addExpense = () => {
     expenses.value.push({ ...newExpense.value, id: Date.now() });
     newExpense.value = { name: '', amount: 0, category: '', date: '', vendor: '' };
-};
-
-const expenseCategories = computed(() => {
-    return [...new Set(expenses.value.map(expense => expense.category))];
-});
-
-const expensesByCategory = (category) => {
-    return expenses.value.filter(expense => expense.category === category);
-};
-
-const expenseDates = computed(() => {
-    return [...new Set(expenses.value.map(expense => expense.date))];
-});
-
-const expensesByDate = (date) => {
-    return expenses.value.filter(expense => expense.date === date);
-};
-
-const expenseVendors = computed(() => {
-    return [...new Set(expenses.value.map(expense => expense.vendor))];
-});
-
-const expensesByVendor = (vendor) => {
-    return expenses.value.filter(expense => expense.vendor === vendor);
 };
 
 const exportData = (format) => {
@@ -99,62 +74,26 @@ const exportData = (format) => {
             <Card class="mb-8">
                 <div class="p-4">
                     <h2 class="text-2xl font-semibold mb-4">View All Expenses</h2>
-                    <ul>
-                        <li v-for="expense in expenses" :key="expense.id" class="mb-2 flex justify-between items-center">
-                            <span>{{ expense.name }} - ${{ expense.amount }} - {{ expense.category }} - {{ expense.date }} - {{ expense.vendor }}</span>
-                        </li>
-                    </ul>
-                </div>
-            </Card>
-
-            <!-- Expenses by Category -->
-            <Card class="mb-8">
-                <div class="p-4">
-                    <h2 class="text-2xl font-semibold mb-4">Expenses by Category</h2>
-                    <ul>
-                        <li v-for="category in expenseCategories" :key="category" class="mb-2">
-                            <h3 class="text-xl font-medium">{{ category }}</h3>
-                            <ul>
-                                <li v-for="expense in expensesByCategory(category)" :key="expense.id" class="ml-4">
-                                    {{ expense.name }} - ${{ expense.amount }} - {{ expense.date }} - {{ expense.vendor }}
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </Card>
-
-            <!-- Expenses by Date -->
-            <Card class="mb-8">
-                <div class="p-4">
-                    <h2 class="text-2xl font-semibold mb-4">Expenses by Date</h2>
-                    <ul>
-                        <li v-for="date in expenseDates" :key="date" class="mb-2">
-                            <h3 class="text-xl font-medium">{{ date }}</h3>
-                            <ul>
-                                <li v-for="expense in expensesByDate(date)" :key="expense.id" class="ml-4">
-                                    {{ expense.name }} - ${{ expense.amount }} - {{ expense.category }} - {{ expense.vendor }}
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </Card>
-
-            <!-- Expenses by Vendor -->
-            <Card class="mb-8">
-                <div class="p-4">
-                    <h2 class="text-2xl font-semibold mb-4">Expenses by Vendor</h2>
-                    <ul>
-                        <li v-for="vendor in expenseVendors" :key="vendor" class="mb-2">
-                            <h3 class="text-xl font-medium">{{ vendor }}</h3>
-                            <ul>
-                                <li v-for="expense in expensesByVendor(vendor)" :key="expense.id" class="ml-4">
-                                    {{ expense.name }} - ${{ expense.amount }} - {{ expense.category }} - {{ expense.date }}
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+                    <table class="min-w-full bg-white">
+                        <thead>
+                            <tr>
+                                <th class="py-2">Expense Name</th>
+                                <th class="py-2">Amount</th>
+                                <th class="py-2">Category</th>
+                                <th class="py-2">Date</th>
+                                <th class="py-2">Vendor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="expense in expenses" :key="expense.id">
+                                <td class="py-2">{{ expense.name }}</td>
+                                <td class="py-2">${{ expense.amount }}</td>
+                                <td class="py-2">{{ expense.category }}</td>
+                                <td class="py-2">{{ expense.date }}</td>
+                                <td class="py-2">{{ expense.vendor }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </Card>
 
@@ -172,4 +111,3 @@ const exportData = (format) => {
         </div>
     </OwAuthenticatedLayout>
 </template>
-
