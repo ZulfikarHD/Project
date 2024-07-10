@@ -1,3 +1,33 @@
+<script setup>
+import { ref, computed } from 'vue';
+import OwAuthenticatedLayout from '@/Layouts/Owner/OwAuthenticatedLayout.vue';
+
+const newInvoice = ref({ number: '', amount: 0, date: '', status: 'pending' });
+const invoices = ref([]);
+
+const createInvoice = () => {
+    invoices.value.push({ ...newInvoice.value, id: Date.now() });
+    newInvoice.value = { number: '', amount: 0, date: '', status: 'pending' };
+};
+
+const pendingInvoices = computed(() => {
+    return invoices.value.filter(invoice => invoice.status === 'pending');
+});
+
+const paidInvoices = computed(() => {
+    return invoices.value.filter(invoice => invoice.status === 'paid');
+});
+
+const overdueInvoices = computed(() => {
+    return invoices.value.filter(invoice => invoice.status === 'overdue');
+});
+
+const exportData = (format) => {
+    // Implement export logic here
+    console.log(`Exporting data as ${format}`);
+};
+</script>
+
 <template>
     <OwAuthenticatedLayout>
         <div class="container mx-auto py-12">
@@ -8,26 +38,33 @@
                 <h2 class="text-2xl font-semibold mb-4">Create New Invoice</h2>
                 <form @submit.prevent="createInvoice">
                     <div class="mb-4">
-                        <label for="invoiceNumber" class="block text-sm font-medium text-gray-700">Invoice Number</label>
-                        <input type="text" id="invoiceNumber" v-model="newInvoice.number" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                        <label for="invoiceNumber" class="block text-sm font-medium text-gray-700">Invoice
+                            Number</label>
+                        <input type="text" id="invoiceNumber" v-model="newInvoice.number"
+                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                     </div>
                     <div class="mb-4">
                         <label for="invoiceAmount" class="block text-sm font-medium text-gray-700">Amount</label>
-                        <input type="number" id="invoiceAmount" v-model="newInvoice.amount" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                        <input type="number" id="invoiceAmount" v-model="newInvoice.amount"
+                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                     </div>
                     <div class="mb-4">
                         <label for="invoiceDate" class="block text-sm font-medium text-gray-700">Date</label>
-                        <input type="date" id="invoiceDate" v-model="newInvoice.date" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                        <input type="date" id="invoiceDate" v-model="newInvoice.date"
+                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                     </div>
                     <div class="mb-4">
                         <label for="invoiceStatus" class="block text-sm font-medium text-gray-700">Status</label>
-                        <select id="invoiceStatus" v-model="newInvoice.status" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                        <select id="invoiceStatus" v-model="newInvoice.status"
+                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                             <option value="pending">Pending</option>
                             <option value="paid">Paid</option>
                             <option value="overdue">Overdue</option>
                         </select>
                     </div>
-                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-blue-700">Create Invoice</button>
+                    <button type="submit"
+                        class="bg-blue-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-blue-700">Create
+                        Invoice</button>
                 </form>
             </div>
 
@@ -88,41 +125,17 @@
             <div class="bg-white shadow rounded-lg p-6">
                 <h2 class="text-2xl font-semibold mb-4">Export Invoice Data</h2>
                 <div class="flex space-x-2">
-                    <button @click="exportData('csv')" class="bg-gray-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-gray-700">Export as CSV</button>
-                    <button @click="exportData('excel')" class="bg-gray-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-gray-700">Export as Excel</button>
-                    <button @click="exportData('pdf')" class="bg-gray-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-gray-700">Export as PDF</button>
+                    <button @click="exportData('csv')"
+                        class="bg-gray-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-gray-700">Export as
+                        CSV</button>
+                    <button @click="exportData('excel')"
+                        class="bg-gray-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-gray-700">Export as
+                        Excel</button>
+                    <button @click="exportData('pdf')"
+                        class="bg-gray-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-gray-700">Export as
+                        PDF</button>
                 </div>
             </div>
         </div>
     </OwAuthenticatedLayout>
 </template>
-
-<script setup>
-import { ref, computed } from 'vue';
-import OwAuthenticatedLayout from '@/Layouts/Owner/OwAuthenticatedLayout.vue';
-
-const newInvoice = ref({ number: '', amount: 0, date: '', status: 'pending' });
-const invoices = ref([]);
-
-const createInvoice = () => {
-    invoices.value.push({ ...newInvoice.value, id: Date.now() });
-    newInvoice.value = { number: '', amount: 0, date: '', status: 'pending' };
-};
-
-const pendingInvoices = computed(() => {
-    return invoices.value.filter(invoice => invoice.status === 'pending');
-});
-
-const paidInvoices = computed(() => {
-    return invoices.value.filter(invoice => invoice.status === 'paid');
-});
-
-const overdueInvoices = computed(() => {
-    return invoices.value.filter(invoice => invoice.status === 'overdue');
-});
-
-const exportData = (format) => {
-    // Implement export logic here
-    console.log(`Exporting data as ${format}`);
-};
-</script>
