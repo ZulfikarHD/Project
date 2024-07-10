@@ -1,3 +1,38 @@
+
+<script setup>
+import { ref, computed } from 'vue';
+import OwAuthenticatedLayout from '@/Layouts/Owner/OwAuthenticatedLayout.vue';
+
+const newPayment = ref({ amount: 0, date: '', method: 'credit card' });
+const payments = ref([]);
+
+const recordPayment = () => {
+    payments.value.push({ ...newPayment.value, id: Date.now() });
+    newPayment.value = { amount: 0, date: '', method: 'credit card' };
+};
+
+const paymentDates = computed(() => {
+    return [...new Set(payments.value.map(payment => payment.date))];
+});
+
+const paymentsByDate = (date) => {
+    return payments.value.filter(payment => payment.date === date);
+};
+
+const paymentMethods = computed(() => {
+    return [...new Set(payments.value.map(payment => payment.method))];
+});
+
+const paymentsByMethod = (method) => {
+    return payments.value.filter(payment => payment.method === method);
+};
+
+const exportData = (format) => {
+    // Implement export logic here
+    console.log(`Exporting data as ${format}`);
+};
+</script>
+
 <template>
     <OwAuthenticatedLayout>
         <div class="container mx-auto py-12">
@@ -91,36 +126,3 @@
     </OwAuthenticatedLayout>
 </template>
 
-<script setup>
-import { ref, computed } from 'vue';
-import OwAuthenticatedLayout from '@/Layouts/Owner/OwAuthenticatedLayout.vue';
-
-const newPayment = ref({ amount: 0, date: '', method: 'credit card' });
-const payments = ref([]);
-
-const recordPayment = () => {
-    payments.value.push({ ...newPayment.value, id: Date.now() });
-    newPayment.value = { amount: 0, date: '', method: 'credit card' };
-};
-
-const paymentDates = computed(() => {
-    return [...new Set(payments.value.map(payment => payment.date))];
-});
-
-const paymentsByDate = (date) => {
-    return payments.value.filter(payment => payment.date === date);
-};
-
-const paymentMethods = computed(() => {
-    return [...new Set(payments.value.map(payment => payment.method))];
-});
-
-const paymentsByMethod = (method) => {
-    return payments.value.filter(payment => payment.method === method);
-};
-
-const exportData = (format) => {
-    // Implement export logic here
-    console.log(`Exporting data as ${format}`);
-};
-</script>
