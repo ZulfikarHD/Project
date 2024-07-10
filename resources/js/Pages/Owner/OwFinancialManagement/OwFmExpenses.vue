@@ -4,7 +4,13 @@ import OwAuthenticatedLayout from '@/Layouts/Owner/OwAuthenticatedLayout.vue';
 import Card from '@/Components/Card.vue';
 
 const newExpense = ref({ name: '', amount: 0, category: '', date: '', vendor: '' });
-const expenses = ref([]);
+const expenses = ref([
+    { id: 1, name: 'Office Supplies', amount: 150, category: 'Office', date: '2023-01-15', vendor: 'Staples' },
+    { id: 2, name: 'Travel', amount: 300, category: 'Transportation', date: '2023-02-10', vendor: 'Uber' },
+    { id: 3, name: 'Software Subscription', amount: 50, category: 'Software', date: '2023-03-05', vendor: 'Adobe' },
+    { id: 4, name: 'Utilities', amount: 200, category: 'Utilities', date: '2023-04-01', vendor: 'Electric Company' },
+    { id: 5, name: 'Marketing', amount: 500, category: 'Advertising', date: '2023-05-20', vendor: 'Google Ads' }
+]);
 
 const addExpense = () => {
     expenses.value.push({ ...newExpense.value, id: Date.now() });

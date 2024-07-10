@@ -3,7 +3,12 @@ import { ref, computed } from 'vue';
 import OwAuthenticatedLayout from '@/Layouts/Owner/OwAuthenticatedLayout.vue';
 
 const newInvoice = ref({ number: '', amount: 0, date: '', status: 'pending' });
-const invoices = ref([]);
+const invoices = ref([
+    { id: 1, number: 'INV-001', amount: 100, date: '2023-01-01', status: 'pending' },
+    { id: 2, number: 'INV-002', amount: 200, date: '2023-01-02', status: 'paid' },
+    { id: 3, number: 'INV-003', amount: 300, date: '2023-01-03', status: 'overdue' },
+    { id: 4, number: 'INV-004', amount: 400, date: '2023-01-04', status: 'pending' },
+]);
 
 const createInvoice = () => {
     invoices.value.push({ ...newInvoice.value, id: Date.now() });

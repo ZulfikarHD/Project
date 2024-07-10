@@ -4,7 +4,13 @@ import { ref, computed } from 'vue';
 import OwAuthenticatedLayout from '@/Layouts/Owner/OwAuthenticatedLayout.vue';
 
 const newPayment = ref({ amount: 0, date: '', method: 'credit card' });
-const payments = ref([]);
+const payments = ref([
+    { id: 1, amount: 100, date: '2023-01-01', method: 'credit card' },
+    { id: 2, amount: 200, date: '2023-01-02', method: 'bank transfer' },
+    { id: 3, amount: 150, date: '2023-01-03', method: 'cash' },
+    { id: 4, amount: 250, date: '2023-01-01', method: 'credit card' },
+    { id: 5, amount: 300, date: '2023-01-02', method: 'bank transfer' }
+]);
 
 const recordPayment = () => {
     payments.value.push({ ...newPayment.value, id: Date.now() });
