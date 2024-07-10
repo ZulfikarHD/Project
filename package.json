@@ -25,6 +25,7 @@
         "@fullcalendar/multimonth": "^6.1.14",
         "@fullcalendar/timegrid": "^6.1.14",
         "@fullcalendar/vue3": "^6.1.14",
+        "animate.css": "^4.1.1",
         "apexcharts": "^3.49.2",
         "date-fns": "^3.6.0",
         "install": "^0.13.0",

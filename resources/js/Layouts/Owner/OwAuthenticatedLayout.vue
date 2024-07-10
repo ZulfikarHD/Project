@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { Link } from "@inertiajs/vue3";
 import SideNavLink from "@/Components/SideNavLink.vue";
 import {
@@ -11,10 +11,24 @@ import {
     DollarSign,
     Megaphone,
     BarChart2,
-    User
+    User,
+    ChevronDown,
+    ChevronUp
 } from 'lucide-vue-next';
+import 'animate.css'; // Import Animate.css
 
 const showingSideNav = ref(false);
+const showFinancialDropdown = ref(false);
+
+// Computed property to check if any financial management route is active
+const isFinancialRouteActive = computed(() => {
+    return ['owner.fm.revenue', 'owner.fm.budgeting', 'owner.fm.expenses', 'owner.fm.invoices', 'owner.fm.payments', 'owner.fm.reports', 'owner.fm.settings'].some(routeName => route().current(routeName));
+});
+
+// Set the dropdown to be open if any financial route is active
+if (isFinancialRouteActive.value) {
+    showFinancialDropdown.value = true;
+}
 </script>
 
 <style>
@@ -55,7 +69,8 @@ const showingSideNav = ref(false);
                 <!-- Booking Management -->
                 <SideNavLink :href="route('owner.bookingMgmt')" :active="route().current('owner.bookingMgmt')">
                     <span class="flex items-center">
-                        <Calendar :size="18" class="mr-2" :stroke-width="route().current('owner.bookingMgmt') ? 2 : 1" />
+                        <Calendar :size="18" class="mr-2"
+                            :stroke-width="route().current('owner.bookingMgmt') ? 2 : 1" />
                         Booking Management
                     </span>
                 </SideNavLink>
@@ -84,19 +99,78 @@ const showingSideNav = ref(false);
                     </span>
                 </SideNavLink>
 
-                <!-- Financial Management -->
-                <SideNavLink :href="route('owner.financialMgmt')" :active="route().current('owner.financialMgmt')">
-                    <span class="flex items-center">
-                        <DollarSign :size="18" class="mr-2"
-                            :stroke-width="route().current('owner.financialMgmt') ? 2 : 1" />
-                        Financial Management
-                    </span>
-                </SideNavLink>
+                <!-- Financial Management Dropdown -->
+                <li class="py-1 px-2 rounded-md">
+                    <button @click="showFinancialDropdown = !showFinancialDropdown" class="flex items-center w-full">
+                        <span class="flex items-center">
+                            <DollarSign :size="18" class="mr-2"
+                                :stroke-width="route().current('owner.fm.revenue') ? 2 : 1" />
+                            Financial Management
+                        </span>
+                        <span class="ml-auto">
+                            <ChevronDown v-if="!showFinancialDropdown" :size="18" />
+                            <ChevronUp v-if="showFinancialDropdown" :size="18" />
+                        </span>
+                    </button>
+                    <ul v-if="showFinancialDropdown" class="pl-4 mt-2 space-y-1 animate__animated animate__fadeIn">
+                        <SideNavLink :href="route('owner.fm.revenue')" :active="route().current('owner.fm.revenue')">
+                            <span class="flex items-center">
+                                <DollarSign :size="18" class="mr-2"
+                                    :stroke-width="route().current('owner.fm.revenue') ? 2 : 1" />
+                                Revenue
+                            </span>
+                        </SideNavLink>
+                        <SideNavLink :href="route('owner.fm.budgeting')"
+                            :active="route().current('owner.fm.budgeting')">
+                            <span class="flex items-center">
+                                <DollarSign :size="18" class="mr-2"
+                                    :stroke-width="route().current('owner.fm.budgeting') ? 2 : 1" />
+                                Budgeting
+                            </span>
+                        </SideNavLink>
+                        <SideNavLink :href="route('owner.fm.expenses')" :active="route().current('owner.fm.expenses')">
+                            <span class="flex items-center">
+                                <DollarSign :size="18" class="mr-2"
+                                    :stroke-width="route().current('owner.fm.expenses') ? 2 : 1" />
+                                Expenses
+                            </span>
+                        </SideNavLink>
+                        <SideNavLink :href="route('owner.fm.invoices')" :active="route().current('owner.fm.invoices')">
+                            <span class="flex items-center">
+                                <DollarSign :size="18" class="mr-2"
+                                    :stroke-width="route().current('owner.fm.invoices') ? 2 : 1" />
+                                Invoices
+                            </span>
+                        </SideNavLink>
+                        <SideNavLink :href="route('owner.fm.payments')" :active="route().current('owner.fm.payments')">
+                            <span class="flex items-center">
+                                <DollarSign :size="18" class="mr-2"
+                                    :stroke-width="route().current('owner.fm.payments') ? 2 : 1" />
+                                Payments
+                            </span>
+                        </SideNavLink>
+                        <SideNavLink :href="route('owner.fm.reports')" :active="route().current('owner.fm.reports')">
+                            <span class="flex items-center">
+                                <DollarSign :size="18" class="mr-2"
+                                    :stroke-width="route().current('owner.fm.reports') ? 2 : 1" />
+                                Financial Reports
+                            </span>
+                        </SideNavLink>
+                        <SideNavLink :href="route('owner.fm.settings')" :active="route().current('owner.fm.settings')">
+                            <span class="flex items-center">
+                                <DollarSign :size="18" class="mr-2"
+                                    :stroke-width="route().current('owner.fm.settings') ? 2 : 1" />
+                                Financial Settings
+                            </span>
+                        </SideNavLink>
+                    </ul>
+                </li>
 
                 <!-- Marketing Tools -->
                 <SideNavLink :href="route('owner.marketingTools')" :active="route().current('owner.marketingTools')">
                     <span class="flex items-center">
-                        <Megaphone :size="18" class="mr-2" :stroke-width="route().current('owner.marketingTools') ? 2 : 1" />
+                        <Megaphone :size="18" class="mr-2"
+                            :stroke-width="route().current('owner.marketingTools') ? 2 : 1" />
                         Marketing Tools
                     </span>
                 </SideNavLink>
@@ -104,7 +178,8 @@ const showingSideNav = ref(false);
                 <!-- Reporting Tools -->
                 <SideNavLink :href="route('owner.reportingTools')" :active="route().current('owner.reportingTools')">
                     <span class="flex items-center">
-                        <BarChart2 :size="18" class="mr-2" :stroke-width="route().current('owner.reportingTools') ? 2 : 1" />
+                        <BarChart2 :size="18" class="mr-2"
+                            :stroke-width="route().current('owner.reportingTools') ? 2 : 1" />
                         Reporting Tools
                     </span>
                 </SideNavLink>

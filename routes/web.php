@@ -58,7 +58,7 @@ Route::get('/owner/customer-management', [OwCustomerManagementController::class,
 Route::get('/owner/financial-management', [OwFinancialManagementController::class, 'index'])->name('owner.financialMgmt');  // Main
 Route::get('/owner/financial-management/revenue', [OwFmRevenueController::class, 'index'])->name('owner.fm.revenue');
 Route::get('/owner/financial-management/budgeting', [OwFmBudgetingController::class, 'index'])->name('owner.fm.budgeting');
-Route::get('/owner/financial-management/expenses', [OwFmExpensesController::class, 'index'])->name('onwer.fm.expenses');
+Route::get('/owner/financial-management/expenses', [OwFmExpensesController::class, 'index'])->name('owner.fm.expenses');
 Route::get('/owner/financial-management/invoices', [OwFmInvoicesController::class, 'index'])->name('owner.fm.invoices');
 Route::get('/owner/financial-management/payments', [OwFmPaymentsController::class, 'index'])->name('owner.fm.payments');
 Route::get('/owner/financial-management/reports', [OwFmReportsController::class, 'index'])->name('owner.fm.reports');
