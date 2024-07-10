@@ -11,6 +11,8 @@ const shifts = ref([
 ]);
 
 const newShift = ref({ staff: '', date: '', time: '', availability: '' });
+const searchQuery = ref(''); // Added searchQuery
+const sortKey = ref('name'); // Added sortKey
 
 const addShift = () => {
     shifts.value.push({ ...newShift.value, id: Date.now() });
@@ -60,7 +62,6 @@ const saveShift = () => {
                             <option value="schedule">Jadwal</option>
                         </select>
                     </div>
-
                     <button @click="showModal = true" class="mb-4 bg-blue-500 text-white px-4 py-2 rounded">Add New
                         Shift</button>
                 </div>

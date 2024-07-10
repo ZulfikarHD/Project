@@ -4,13 +4,7 @@ import OwAuthenticatedLayout from '@/Layouts/Owner/OwAuthenticatedLayout.vue';
 import Card from '@/Components/Card.vue';
 
 const newBudget = ref({ name: '', amount: 0 });
-const budgets = ref([
-    { id: 1, name: 'Marketing', amount: 1000, actualAmount: 800 },
-    { id: 2, name: 'Office Supplies', amount: 500, actualAmount: 450 },
-    { id: 3, name: 'Travel', amount: 1500, actualAmount: 1200 },
-    { id: 4, name: 'Utilities', amount: 600, actualAmount: 550 },
-    { id: 5, name: 'Software Subscription', amount: 300, actualAmount: 250 }
-]);
+const budgets = ref([]);
 const selectedBudget = ref(null);
 
 const createBudget = () => {

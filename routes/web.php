@@ -53,7 +53,9 @@ Route::get('/owner/reporting-tools', [OwReportingToolsController::class, 'index'
 Route::get('/owner/customer-management', [OwCustomerManagementController::class, 'index'])->name('owner.customerMgmt');
 
 /**
- * Financial Management Section
+ * -------------------------------
+ * Financial Management Routes
+ * -------------------------------
  */
 Route::get('/owner/financial-management', [OwFinancialManagementController::class, 'index'])->name('owner.financialMgmt');  // Main
 Route::get('/owner/financial-management/revenue', [OwFmRevenueController::class, 'index'])->name('owner.fm.revenue');
@@ -64,7 +66,11 @@ Route::get('/owner/financial-management/payments', [OwFmPaymentsController::clas
 Route::get('/owner/financial-management/reports', [OwFmReportsController::class, 'index'])->name('owner.fm.reports');
 Route::get('/owner/financial-management/settings', [OwFmSettingsController::class, 'index'])->name('owner.fm.settings');
 
-
+/**
+ * ---------------------------
+ * Marketing Tools Routes
+ * ---------------------------
+ */
 
 
 require __DIR__ . '/auth.php';

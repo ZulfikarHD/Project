@@ -4,5 +4,7 @@ import { Head } from '@inertiajs/vue3';
 </script>
 
 <template>
-    <AuthenticatedLayout> </AuthenticatedLayout>
+    <AuthenticatedLayout>
+
+    </AuthenticatedLayout>
 </template>
