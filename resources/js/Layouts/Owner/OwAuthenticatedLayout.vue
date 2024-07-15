@@ -215,14 +215,6 @@ if (isFinancialRouteActive.value) {
                                 Customer Feedback
                             </span>
                         </SideNavLink>
-                        <SideNavLink :href="route('owner.marketingTools.emailMarketing')"
-                            :active="route().current('owner.marketingTools.emailMarketing')">
-                            <span class="flex items-center">
-                                <Mail :size="18" class="mr-2"
-                                    :stroke-width="route().current('owner.marketingTools.emailMarketing') ? 2 : 1" />
-                                Email Marketing
-                            </span>
-                        </SideNavLink>
                         <SideNavLink :href="route('owner.marketingTools.promotions')"
                             :active="route().current('owner.marketingTools.promotions')">
                             <span class="flex items-center">
