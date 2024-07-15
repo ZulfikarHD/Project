@@ -8,7 +8,7 @@ use Inertia\Inertia;
 
 class OwMtCampaignManagementController extends Controller
 {
-    public function indexx()
+    public function index()
     {
         return Inertia::render('Owner/OwMarketingTools/OwMtCampaignManagement');
     }

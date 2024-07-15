@@ -18,12 +18,18 @@ import {
     CreditCard,
     FileText,
     BarChart,
-    Settings
+    Settings,
+    Mail,
+    Tag,
+    Share2,
+    Search,
+    Star // Import the Star icon
 } from 'lucide-vue-next';
 import 'animate.css'; // Import Animate.css
 
 const showingSideNav = ref(false);
 const showFinancialDropdown = ref(false);
+const showMarketingDropdown = ref(false);
 
 // Computed property to check if any financial management route is active
 const isFinancialRouteActive = computed(() => {
@@ -105,7 +111,7 @@ if (isFinancialRouteActive.value) {
                 </SideNavLink>
 
                 <!-- Financial Management Dropdown -->
-                <li class="py-1 px-2 rounded-md">
+                <li class="py-1 px-2 rounded-md text-sm">
                     <button @click="showFinancialDropdown = !showFinancialDropdown" class="flex items-center w-full">
                         <span class="flex items-center">
                             <DollarSign :size="18" class="mr-2"
@@ -171,14 +177,94 @@ if (isFinancialRouteActive.value) {
                     </ul>
                 </li>
 
-                <!-- Marketing Tools -->
-                <SideNavLink :href="route('owner.marketingTools')" :active="route().current('owner.marketingTools')">
-                    <span class="flex items-center">
-                        <Megaphone :size="18" class="mr-2"
-                            :stroke-width="route().current('owner.marketingTools') ? 2 : 1" />
-                        Marketing Tools
-                    </span>
-                </SideNavLink>
+                <!-- Marketing Tools Dropdown -->
+                <li class="py-1 px-2 rounded-md text-sm">
+                    <button @click="showMarketingDropdown = !showMarketingDropdown" class="flex items-center w-full">
+                        <span class="flex items-center">
+                            <Megaphone :size="18" class="mr-2"
+                                :stroke-width="route().current('owner.marketingTools') ? 1 : 0.5" />
+                            Marketing Tools
+                        </span>
+                        <span class="ml-auto">
+                            <ChevronDown v-if="!showMarketingDropdown" :size="18" />
+                            <ChevronUp v-if="showMarketingDropdown" :size="18" />
+                        </span>
+                    </button>
+                    <ul v-if="showMarketingDropdown" class="pl-4 mt-2 space-y-1 animate__animated animate__fadeIn">
+                        <SideNavLink :href="route('owner.marketingTools.analytics')"
+                            :active="route().current('owner.marketingTools.analytics')">
+                            <span class="flex items-center">
+                                <BarChart2 :size="18" class="mr-2"
+                                    :stroke-width="route().current('owner.marketingTools.analytics') ? 2 : 1" />
+                                Analytics
+                            </span>
+                        </SideNavLink>
+                        <SideNavLink :href="route('owner.marketingTools.campaignManagement')"
+                            :active="route().current('owner.marketingTools.campaignManagement')">
+                            <span class="flex items-center">
+                                <Megaphone :size="18" class="mr-2"
+                                    :stroke-width="route().current('owner.marketingTools.campaignManagement') ? 2 : 1" />
+                                Campaign Management
+                            </span>
+                        </SideNavLink>
+                        <SideNavLink :href="route('owner.marketingTools.customerFeedback')"
+                            :active="route().current('owner.marketingTools.customerFeedback')">
+                            <span class="flex items-center">
+                                <User :size="18" class="mr-2"
+                                    :stroke-width="route().current('owner.marketingTools.customerFeedback') ? 2 : 1" />
+                                Customer Feedback
+                            </span>
+                        </SideNavLink>
+                        <SideNavLink :href="route('owner.marketingTools.emailMarketing')"
+                            :active="route().current('owner.marketingTools.emailMarketing')">
+                            <span class="flex items-center">
+                                <Mail :size="18" class="mr-2"
+                                    :stroke-width="route().current('owner.marketingTools.emailMarketing') ? 2 : 1" />
+                                Email Marketing
+                            </span>
+                        </SideNavLink>
+                        <SideNavLink :href="route('owner.marketingTools.promotions')"
+                            :active="route().current('owner.marketingTools.promotions')">
+                            <span class="flex items-center">
+                                <Tag :size="18" class="mr-2"
+                                    :stroke-width="route().current('owner.marketingTools.promotions') ? 2 : 1" />
+                                Promotions
+                            </span>
+                        </SideNavLink>
+                        <SideNavLink :href="route('owner.marketingTools.refferalProgram')"
+                            :active="route().current('owner.marketingTools.refferalProgram')">
+                            <span class="flex items-center">
+                                <Users :size="18" class="mr-2"
+                                    :stroke-width="route().current('owner.marketingTools.refferalProgram') ? 2 : 1" />
+                                Referral Program
+                            </span>
+                        </SideNavLink>
+                        <SideNavLink :href="route('owner.marketingTools.socialMedia')"
+                            :active="route().current('owner.marketingTools.socialMedia')">
+                            <span class="flex items-center">
+                                <Share2 :size="18" class="mr-2"
+                                    :stroke-width="route().current('owner.marketingTools.socialMedia') ? 2 : 1" />
+                                Social Media
+                            </span>
+                        </SideNavLink>
+                        <SideNavLink :href="route('owner.marketingTools.seoTools')"
+                            :active="route().current('owner.marketingTools.seoTools')">
+                            <span class="flex items-center">
+                                <Search :size="18" class="mr-2"
+                                    :stroke-width="route().current('owner.marketingTools.seoTools') ? 2 : 1" />
+                                SEO Tools
+                            </span>
+                        </SideNavLink>
+                        <SideNavLink :href="route('owner.marketingTools.settings')"
+                            :active="route().current('owner.marketingTools.settings')">
+                            <span class="flex items-center">
+                                <Settings :size="18" class="mr-2"
+                                    :stroke-width="route().current('owner.marketingTools.settings') ? 2 : 1" />
+                                Marketing Settings
+                            </span>
+                        </SideNavLink>
+                    </ul>
+                </li>
 
                 <!-- Reporting Tools -->
                 <SideNavLink :href="route('owner.reportingTools')" :active="route().current('owner.reportingTools')">

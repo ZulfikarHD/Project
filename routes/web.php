@@ -7,6 +7,15 @@ use App\Http\Controllers\Owner\FinancialManagement\OwFmPaymentsController;
 use App\Http\Controllers\Owner\FinancialManagement\OwFmReportsController;
 use App\Http\Controllers\Owner\FinancialManagement\OwFmRevenueController;
 use App\Http\Controllers\Owner\FinancialManagement\OwFmSettingsController;
+use App\Http\Controllers\Owner\MarketingTools\OwMtAnalitycsController;
+use App\Http\Controllers\Owner\MarketingTools\OwMtCampaignManagementController;
+use App\Http\Controllers\Owner\MarketingTools\OwMtCustomerFeedbackController;
+use App\Http\Controllers\Owner\MarketingTools\OwMtEmailMarketingController;
+use App\Http\Controllers\Owner\MarketingTools\OwMtPromotionsController;
+use App\Http\Controllers\Owner\MarketingTools\OwMtRefferalProgramController;
+use App\Http\Controllers\Owner\MarketingTools\OwMtSeoToolsController;
+use App\Http\Controllers\Owner\MarketingTools\OwMtSocialMediaController;
+use App\Http\Controllers\Owner\MarketingTools\OwMtSettingsController;
 use App\Http\Controllers\Owner\OwBookingManagementController;
 use App\Http\Controllers\Owner\OwCustomerManagementController;
 use App\Http\Controllers\Owner\OwFieldManagementController;
@@ -71,6 +80,15 @@ Route::get('/owner/financial-management/settings', [OwFmSettingsController::clas
  * Marketing Tools Routes
  * ---------------------------
  */
+Route::get('/owner/marketing-tools/analytics', [OwMtAnalitycsController::class, 'index'])->name('owner.marketingTools.analytics');
+Route::get('/owner/marketing-tools/campaign-management', [OwMtCampaignManagementController::class, 'index'])->name('owner.marketingTools.campaignManagement');
+Route::get('/owner/marketing-tools/customer-feedback', [OwMtCustomerFeedbackController::class, 'index'])->name('owner.marketingTools.customerFeedback');
+Route::get('/owner/marketing-tools/email-marketing', [OwMtEmailMarketingController::class, 'index'])->name('owner.marketingTools.emailMarketing');
+Route::get('/owner/marketing-tools/promotions', [OwMtPromotionsController::class, 'index'])->name('owner.marketingTools.promotions');
+Route::get('/owner/marketing-tools/refferal-program', [OwMtRefferalProgramController::class, 'index'])->name('owner.marketingTools.refferalProgram');
+Route::get('/owner/marketing-tools/social-media', [OwMtSocialMediaController::class, 'index'])->name('owner.marketingTools.socialMedia');
+Route::get('/owner/marketing-tools/seo-tools', [OwMtSeoToolsController::class, 'index'])->name('owner.marketingTools.seoTools');
+Route::get('/owner/marketing-tools/settings', [OwMtSettingsController::class, 'index'])->name('owner.marketingTools.settings');
 
 
 require __DIR__ . '/auth.php';

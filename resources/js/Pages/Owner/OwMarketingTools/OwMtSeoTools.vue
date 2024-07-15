@@ -4,5 +4,7 @@ import Card from '@/Components/Card.vue';
 </script>
 
 <template>
+    <AuthenticatedLayout>
 
+    </AuthenticatedLayout>
 </template>
