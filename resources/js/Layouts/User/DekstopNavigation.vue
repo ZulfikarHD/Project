@@ -9,7 +9,7 @@ import { Head } from '@inertiajs/vue3';
         <div class="flex justify-between items-center py-6">
             <!-- Logo -->
             <div class="logo">
-                <img :src="route('asset', 'img/logo.png')" alt="logo">
+                <img alt="logo">
             </div>
 
             <!-- Link -->
