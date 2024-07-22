@@ -1,26 +1,25 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
-import ItemCard from "@/Components/Card/ItemCard.vue"
-import { Head, Link } from "@inertiajs/vue3";
+import ItemCard from "@/Components/Card/ItemCard.vue";
+import { Head } from "@inertiajs/vue3";
 </script>
 
 <template>
-    <Head title="Cari Lapangan" />
-
     <AppLayout>
         <!-- Hero Image Section -->
-        <div class="absolute top-0 w-full h-[50vh]">
+        <div class="absolute top-0 w-full h-[30vh]">
             <img src="" alt="tools" class="w-full h-full object-cover" />
         </div>
 
         <!-- Hero Image Overlay -->
         <div
-            class="absolute top-0 w-full h-[50vh] bg-black bg-opacity-60"
+            class="absolute top-0 w-full h-[30vh] bg-black bg-opacity-60"
         ></div>
 
         <!-- Search Lapangan -->
-        <div class="relative z-10 mt-[30vh] container mx-auto px-4 sm:px-6 lg:px-8">
-
+        <div
+            class="relative z-10 mt-[15vh] container mx-auto px-4 sm:px-6 lg:px-8"
+        >
             <!-- Card Search -->
             <div class="mt-8 flex justify-center">
                 <div
@@ -125,94 +124,17 @@ import { Head, Link } from "@inertiajs/vue3";
             </div>
         </div>
 
-        <!-- Kategori Olahraga -->
-        <section class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mt-14">
-                <div
-                    class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4"
-                >
-                    <template v-for="i in 8" :key="i">
-                        <ItemCard>
-                            <div
-                                class="flex flex-col gap-2 justify-center items-center mx-auto cursor-pointer"
-                            >
-                                <img
-                                    src=""
-                                    alt="bola.svg"
-                                    class="relative h-8 w-8"
-                                />
-                                <h1>Kategori {{ i }}</h1>
-                            </div>
-                        </ItemCard>
-                    </template>
-                </div>
-            </div>
-        </section>
+        <!-- Venue Overview Section -->
+        <div class="max-w-6xl flex flex-col gap-4 mx-auto mt-14 px-4 lg:px-0">
+            <!-- Main Image -->
+            <div class="w-full rounded-lg h-48 lg:h-96 shadow drop-shadow bg-slate-200">
 
-        <!-- Lapangan Terkait -->
-        <section class="container mx-auto px-4 sm:px-6 lg:px-8 mt-6">
-            <div class="mt-10">
-                <h2 class="text-2xl font-semibold text-slate-800 mb-4">
-                    Lapangan Terkait
-                </h2>
-                <div
-                    class="flex flex-wrap gap-4 sm:gap-8 py-4 scroll-smooth rounded-lg"
-                >
-                    <template v-for="i in 20" :key="i">
-                        <Link
-                            href="/venue-details"
-                            class="bg-white rounded-lg shadow-lg overflow-hidden min-w-[12rem] sm:min-w-[16rem] relative"
-                        >
-                            <img
-                                src=""
-                                alt="venueimg"
-                                class="w-full h-32 sm:h-48 object-cover rounded-lg"
-                            />
-                            <div
-                                class="absolute top-0 left-0 bg-green-600 text-green-50 px-2 py-1 rounded-br-lg font-light text-xs flex items-center gap-1"
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 24 24"
-                                    fill="currentColor"
-                                    class="inline-block w-4 h-4"
-                                >
-                                    <path
-                                        fill-rule="evenodd"
-                                        d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 0 0-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 0 0 2.682 2.282 16.975 16.975 0 0 0 1.145.742ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
-                                        clip-rule="evenodd"
-                                    />
-                                </svg>
-                                Karawang
-                            </div>
-                            <div class="p-4">
-                                <h3
-                                    class="text-lg font-semibold text-slate-600 brightness-95"
-                                >
-                                    Sehat Futsal
-                                </h3>
-                                <p
-                                    class="text-green-700 brightness-110 text-lg mt-0.5"
-                                >
-                                    Rp 100.000
-                                </p>
-                                <p class="text-slate-400 text-xs">Per-Sesi</p>
-                                <div
-                                    class="flex justify-start mt-4 gap-2 items-center"
-                                >
-                                    <img src="" alt="user" class="size-5" />
-                                    <p class="text-green-700 brightness-110">
-                                        3
-                                    </p>
-                                    <p class="text-slate-400 text-xs -ml-1">
-                                        Lapangan
-                                    </p>
-                                </div>
-                            </div>
-                        </Link>
-                    </template>
-                </div>
             </div>
-        </section>
+
+            <!-- Sub Image -->
+            <div class="flex gap-4">
+
+            </div>
+        </div>
     </AppLayout>
 </template>

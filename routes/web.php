@@ -26,6 +26,7 @@ use App\Http\Controllers\Owner\OwStaffManagementController;
 use App\Http\Controllers\Owner\OwUserManagementController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\VenueDetailsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -36,6 +37,7 @@ Route::get('/owner', function () {
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/find-venue ', [FindVenueController::class, 'index'])->name('home');
+Route::get('/venue-details',[VenueDetailsController::class, 'index'])->name('venueDetails');
 
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');
