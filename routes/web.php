@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\CariLapanganController;
+use App\Http\Controllers\FindVenueController;
 use App\Http\Controllers\Owner\FinancialManagement\OwFmBudgetingController;
 use App\Http\Controllers\Owner\FinancialManagement\OwFmExpensesController;
 use App\Http\Controllers\Owner\FinancialManagement\OwFmInvoicesController;
@@ -35,7 +35,7 @@ Route::get('/owner', function () {
 })->name('owner.dashboard');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/cari-lapangan', [CariLapanganController::class, 'index'])->name('home');
+Route::get('/find-venue ', [FindVenueController::class, 'index'])->name('home');
 
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');

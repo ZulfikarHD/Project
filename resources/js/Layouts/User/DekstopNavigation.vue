@@ -17,7 +17,7 @@ import { Link } from '@inertiajs/vue3';
             <div class="flex justify-center gap-6 items-center">
                 <Link href="/">Home</Link>
                 <Link href="/game">Game</Link>
-                <Link href="/cari-lapangan">Lapangan</Link>
+                <Link href="/find-venue">Lapangan</Link>
             </div>
 
             <!-- Button -->
