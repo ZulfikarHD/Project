@@ -1,5 +1,6 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
+import { Link } from '@inertiajs/vue3';
 </script>
 
 <template>
@@ -14,15 +15,15 @@ import { Head } from '@inertiajs/vue3';
 
             <!-- Link -->
             <div class="flex justify-center gap-6 items-center">
-                <a href="#">Home</a>
-                <a href="#">Game</a>
-                <a href="#">Lapangan</a>
+                <Link href="/">Home</Link>
+                <Link href="/game">Game</Link>
+                <Link href="/lapangan">Lapangan</Link>
             </div>
 
             <!-- Button -->
             <div class="flex justify-center gap-6 items-center">
-                <a href="#">Masuk</a>
-                <a class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition ease-in-out duration-200 active:ring-2 active:ring-green-600" href="#">Daftar</a>
+                <Link href="/login">Masuk</Link>
+                <Link href="/register" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition ease-in-out duration-200 active:ring-2 active:ring-green-600">Daftar</Link>
             </div>
         </div>
     </div>

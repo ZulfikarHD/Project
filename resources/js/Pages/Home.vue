@@ -1,13 +1,12 @@
 <script setup>
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import DekstopNavigation from "@/Layouts/User/DekstopNavigation.vue";
+import AppLayout from "@/Layouts/AppLayout.vue";
 import { Head } from "@inertiajs/vue3";
 </script>
 
 <template>
     <Head title="Dashboard" />
 
-    <AuthenticatedLayout>
+    <AppLayout>
         <!-- Hero Image Section -->
         <div class="absolute top-0 w-full h-[50vh]">
             <img src="" alt="tools" class="w-full h-full object-cover" />
@@ -218,5 +217,5 @@ import { Head } from "@inertiajs/vue3";
                 </div>
             </div>
         </section>
-    </AuthenticatedLayout>
+    </AppLayout>
 </template>
