@@ -12,7 +12,7 @@ const showingNavigationDropdown = ref(false);
 </script>
 
 <template>
-    <div>
+    <div class="pb-10">
         <!-- Navigation -->
         <div class="relative z-10 text-green-50">
             <DekstopNavigation />
@@ -24,5 +24,8 @@ const showingNavigationDropdown = ref(false);
         </main>
 
         <!-- Footer -->
+         <footer class="bg-slate-700 w-full min-w-[100vh] px-8 py-4">
+
+         </footer>
     </div>
 </template>

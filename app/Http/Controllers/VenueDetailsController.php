@@ -9,6 +9,6 @@ class VenueDetailsController extends Controller
 {
     public function index()
     {
-        return Inertia::render('VenueDetails');
+        return Inertia::render('Venues/VenueDetail');
     }
 }
