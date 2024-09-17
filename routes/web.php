@@ -26,6 +26,8 @@ use App\Http\Controllers\Owner\OwStaffManagementController;
 use App\Http\Controllers\Owner\OwUserManagementController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OwVenuesController;
+use App\Http\Controllers\Venue\AddVenuesController;
 use App\Http\Controllers\VenueDetailsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -37,7 +39,7 @@ Route::get('/owner', function () {
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/find-venue ', [FindVenueController::class, 'index'])->name('home');
-Route::get('/venue-details',[VenueDetailsController::class, 'index'])->name('venueDetails');
+Route::get('/venue-details', [VenueDetailsController::class, 'index'])->name('venueDetails');
 
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');
@@ -50,41 +52,57 @@ Route::middleware('auth')->group(function () {
 });
 
 // Owner Routes
-Route::get('/owner/booking-management', [OwBookingManagementController::class, 'index'])->name('owner.bookingMgmt');
-Route::get('/owner/field-management', [OwFieldManagementController::class, 'index'])->name('owner.fieldMgmt');
-Route::get('/owner/staff-management', [OwStaffManagementController::class, 'index'])->name('owner.staffMgmt');
-Route::get('/owner/user-management', [OwUserManagementController::class, 'index'])->name('owner.userMgmt');
-Route::get('/owner/marketing-tools', [OwMarketingToolsController::class, 'index'])->name('owner.marketingTools');
-Route::get('/owner/reporting-tools', [OwReportingToolsController::class, 'index'])->name('owner.reportingTools');
-Route::get('/owner/customer-management', [OwCustomerManagementController::class, 'index'])->name('owner.customerMgmt');
 
-/**
- * -------------------------------
- * Financial Management Routes
- * -------------------------------
- */
-Route::get('/owner/financial-management', [OwFinancialManagementController::class, 'index'])->name('owner.financialMgmt');  // Main
-Route::get('/owner/financial-management/revenue', [OwFmRevenueController::class, 'index'])->name('owner.fm.revenue');
-Route::get('/owner/financial-management/budgeting', [OwFmBudgetingController::class, 'index'])->name('owner.fm.budgeting');
-Route::get('/owner/financial-management/expenses', [OwFmExpensesController::class, 'index'])->name('owner.fm.expenses');
-Route::get('/owner/financial-management/invoices', [OwFmInvoicesController::class, 'index'])->name('owner.fm.invoices');
-Route::get('/owner/financial-management/payments', [OwFmPaymentsController::class, 'index'])->name('owner.fm.payments');
-Route::get('/owner/financial-management/reports', [OwFmReportsController::class, 'index'])->name('owner.fm.reports');
-Route::get('/owner/financial-management/settings', [OwFmSettingsController::class, 'index'])->name('owner.fm.settings');
+Route::middleware('auth')->group(function () {
+    Route::get('/owner', function () {
+        return Inertia::render('Owner/OwDashboard');
+    })->name('owner.dashboard');
 
-/**
- * ---------------------------
- * Marketing Tools Routes
- * ---------------------------
- */
-Route::get('/owner/marketing-tools/analytics', [OwMtAnalitycsController::class, 'index'])->name('owner.marketingTools.analytics');
-Route::get('/owner/marketing-tools/campaign-management', [OwMtCampaignManagementController::class, 'index'])->name('owner.marketingTools.campaignManagement');
-Route::get('/owner/marketing-tools/customer-feedback', [OwMtCustomerFeedbackController::class, 'index'])->name('owner.marketingTools.customerFeedback');
-Route::get('/owner/marketing-tools/promotions', [OwMtPromotionsController::class, 'index'])->name('owner.marketingTools.promotions');
-Route::get('/owner/marketing-tools/refferal-program', [OwMtRefferalProgramController::class, 'index'])->name('owner.marketingTools.refferalProgram');
-Route::get('/owner/marketing-tools/social-media', [OwMtSocialMediaController::class, 'index'])->name('owner.marketingTools.socialMedia');
-Route::get('/owner/marketing-tools/seo-tools', [OwMtSeoToolsController::class, 'index'])->name('owner.marketingTools.seoTools');
-Route::get('/owner/marketing-tools/settings', [OwMtSettingsController::class, 'index'])->name('owner.marketingTools.settings');
 
+    Route::get('/owner/booking-management', [OwBookingManagementController::class, 'index'])->name('owner.bookingMgmt');
+    Route::get('/owner/field-management', [OwFieldManagementController::class, 'index'])->name('owner.fieldMgmt');
+    Route::get('/owner/staff-management', [OwStaffManagementController::class, 'index'])->name('owner.staffMgmt');
+    Route::get('/owner/user-management', [OwUserManagementController::class, 'index'])->name('owner.userMgmt');
+    Route::get('/owner/marketing-tools', [OwMarketingToolsController::class, 'index'])->name('owner.marketingTools');
+    Route::get('/owner/reporting-tools', [OwReportingToolsController::class, 'index'])->name('owner.reportingTools');
+    Route::get('/owner/customer-management', [OwCustomerManagementController::class, 'index'])->name('owner.customerMgmt');
+
+
+    /**
+     * -------------------------------
+     * Venue Management Routes
+     * -------------------------------
+     */
+    Route::get('/owner/venues/add-venue', [OwVenuesController::class, 'create'] )->name('owner.venue.add-venue');
+    Route::post('/owner/venues/store',    [OwVenuesController::class, 'store']  )->name('owner.venue.store');
+
+    /**
+     * -------------------------------
+     * Financial Management Routes
+     * -------------------------------
+     */
+    Route::get('/owner/financial-management',           [OwFinancialManagementController::class, 'index'])->name('owner.financialMgmt');  // Main
+    Route::get('/owner/financial-management/revenue',   [OwFmRevenueController::class,           'index'])->name('owner.fm.revenue');
+    Route::get('/owner/financial-management/budgeting', [OwFmBudgetingController::class,         'index'])->name('owner.fm.budgeting');
+    Route::get('/owner/financial-management/expenses',  [OwFmExpensesController::class,          'index'])->name('owner.fm.expenses');
+    Route::get('/owner/financial-management/invoices',  [OwFmInvoicesController::class,          'index'])->name('owner.fm.invoices');
+    Route::get('/owner/financial-management/payments',  [OwFmPaymentsController::class,          'index'])->name('owner.fm.payments');
+    Route::get('/owner/financial-management/reports',   [OwFmReportsController::class,           'index'])->name('owner.fm.reports');
+    Route::get('/owner/financial-management/settings',  [OwFmSettingsController::class,          'index'])->name('owner.fm.settings');
+
+    /**
+     * ---------------------------
+     * Marketing Tools Routes
+     * ---------------------------
+     */
+    Route::get('/owner/marketing-tools/analytics', [OwMtAnalitycsController::class, 'index'])->name('owner.marketingTools.analytics');
+    Route::get('/owner/marketing-tools/campaign-management', [OwMtCampaignManagementController::class, 'index'])->name('owner.marketingTools.campaignManagement');
+    Route::get('/owner/marketing-tools/customer-feedback', [OwMtCustomerFeedbackController::class, 'index'])->name('owner.marketingTools.customerFeedback');
+    Route::get('/owner/marketing-tools/promotions', [OwMtPromotionsController::class, 'index'])->name('owner.marketingTools.promotions');
+    Route::get('/owner/marketing-tools/refferal-program', [OwMtRefferalProgramController::class, 'index'])->name('owner.marketingTools.refferalProgram');
+    Route::get('/owner/marketing-tools/social-media', [OwMtSocialMediaController::class, 'index'])->name('owner.marketingTools.socialMedia');
+    Route::get('/owner/marketing-tools/seo-tools', [OwMtSeoToolsController::class, 'index'])->name('owner.marketingTools.seoTools');
+    Route::get('/owner/marketing-tools/settings', [OwMtSettingsController::class, 'index'])->name('owner.marketingTools.settings');
+});
 
 require __DIR__ . '/auth.php';
