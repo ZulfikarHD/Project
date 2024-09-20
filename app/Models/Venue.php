@@ -36,4 +36,14 @@ class Venue extends Model
     {
         return $this->hasMany(VenuePicture::class, 'venue_id');
     }
+
+    public function fields()
+    {
+        return $this->hasMany(VenueField::class);
+    }
+
+    public function timeSlots()
+    {
+        return $this->hasMany(TimeSlot::class);
+    }
 }
