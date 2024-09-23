@@ -32,17 +32,17 @@ class Venue extends Model
         return $this->hasMany(VenueSport::class, 'venue_id');
     }
 
-    public function venue_pictures(): HasMany
+    public function pictures(): HasMany
     {
         return $this->hasMany(VenuePicture::class, 'venue_id');
     }
 
-    public function fields()
+    public function fields() : HasMany
     {
         return $this->hasMany(VenueField::class);
     }
 
-    public function timeSlots()
+    public function timeSlots() : HasMany
     {
         return $this->hasMany(TimeSlot::class);
     }

@@ -1,8 +1,6 @@
 <template>
     <div class="bg-white shadow-md rounded-lg p-6 mb-6">
-        <h2 class="text-xl font-semibold mb-4 text-gray-800">
-            Availability & Pricing
-        </h2>
+        <h2 class="text-xl font-semibold mb-4 text-gray-800">Availability & Pricing</h2>
 
         <!-- Time Slot Batch Creation with Day Selection -->
         <div class="mb-6">
@@ -10,28 +8,15 @@
 
             <!-- Checkbox for Days Selection -->
             <div class="grid grid-cols-2 gap-4 mb-4">
-                <div
-                    v-for="(day, index) in daysOfWeek"
-                    :key="index"
-                    class="flex items-center"
-                >
-                    <input
-                        type="checkbox"
-                        v-model="daysSelected"
-                        :value="index"
-                        class="mr-2"
-                    />
+                <div v-for="(day, index) in daysOfWeek" :key="index" class="flex items-center">
+                    <input type="checkbox" v-model="daysSelected" :value="index" class="mr-2" />
                     <label>{{ day.name }}</label>
                 </div>
             </div>
 
             <div class="grid grid-cols-2 gap-4 mb-4">
                 <div>
-                    <label
-                        for="start-time"
-                        class="block text-sm font-medium text-gray-700"
-                        >Start Time</label
-                    >
+                    <label for="start-time" class="block text-sm font-medium text-gray-700">Start Time</label>
                     <input
                         type="time"
                         v-model="batchTime.start"
@@ -40,11 +25,7 @@
                     />
                 </div>
                 <div>
-                    <label
-                        for="end-time"
-                        class="block text-sm font-medium text-gray-700"
-                        >End Time</label
-                    >
+                    <label for="end-time" class="block text-sm font-medium text-gray-700">End Time</label>
                     <input
                         type="time"
                         v-model="batchTime.end"
@@ -53,11 +34,7 @@
                     />
                 </div>
                 <div>
-                    <label
-                        for="session-duration"
-                        class="block text-sm font-medium text-gray-700"
-                        >Session Duration (minutes)</label
-                    >
+                    <label for="session-duration" class="block text-sm font-medium text-gray-700">Session Duration (minutes)</label>
                     <input
                         type="number"
                         v-model="batchTime.duration"
@@ -69,11 +46,7 @@
                     />
                 </div>
                 <div>
-                    <label
-                        for="default-price"
-                        class="block text-sm font-medium text-gray-700"
-                        >Default Price per Session</label
-                    >
+                    <label for="default-price" class="block text-sm font-medium text-gray-700">Default Price per Session</label>
                     <input
                         type="number"
                         v-model="batchTime.price"
@@ -84,10 +57,8 @@
                     />
                 </div>
             </div>
-            <button
-                @click="generateTimeSlots"
-                class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
-            >
+
+            <button type="button" @click="generateTimeSlots" class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
                 Auto-Generate Time Slots
             </button>
         </div>
@@ -102,8 +73,7 @@
                     <h3 class="text-lg font-semibold">{{ day.name }}</h3>
                     <svg
                         :class="{
-                            'transform rotate-180':
-                                openAccordions.includes(index),
+                            'transform rotate-180': openAccordions.includes(index),
                         }"
                         xmlns="http://www.w3.org/2000/svg"
                         class="h-5 w-5"
@@ -120,11 +90,7 @@
 
                 <transition name="fade">
                     <div v-if="openAccordions.includes(index)" class="mt-2">
-                        <div
-                            v-for="(slot, slotIndex) in day.timeSlots"
-                            :key="slotIndex"
-                            class="flex items-center mb-2"
-                        >
+                        <div v-for="(slot, slotIndex) in day.timeSlots" :key="slotIndex" class="flex items-center mb-2">
                             <input
                                 type="time"
                                 v-model="slot.startTime"
@@ -141,20 +107,14 @@
                                 v-model="slot.price"
                                 class="w-1/4 border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
                             />
-                            <button
-                                @click="removeTimeSlot(index, slotIndex)"
-                                class="text-red-500 hover:text-red-600 text-sm font-medium ml-2"
-                            >
+                            <button type="button" @click="removeTimeSlot(index, slotIndex)" class="text-red-500 hover:text-red-600 text-sm font-medium ml-2">
                                 Remove
                             </button>
                         </div>
 
                         <!-- Option to remove the entire day with confirmation -->
                         <div class="mt-4">
-                            <button
-                                @click="confirmRemoveDay(index)"
-                                class="text-red-500 hover:text-red-600 text-sm font-medium"
-                            >
+                            <button type="button" @click="confirmRemoveDay(index)" class="text-red-500 hover:text-red-600 text-sm font-medium">
                                 Remove {{ day.name }}
                             </button>
                         </div>
@@ -165,39 +125,29 @@
 
         <!-- Next and Previous Buttons -->
         <div class="flex justify-between mt-6">
-            <button
-                @click="previousStep"
-                class="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400"
-            >
-                Back
-            </button>
-            <button
-                @click="nextStep"
-                class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
-            >
-                Next
-            </button>
+            <button type="button" @click="previousStep" class="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400">Back</button>
+            <button type="button" @click="nextStep" class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">Next</button>
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref, defineEmits } from "vue";
+import { ref, defineEmits, watch } from "vue";
 import Swal from "sweetalert2"; // SweetAlert for alerts
 
-// Define emit for step navigation
-const emit = defineEmits(["next", "previous"]);
-
-// Time slot batch creation data
-const batchTime = ref({
-    start: "08:00",
-    end: "21:00",
-    duration: 60,
-    price: 50,
+// Props to receive data from parent component
+const props = defineProps({
+    modelValue: Object, // Passing the availability object with days and time slots from the parent
 });
 
+// Emit function to update the parent component
+const emit = defineEmits(["update:modelValue", "next", "previous"]);
+
+// Reactive data for availability and pricing
+const availability = ref({ ...props.modelValue });
+
 // Days of the week with open/close times and time slots
-const daysOfWeek = ref([
+const daysOfWeek = ref(availability.value.days || [
     { name: "Monday", timeSlots: [] },
     { name: "Tuesday", timeSlots: [] },
     { name: "Wednesday", timeSlots: [] },
@@ -207,15 +157,39 @@ const daysOfWeek = ref([
     { name: "Sunday", timeSlots: [] },
 ]);
 
+// Batch time slot creation data
+const batchTime = ref({
+    start: "08:00",
+    end: "21:00",
+    duration: 60,
+    price: 50,
+});
+
 // Selected days for auto-generation
 const daysSelected = ref([0, 1, 2, 3, 4, 5, 6]); // Default all days selected
 
 // Accordion state
 const openAccordions = ref([]);
 
-// Generate time slots for selected days
+// Watch for changes in `daysOfWeek` and emit updates to parent
+watch(daysOfWeek, (newDays) => {
+    availability.value.days = newDays;
+    emit("update:modelValue", availability.value);
+}, { deep: true });
+
+// Generate time slots for selected days with validation
 const generateTimeSlots = () => {
     const { start, end, duration, price } = batchTime.value;
+
+    // Validation: Ensure valid start/end times, duration, and price
+    if (!start || !end || !duration || !price || start >= end) {
+        Swal.fire({
+            icon: "error",
+            title: "Invalid Input",
+            text: "Please ensure the start time is earlier than the end time, and all fields are filled out.",
+        });
+        return;
+    }
 
     daysSelected.value.forEach((dayIndex) => {
         const day = daysOfWeek.value[dayIndex];
@@ -318,6 +292,8 @@ const toggleAccordion = (index) => {
 
 // Navigation between steps
 const nextStep = () => {
+    // Emit updated availability data to the parent and move to the next step
+    emit("update:modelValue", availability.value);
     emit("next");
 };
 
@@ -325,25 +301,3 @@ const previousStep = () => {
     emit("previous");
 };
 </script>
-
-<style scoped>
-/* Styles for the accordion and modal */
-.accordion-enter-active,
-.accordion-leave-active {
-    transition: max-height 0.3s ease;
-}
-.accordion-enter,
-.accordion-leave-to {
-    max-height: 0;
-    overflow: hidden;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity 0.5s;
-}
-.fade-enter,
-.fade-leave-to {
-    opacity: 0;
-}
-</style>

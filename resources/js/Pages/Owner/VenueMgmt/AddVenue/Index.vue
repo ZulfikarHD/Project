@@ -3,58 +3,26 @@
         <div class="add-venue-page container p-4">
             <h1 class="text-2xl font-bold mb-6 text-gray-800">Add New Venue</h1>
 
-            <form @submit.prevent="submitVenue">
+            <!-- Remove @submit event to prevent submitting in each step -->
+            <form>
+                <!-- Step 1: Venue Information -->
                 <div v-if="step === 1">
-                    <!-- Step 1: Venue Information -->
-                    <VenueInfoStep v-model="venue" @next="nextStep" />
+                    <VenueInfoStep :modelValue="venue" @update:modelValue="venue = $event" @next="nextStep" />
                 </div>
 
+                <!-- Step 2: Facility Information -->
                 <div v-if="step === 2">
-                    <!-- Step 2: Facility Information -->
-                    <FacilityStep
-                        v-model="venue.fields"
-                        @previous="prevStep"
-                        @next="nextStep"
-                    />
+                    <FacilityStep :modelValue="venue.fields" @update:modelValue="venue.fields = $event" @previous="prevStep" @next="nextStep" />
                 </div>
 
+                <!-- Step 3: Availability & Pricing -->
                 <div v-if="step === 3">
-                    <!-- Step 3: Availability & Pricing -->
-                    <AvailabilityStep
-                        v-model="venue.availability"
-                        @previous="prevStep"
-                        @next="nextStep"
-                    />
+                    <AvailabilityStep :modelValue="venue.availability" @update:modelValue="venue.availability = $event" @previous="prevStep" @next="nextStep" />
                 </div>
 
+                <!-- Step 4: Summary & Confirmation -->
                 <div v-if="step === 4">
-                    <!-- Step 5: Summary & Confirmation -->
                     <SummaryStep :venue="venue" @previous="prevStep" @submit="submitVenue" />
-                </div>
-
-                <!-- Navigation Buttons -->
-                <div class="flex justify-end mt-4">
-                    <button
-                        v-if="step > 1"
-                        @click="prevStep"
-                        class="mr-2 px-4 py-2 bg-gray-300 rounded-md"
-                    >
-                        Back
-                    </button>
-                    <button
-                        v-if="step < 5"
-                        @click="nextStep"
-                        class="px-4 py-2 bg-green-500 text-white rounded-md"
-                    >
-                        Next
-                    </button>
-                    <button
-                        v-if="step === 5"
-                        type="submit"
-                        class="px-4 py-2 bg-green-500 text-white rounded-md"
-                    >
-                        Submit
-                    </button>
                 </div>
             </form>
         </div>
@@ -63,16 +31,18 @@
 
 <script setup>
 import { reactive, ref } from "vue";
+import axios from "axios";
+import Swal from "sweetalert2";
 import OwAuthenticatedLayout from "@/Layouts/Owner/OwAuthenticatedLayout.vue";
 import VenueInfoStep from "./VenueInfoStep.vue";
 import FacilityStep from "./FacilityStep.vue";
 import AvailabilityStep from "./AvailabilityStep.vue";
-  import SummaryStep from './SummaryStep.vue';
+import SummaryStep from './SummaryStep.vue';
 
 // Step tracking
 const step = ref(1);
 
-// Venue data structure based on your ERD
+// Venue data structure
 const venue = reactive({
     name: "",
     address: "",
@@ -80,26 +50,77 @@ const venue = reactive({
     description: "",
     pictures: [], // Pictures for the venue
     fields: [], // Facility info: fields/courts with sports type
-    availability: {}, // Open/close times and reservation slots with pricing
-    dynamicPricing: {}, // Dynamic pricing rules (optional)
+    availability: [], // Open/close times and reservation slots with pricing
 });
 
 // Step control functions
 function nextStep() {
-    if (step.value < 5) step.value++;
+    // Log the data at each step
+    if (step.value === 1) {
+        console.log("Step 1 (Venue Info):", venue);
+    } else if (step.value === 2) {
+        console.log("Step 2 (Facility Info):", venue.fields);
+    } else if (step.value === 3) {
+        console.log("Step 3 (Availability):", venue.availability);
+    }
+
+    if (step.value < 4) step.value++;
 }
 
 function prevStep() {
     if (step.value > 1) step.value--;
 }
 
-// Submit the venue to backend
-function submitVenue() {
-    console.log("Submitting venue data:", venue);
-    // API call or Inertia.js form submission
+// Submit the entire venue data at the final step
+async function submitVenue() {
+    try {
+        console.log("Final Data to Submit:", venue);
+        const formData = new FormData();
+
+        // Add venue basic info
+        formData.append("name", venue.name);
+        formData.append("address", venue.address);
+        formData.append("location", JSON.stringify(venue.location));
+        formData.append("description", venue.description);
+
+        // Add venue pictures
+        venue.pictures.forEach((picture, index) => {
+            formData.append(`pictures[${index}]`, picture);
+        });
+
+        // Add facility information (fields)
+        venue.fields.forEach((field, index) => {
+            formData.append(`fields[${index}][name]`, field.name);
+            formData.append(`fields[${index}][sports]`, JSON.stringify(field.sports));
+            formData.append(`fields[${index}][equipment]`, JSON.stringify(field.equipment));
+            if (field.image) {
+                formData.append(`fields[${index}][image]`, field.image);
+            }
+        });
+
+        // Add availability and pricing
+        formData.append("availability", JSON.stringify(venue.availability));
+
+        // Submit all data in one API call
+        const response = await axios.post("/api/venues", formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
+
+        Swal.fire({
+            icon: "success",
+            title: "Venue Submitted!",
+            text: "Your venue has been successfully created.",
+        });
+
+    } catch (error) {
+        console.error("Error submitting venue:", error);
+        Swal.fire({
+            icon: "error",
+            title: "Submission Failed",
+            text: "There was a problem submitting your venue. Please try again.",
+        });
+    }
 }
 </script>
-
-<style scoped>
-/* Optional: styling for step indicator, buttons, etc. */
-</style>

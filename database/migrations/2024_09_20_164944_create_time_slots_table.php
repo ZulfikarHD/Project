@@ -10,7 +10,7 @@ class CreateTimeSlotsTable extends Migration
     {
         Schema::create('time_slots', function (Blueprint $table) {
             $table->id('slot_id');
-            $table->foreignId('venue_id')->constrained('venues')->onDelete('cascade');
+            $table->foreignId('venue_id')->constrained('venues')->references('venue_id')->onDelete('cascade');
             $table->string('day'); // e.g., Monday, Tuesday
             $table->time('start_time');
             $table->time('end_time');

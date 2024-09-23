@@ -10,7 +10,7 @@ class CreateVenueFieldsTable extends Migration
     {
         Schema::create('venue_fields', function (Blueprint $table) {
             $table->id('field_id');
-            $table->foreignId('venue_id')->constrained('venues')->onDelete('cascade');
+            $table->foreignId('venue_id')->constrained('venues')->references('venue_id')->onDelete('cascade');
             $table->string('name');
             $table->json('sports')->nullable(); // Store selected sports as JSON
             $table->json('equipment')->nullable(); // Store equipment as JSON
