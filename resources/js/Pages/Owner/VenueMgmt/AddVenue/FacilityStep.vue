@@ -167,6 +167,7 @@ const handleFieldImageUpload = (e, index) => {
     }
 };
 
+
 // Navigation between steps
 const nextStep = () => {
     // Validate before moving to the next step

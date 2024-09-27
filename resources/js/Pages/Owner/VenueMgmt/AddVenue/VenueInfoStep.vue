@@ -106,6 +106,7 @@ const handleFileUpload = (e) => {
     }
 };
 
+
 // Call initMap after the component is mounted
 onMounted(() => {
     initMap();

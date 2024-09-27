@@ -3,8 +3,8 @@
         <div class="add-venue-page container p-4">
             <h1 class="text-2xl font-bold mb-6 text-gray-800">Add New Venue</h1>
 
-            <!-- Remove @submit event to prevent submitting in each step -->
-            <form>
+            <!-- Attach @submit.prevent to prevent page refresh -->
+            <form @submit.prevent="handleSubmit">
                 <!-- Step 1: Venue Information -->
                 <div v-if="step === 1">
                     <VenueInfoStep :modelValue="venue" @update:modelValue="venue = $event" @next="nextStep" />
@@ -55,20 +55,18 @@ const venue = reactive({
 
 // Step control functions
 function nextStep() {
-    // Log the data at each step
-    if (step.value === 1) {
-        console.log("Step 1 (Venue Info):", venue);
-    } else if (step.value === 2) {
-        console.log("Step 2 (Facility Info):", venue.fields);
-    } else if (step.value === 3) {
-        console.log("Step 3 (Availability):", venue.availability);
-    }
-
     if (step.value < 4) step.value++;
 }
 
 function prevStep() {
     if (step.value > 1) step.value--;
+}
+
+// Handle form submission
+function handleSubmit() {
+    if (step.value === 4) {
+        submitVenue();
+    }
 }
 
 // Submit the entire venue data at the final step
@@ -80,7 +78,8 @@ async function submitVenue() {
         // Add venue basic info
         formData.append("name", venue.name);
         formData.append("address", venue.address);
-        formData.append("location", JSON.stringify(venue.location));
+        formData.append("location[lat]", venue.location.lat);
+        formData.append("location[lng]", venue.location.lng);
         formData.append("description", venue.description);
 
         // Add venue pictures
@@ -91,15 +90,33 @@ async function submitVenue() {
         // Add facility information (fields)
         venue.fields.forEach((field, index) => {
             formData.append(`fields[${index}][name]`, field.name);
-            formData.append(`fields[${index}][sports]`, JSON.stringify(field.sports));
-            formData.append(`fields[${index}][equipment]`, JSON.stringify(field.equipment));
+
+            // Append sports array
+            field.sports.forEach((sport, sportIndex) => {
+                formData.append(`fields[${index}][sports][${sportIndex}]`, sport);
+            });
+
+            // Append equipment array
+            field.equipment.forEach((equipment, eqIndex) => {
+                formData.append(`fields[${index}][equipment][${eqIndex}][name]`, equipment.name);
+                formData.append(`fields[${index}][equipment][${eqIndex}][quantity]`, equipment.quantity);
+            });
+
+            // Append field image
             if (field.image) {
                 formData.append(`fields[${index}][image]`, field.image);
             }
         });
 
         // Add availability and pricing
-        formData.append("availability", JSON.stringify(venue.availability));
+        venue.availability.forEach((day, dayIndex) => {
+            formData.append(`availability[${dayIndex}][name]`, day.name);
+            day.timeSlots.forEach((slot, slotIndex) => {
+                formData.append(`availability[${dayIndex}][timeSlots][${slotIndex}][startTime]`, slot.startTime);
+                formData.append(`availability[${dayIndex}][timeSlots][${slotIndex}][endTime]`, slot.endTime);
+                formData.append(`availability[${dayIndex}][timeSlots][${slotIndex}][price]`, slot.price);
+            });
+        });
 
         // Submit all data in one API call
         const response = await axios.post("/api/venues", formData, {
@@ -115,12 +132,23 @@ async function submitVenue() {
         });
 
     } catch (error) {
-        console.error("Error submitting venue:", error);
-        Swal.fire({
-            icon: "error",
-            title: "Submission Failed",
-            text: "There was a problem submitting your venue. Please try again.",
-        });
+        if (error.response && error.response.status === 422) {
+            const errors = error.response.data.errors;
+            // Handle validation errors
+            console.error("Validation Errors:", errors);
+            Swal.fire({
+                icon: "error",
+                title: "Validation Error",
+                text: "Please correct the errors and try again.",
+            });
+        } else {
+            console.error("Error submitting venue:", error);
+            Swal.fire({
+                icon: "error",
+                title: "Submission Failed",
+                text: "There was a problem submitting your venue. Please try again.",
+            });
+        }
     }
 }
 </script>

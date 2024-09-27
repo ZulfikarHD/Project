@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Inertia\Inertia;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Venue;
 use App\Models\VenueField;
 use App\Models\TimeSlot;
@@ -27,12 +29,97 @@ class OwVenuesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    * Store a newly created venue in storage.
+    */
+   public function store(Request $request)
+   {
+       // Validate the incoming data
+       $validatedData = $request->validate([
+           'name' => 'required|string|max:255',
+           'address' => 'required|string|max:500',
+           'location.lat' => 'required|numeric',
+           'location.lng' => 'required|numeric',
+           'description' => 'nullable|string|max:1000',
+           'pictures.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120', // Max 5MB per image
+
+           'fields' => 'required|array',
+           'fields.*.name' => 'required|string|max:255',
+           'fields.*.sports' => 'nullable|array',
+           'fields.*.sports.*' => 'integer',
+           'fields.*.equipment' => 'nullable|array',
+           'fields.*.equipment.*.name' => 'required|string|max:255',
+           'fields.*.equipment.*.quantity' => 'required|integer',
+           'fields.*.image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
+
+           'availability' => 'required|array',
+           'availability.*.name' => 'required|string',
+           'availability.*.timeSlots' => 'required|array',
+           'availability.*.timeSlots.*.startTime' => 'required|string',
+           'availability.*.timeSlots.*.endTime' => 'required|string',
+           'availability.*.timeSlots.*.price' => 'required|numeric',
+       ]);
+
+       DB::beginTransaction();
+
+       try {
+           // Create the venue
+           $venue = new Venue();
+           $venue->name = $validatedData['name'];
+           $venue->address = $validatedData['address'];
+           $venue->location = json_encode([
+               'lat' => $validatedData['location']['lat'],
+               'lng' => $validatedData['location']['lng'],
+           ]);
+           $venue->description = $validatedData['description'] ?? null;
+           $venue->owner_id = auth()->id(); // Assuming the owner is the authenticated user
+           $venue->save();
+
+           // Handle venue pictures
+           if ($request->hasFile('pictures')) {
+               $picturePaths = [];
+               foreach ($request->file('pictures') as $picture) {
+                   $path = $picture->store('venue_pictures', 'public');
+                   $picturePaths[] = $path;
+               }
+               $venue->pictures = json_encode($picturePaths);
+               $venue->save();
+           }
+
+           // Create the fields
+           foreach ($validatedData['fields'] as $fieldData) {
+               $field = new VenueField();
+               $field->venue_id = $venue->id;
+               $field->name = $fieldData['name'];
+               $field->sports = json_encode($fieldData['sports'] ?? []);
+               $field->equipment = json_encode($fieldData['equipment'] ?? []);
+               if (isset($fieldData['image'])) {
+                   $imagePath = $fieldData['image']->store('field_images', 'public');
+                   $field->image_url = $imagePath;
+               }
+               $field->save();
+           }
+
+           // Handle availability and pricing
+           foreach ($validatedData['availability'] as $dayData) {
+               foreach ($dayData['timeSlots'] as $timeSlotData) {
+                   $timeSlot = new TimeSlot();
+                   $timeSlot->venue_id = $venue->id;
+                   $timeSlot->day = $dayData['name'];
+                   $timeSlot->start_time = $timeSlotData['startTime'];
+                   $timeSlot->end_time = $timeSlotData['endTime'];
+                   $timeSlot->price = $timeSlotData['price'];
+                   $timeSlot->save();
+               }
+           }
+
+           DB::commit();
+
+           return response()->json(['message' => 'Venue created successfully.'], 201);
+       } catch (\Exception $e) {
+           DB::rollBack();
+           return response()->json(['error' => 'An error occurred while creating the venue.', 'details' => $e->getMessage()], 500);
+       }
+   }
 
     /**
      * Display the specified resource.
@@ -64,96 +151,5 @@ class OwVenuesController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-
-
-    // Step 1: Store Venue Basic Information
-    public function storeBasicInfo(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'location' => 'required|string|max:500',
-            'description' => 'nullable|string|max:1000',
-            'capacity' => 'required|integer',
-            'amenities' => 'nullable|array',
-            'owner_id' => 'required|exists:venue_owners,owner_id', // Foreign key validation
-        ]);
-
-        // Create a new venue
-        $venue = Venue::create([
-            'name' => $request->input('name'),
-            'location' => $request->input('location'),
-            'description' => $request->input('description'),
-            'capacity' => $request->input('capacity'),
-            'amenities' => json_encode($request->input('amenities', [])), // Store amenities as JSON
-            'owner_id' => $request->input('owner_id'), // Link to venue owner
-        ]);
-
-        return response()->json(['venue_id' => $venue->venue_id, 'message' => 'Venue info stored successfully.'], 201);
-    }
-
-    // Step 2: Store Fields (Facility) Information
-    public function storeFields(Request $request, $venueId)
-    {
-        $venue = Venue::findOrFail($venueId);
-
-        $request->validate([
-            'fields' => 'required|array',
-            'fields.*.name' => 'required|string|max:255',
-            'fields.*.sports' => 'nullable|array', // Sports as array
-            'fields.*.equipment' => 'nullable|array', // Equipment as array
-            'fields.*.imageUrl' => 'nullable|string', // Image URL for field
-        ]);
-
-        foreach ($request->input('fields') as $fieldData) {
-            VenueField::create([
-                'venue_id' => $venue->venue_id,
-                'name' => $fieldData['name'],
-                'sports' => json_encode($fieldData['sports'] ?? []),
-                'equipment' => json_encode($fieldData['equipment'] ?? []),
-                'image_url' => $fieldData['imageUrl'] ?? null, // Handle optional image URL
-            ]);
-        }
-
-        return response()->json(['message' => 'Fields stored successfully.'], 201);
-    }
-
-
-    // Step 3: Store Availability and Pricing
-    public function storeAvailability(Request $request, $venueId)
-    {
-        $venue = Venue::findOrFail($venueId);
-
-        $request->validate([
-            'days' => 'required|array',
-            'days.*.timeSlots' => 'array',
-            'days.*.timeSlots.*.startTime' => 'required|string',
-            'days.*.timeSlots.*.endTime' => 'required|string',
-            'days.*.timeSlots.*.price' => 'required|numeric',
-        ]);
-
-        foreach ($request->input('days') as $dayData) {
-            foreach ($dayData['timeSlots'] as $timeSlotData) {
-                TimeSlot::create([
-                    'venue_id' => $venue->venue_id,
-                    'day' => $dayData['name'], // Assuming day name (e.g., "Monday")
-                    'start_time' => $timeSlotData['startTime'],
-                    'end_time' => $timeSlotData['endTime'],
-                    'price' => $timeSlotData['price'],
-                ]);
-            }
-        }
-
-        return response()->json(['message' => 'Availability and pricing stored successfully.'], 201);
-    }
-
-    // Step 4: Final Submission (Summary)
-    public function submitVenue($venueId)
-    {
-        $venue = Venue::findOrFail($venueId);
-        $venue->is_published = true;
-        $venue->save();
-
-        return response()->json(['message' => 'Venue submitted successfully.'], 200);
     }
 }
