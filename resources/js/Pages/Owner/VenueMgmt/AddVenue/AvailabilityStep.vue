@@ -295,6 +295,7 @@ const nextStep = () => {
     // Emit updated availability data to the parent and move to the next step
     emit("update:modelValue", availability.value);
     emit("next");
+
 };
 
 const previousStep = () => {

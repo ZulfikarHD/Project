@@ -8,4 +8,4 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::post('/venues', [OwVenuesController::class, 'store']);
+Route::post('/owner/venues', [OwVenuesController::class, 'store']);

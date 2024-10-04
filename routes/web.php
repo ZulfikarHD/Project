@@ -76,10 +76,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/owner/venues/add-venue', [OwVenuesController::class, 'create'])->name('owner.venue.add-venue');
     Route::post('/owner/venues/store',    [OwVenuesController::class, 'store'])->name('owner.venue.store');
 
-    Route::post('/owner/venues', [VenueController::class, 'storeBasicInfo']);
-    Route::post('/owner/venues/{id}/fields', [VenueController::class, 'storeFields']);
-    Route::post('/owner/venues/{id}/availability', [VenueController::class, 'storeAvailability']);
-    Route::post('/owner/venues/{id}/submit', [VenueController::class, 'submitVenue']);
+    // Route::post('/owner/venues', [VenueController::class, 'storeBasicInfo']);
+    // Route::post('/owner/venues/{id}/fields', [VenueController::class, 'storeFields']);
+    // Route::post('/owner/venues/{id}/availability', [VenueController::class, 'storeAvailability']);
+    // Route::post('/owner/venues/{id}/submit', [VenueController::class, 'submitVenue']);
 
     /**
      * -------------------------------

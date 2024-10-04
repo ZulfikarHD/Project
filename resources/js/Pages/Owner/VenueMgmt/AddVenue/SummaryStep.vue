@@ -117,11 +117,11 @@ const editSection = (section) => {
 
 // Submit the venue information
 const submitVenue = () => {
-    Swal.fire({
-        icon: "success",
-        title: "Venue Submitted!",
-        text: "Your venue information has been successfully submitted.",
-    });
+    // Swal.fire({
+    //     icon: "success",
+    //     title: "Venue Submitted!",
+    //     text: "Your venue information has been successfully submitted.",
+    // });
     emit("submit");
 };
 
