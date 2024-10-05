@@ -102,6 +102,14 @@ if (isFinancialRouteActive.value) {
                     </span>
                 </SideNavLink>
 
+                <!-- Venue Management -->
+                <SideNavLink :href="route('owner.venue.add-venue')" :active="route().current('owner.venue.add-venue')">
+                    <span class="flex items-center">
+                        <Map :size="18" class="mr-2" :stroke-width="route().current('owner.venue.add-venue') ? 2 : 1" />
+                        Add Venue
+                    </span>
+                </SideNavLink>
+
                 <!-- Staff Management -->
                 <SideNavLink :href="route('owner.staffMgmt')" :active="route().current('owner.staffMgmt')">
                     <span class="flex items-center">

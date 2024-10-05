@@ -29,9 +29,11 @@
         "apexcharts": "^3.49.2",
         "date-fns": "^3.6.0",
         "install": "^0.13.0",
+        "leaflet": "^1.9.4",
         "lucide": "^0.433.0",
         "lucide-vue-next": "^0.400.0",
         "npm": "^10.8.1",
+        "sweetalert2": "^11.14.0",
         "vue3-apexcharts": "^1.5.3"
     }
 }
