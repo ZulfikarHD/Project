@@ -26,6 +26,7 @@ use App\Http\Controllers\Owner\OwStaffManagementController;
 use App\Http\Controllers\Owner\OwUserManagementController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
+// use App\Http\Controllers\Owner\VenueManagement\VenueController;
 use App\Http\Controllers\OwVenuesController;
 use App\Http\Controllers\Venue\AddVenuesController;
 use App\Http\Controllers\VenueDetailsController;
@@ -73,8 +74,11 @@ Route::middleware('auth')->group(function () {
      * Venue Management Routes
      * -------------------------------
      */
-    Route::get('/owner/venues/add-venue', [OwVenuesController::class, 'create'])->name('owner.venue.add-venue');
-    Route::post('/owner/venues/store',    [OwVenuesController::class, 'store'])->name('owner.venue.store');
+    route::namespace('App\Http\Controllers\Owner\VenueManagement')
+         ->group(function () {
+            Route::get('/owner/venues/add-venue', 'VenueController@create')->name('owner.venue.add-venue');
+            // Route::post('/owner/venues/store',    'VenueController@store')->name('owner.venue.store');
+        });
 
     // Route::post('/owner/venues', [VenueController::class, 'storeBasicInfo']);
     // Route::post('/owner/venues/{id}/fields', [VenueController::class, 'storeFields']);

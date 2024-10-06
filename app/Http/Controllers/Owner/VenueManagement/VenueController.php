@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Owner\VenueManagement;
 
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Models\Venue;
-use App\Models\VenueField;
-use App\Models\TimeSlot;
 
-class OwVenuesController extends Controller
+class VenueController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,17 +23,23 @@ class OwVenuesController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Owner/VenueMgmt/AddVenue/Index');
+        return Inertia::render('Owner/VenueMgmt/AddVenue/Index',[
+            'user' => Auth::user()->user_id,
+        ]);
     }
 
     /**
-    * Store a newly created venue in storage.
-    */
-   public function store(Request $request)
-   {
-        Venue::create([
-            'name' => $request->venueName,
-        ]);
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        // dd(Auth::user());
+        dd($request->all());
+
+
+        // Venue::create([
+        //     'name' => $request->venueName,
+        // ]);
         // dd($request->all());
     //    // Validate the incoming data
     //    $validatedData = $request->validate([
@@ -123,7 +127,7 @@ class OwVenuesController extends Controller
     //        DB::rollBack();
     //        return response()->json(['error' => 'An error occurred while creating the venue.', 'details' => $e->getMessage()], 500);
     //    }
-   }
+    }
 
     /**
      * Display the specified resource.
