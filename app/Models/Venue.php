@@ -16,10 +16,10 @@ class Venue extends Model
     protected $fillable = [
         'owner_id',
         'name',
-        'location',
+        'address',
         'description',
-        'capacity',
-        'amenities',
+        'latitude',
+        'longitude',
     ];
 
     public function owner(): BelongsTo

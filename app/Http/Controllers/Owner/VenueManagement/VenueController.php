@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 use App\Http\Controllers\Controller;
+use App\Models\TimeSlot;
+use App\Models\Venue;
+use App\Models\VenueField;
+use App\Models\VenueFieldSport;
 use Illuminate\Http\Request;
 
 class VenueController extends Controller
@@ -33,8 +37,47 @@ class VenueController extends Controller
      */
     public function store(Request $request)
     {
-        // dd(Auth::user());
-        dd($request->all());
+        $storeVenue = Venue::create([
+            'owner_id'  => $request->userId,
+            'name'      => $request->venueName,
+            'address'   => $request->venueAddress,
+            'latitude'  => $request->venueLocation['lat'],
+            'longitude' => $request->venueLocation['lng'],
+            'description'   => $request->venueDescription,
+        ]);
+
+        foreach($request->venueFields as $field)
+        {
+            $storeVenueFields = VenueField::create([
+                'venue_id'  => $storeVenue->venue_id,
+                'name'      => $field['name'],
+                'image_url' => $field['imageUrl'],
+            ]);
+
+            foreach($field['sports'] as $sport)
+            {
+                $storeVenueFieldSports = VenueFieldSport::create([
+                    'venue_field_id'    => $storeVenueFields->id,
+                    'sport_id'  => $sport,
+                ]);
+            }
+
+        }
+
+        foreach($request->venueOpenDay as $openDay)
+        {
+            foreach($openDay['timeSlots'] as $timeSlot)
+            {
+                $storeTimeSlot = TimeSlot::create([
+                    'day'   => $openDay['name'],
+                    'venue_id'   => $storeVenue->venue_id,
+                    'start_time' => $timeSlot['startTime'],
+                    'end_time'   => $timeSlot['endTime'],
+                    'price'      => $timeSlot['price'],
+                ]);
+            }
+        }
+
 
 
         // Venue::create([

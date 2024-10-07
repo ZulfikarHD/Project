@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id('venue_id');
             $table->foreignId('owner_id')->constrained('venue_owners')->references('owner_id');
             $table->string('name');
-            $table->string('location');
+            $table->string('address');
+            $table->decimal('latitude', 10, 8);
+            $table->decimal('longitude', 11, 8);
             $table->text('description')->nullable();
-            $table->integer('capacity');
-            $table->json('amenities')->nullable();
             $table->timestamps();
         });
     }
