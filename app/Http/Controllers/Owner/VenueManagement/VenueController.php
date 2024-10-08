@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 use App\Http\Controllers\Controller;
+use App\Models\FieldImage;
 use App\Models\Sport;
 use App\Models\TimeSlot;
 use App\Models\Venue;
@@ -33,7 +34,7 @@ class VenueController extends Controller
     {
         return Inertia::render('Owner/VenueMgmt/AddVenue/Index', [
             'user' => Auth::user()->user_id,
-            'sportList' => Sport::select('sport_id','name')->get(),
+            'sportList' => Sport::select('sport_id', 'name')->get(),
         ]);
     }
 
@@ -42,7 +43,7 @@ class VenueController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
+        dd($request->all());
 
         DB::beginTransaction();
 
@@ -59,17 +60,16 @@ class VenueController extends Controller
 
             // Store Venue Image
             $venueImagePaths = [];
-            foreach($request->file('venuePictures') as $venueImage)
-            {
-                $venueImageName = $storeVenue->venue_id . '-' . \Str::uuid() . '.' .$venueImage->getClientOriginalExtension();
+            foreach ($request->file('venuePictures') as $venueImage) {
+                $venueImageName = $storeVenue->venue_id . '-' . \Str::uuid() . '.' . $venueImage->getClientOriginalExtension();
 
-                $venueImagePath = $venueImage->storeAs('venue-images', $venueImageName ,'public');
+                $venueImagePath = $venueImage->storeAs('venue-images', $venueImageName, 'public');
                 $venueImageUrl  = Storage::url($venueImagePath);
 
                 $storeVenueUrl  = VenuePicture::updateOrCreate(
-                                        ['venue_id'  => $storeVenue->venue_id],
-                                        ['image_url' => $venueImageUrl,'pic_num' => 1]
-                                    );
+                    ['venue_id'  => $storeVenue->venue_id],
+                    ['image_url' => $venueImageUrl, 'pic_num' => 1]
+                );
 
                 $venueImagePaths[] = $venueImagePath;  // Save the path of the stored file
             }
@@ -82,6 +82,18 @@ class VenueController extends Controller
                     'description' => "",
                 ]);
 
+                // Store Field Image
+                // dd($field);
+                $fieldImage = $field->file('image');
+                $fieldImageName = $storeVenueFields->id . '-' . \Str::uuid() . '.' . $fieldImage->getClientOriginalExtension();
+                $fieldImagePath = $fieldImage->storeAs('field-images', $fieldImageName, 'public');
+                $fieldImageUrl  = Storage::url($fieldImagePath);
+                $storeFieldUrl  = FieldImage::updateOrCreate(
+                    ['field_id'  => $storeVenueFields->id],
+                    ['image_url' => $fieldImageUrl]
+                );
+
+                // Store Sports
                 foreach ($field['sports'] as $sport) {
                     $storeVenueFieldSports = VenueFieldSport::create([
                         'venue_field_id'    => $storeVenueFields->id,
