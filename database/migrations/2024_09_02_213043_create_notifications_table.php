@@ -13,8 +13,12 @@ return new class extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id('notification_id');
-            $table->foreignId('user_id')->constrained('users')->references('user_id');
-            $table->foreignId('owner_id')->constrained('venue_owners')->references('owner_id');
+            $table->foreignId('user_id')->constrained('users')->references('user_id')
+                ->onUpdate('CASCADE')
+                ->onDelete('NO ACTION');
+            $table->foreignId('owner_id')->constrained('venue_owners')->references('owner_id')
+                ->onUpdate('CASCADE')
+                ->onDelete('NO ACTION');
             $table->text('message');
             $table->enum('read_status', ['read', 'unread']);
             $table->timestamps();

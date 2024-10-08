@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('equipment', function (Blueprint $table) {
             $table->id('equipment_id');
-            $table->foreignId('venue_id')->constrained('venues')->references('venue_id');
+            $table->foreignId('venue_id')->constrained('venues')->references('venue_id')
+                ->onUpdate('CASCADE')
+                ->onDelete('NO ACTION');
             $table->string('name');
             $table->integer('quantity');
             $table->enum('status', ['available', 'in maintenance']);

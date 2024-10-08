@@ -13,8 +13,12 @@ return new class extends Migration
     {
         Schema::create('equipment_bookings', function (Blueprint $table) {
             $table->id('equipment_booking_id');
-            $table->foreignId('booking_id')->constrained('bookings')->references('booking_id');
-            $table->foreignId('equipment_id')->constrained('equipment')->references('equipment_id');
+            $table->foreignId('booking_id')->constrained('bookings')->references('booking_id')
+                ->onUpdate('CASCADE')
+                ->onDelete('NO ACTION');
+            $table->foreignId('equipment_id')->constrained('equipment')->references('equipment_id')
+                ->onUpdate('CASCADE')
+                ->onDelete('NO ACTION');
             $table->integer('quantity');
             $table->timestamps();
         });

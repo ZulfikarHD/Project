@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('venue_pictures', function (Blueprint $table) {
             $table->id('venue_picture_id');
-            $table->foreignId('venue_id')->constrained('venues')->references('venue_id');
-            $table->string('venue_picture');
+            $table->foreignId('venue_id')->constrained('venues')->references('venue_id')
+                ->onUpdate('CASCADE')
+                ->onDelete('NO ACTION');
+            $table->string('image_url');
             $table->integer('pic_num');
             $table->timestamps();
         });

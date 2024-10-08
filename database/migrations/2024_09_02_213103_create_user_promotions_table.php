@@ -13,8 +13,12 @@ return new class extends Migration
     {
         Schema::create('user_promotions', function (Blueprint $table) {
             $table->id('user_promotion_id');
-            $table->foreignId('user_id')->constrained('users')->references('user_id');
-            $table->foreignId('promotion_id')->constrained('promotions')->references('promotion_id');
+            $table->foreignId('user_id')->constrained('users')->references('user_id')
+                ->onUpdate('CASCADE')
+                ->onDelete('NO ACTION');
+            $table->foreignId('promotion_id')->constrained('promotions')->references('promotion_id')
+                ->onUpdate('CASCADE')
+                ->onDelete('NO ACTION');
             $table->timestamp('used_at')->nullable();
             $table->timestamps();
         });

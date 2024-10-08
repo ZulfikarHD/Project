@@ -14,7 +14,7 @@ class VenuePicture extends Model
 
     protected $fillable = [
         'venue_id',
-        'venue_picture',
+        'image_url',
         'pic_num'
     ];
 

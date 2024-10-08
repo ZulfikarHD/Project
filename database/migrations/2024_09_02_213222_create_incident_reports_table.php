@@ -13,8 +13,12 @@ return new class extends Migration
     {
         Schema::create('incident_reports', function (Blueprint $table) {
             $table->id('incident_id');
-            $table->foreignId('venue_id')->constrained('venues')->references('venue_id');
-            $table->foreignId('user_id')->constrained('users')->references('user_id');
+            $table->foreignId('venue_id')->constrained('venues')->references('venue_id')
+                ->onUpdate('CASCADE')
+                ->onDelete('NO ACTION');
+            $table->foreignId('user_id')->constrained('users')->references('user_id')
+                ->onUpdate('CASCADE')
+                ->onDelete('NO ACTION');
             $table->text('description');
             $table->enum('status', ['resolved', 'pending']);
             $table->timestamps();

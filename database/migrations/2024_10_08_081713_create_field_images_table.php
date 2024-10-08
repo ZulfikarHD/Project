@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('event_package_items', function (Blueprint $table) {
-            $table->id('package_id');
-            $table->foreignId('owner_id')->constrained('venue_owners')->references('owner_id')
+        Schema::create('field_images', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('field_id')
+                ->constrained('venue_fields')
+                ->references('field_id')
                 ->onUpdate('CASCADE')
                 ->onDelete('NO ACTION');
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->decimal('base_price', 8, 2);
+            $table->string('image_url');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('event_package_items');
+        Schema::dropIfExists('field_images');
     }
 };

@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('analytics_reports', function (Blueprint $table) {
             $table->id('report_id');
-            $table->foreignId('venue_id')->constrained('venues')->references('venue_id');
+            $table->foreignId('venue_id')->constrained('venues')->references('venue_id')
+                ->onUpdate('CASCADE')
+                ->onDelete('NO ACTION');
             $table->string('report_type');
             $table->timestamp('generated_at');
             $table->json('data');

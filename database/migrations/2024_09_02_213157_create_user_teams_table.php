@@ -13,8 +13,12 @@ return new class extends Migration
     {
         Schema::create('user_teams', function (Blueprint $table) {
             $table->id('user_team_id');
-            $table->foreignId('user_id')->constrained('users')->references('user_id');
-            $table->foreignId('team_id')->constrained('teams')->references('team_id');
+            $table->foreignId('user_id')->constrained('users')->references('user_id')
+                ->onUpdate('CASCADE')
+                ->onDelete('NO ACTION');
+            $table->foreignId('team_id')->constrained('teams')->references('team_id')
+                ->onUpdate('CASCADE')
+                ->onDelete('NO ACTION');
             $table->enum('role', ['captain', 'player']);
             $table->timestamps();
         });

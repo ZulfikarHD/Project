@@ -12,8 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('venue_field_sports', function (Blueprint $table) {
-            $table->foreignId('venue_field_id')->constrained('venue_fields')->references('field_id');
-            $table->foreignId('sport_id')->constrained('sports')->references('sport_id');
+            $table->foreignId('venue_field_id')->constrained('venue_fields')->references('field_id')
+                ->onUpdate('CASCADE')
+                ->onDelete('NO ACTION');
+            $table->foreignId('sport_id')->constrained('sports')->references('sport_id')
+                ->onUpdate('CASCADE')
+                ->onDelete('NO ACTION');
         });
     }
 

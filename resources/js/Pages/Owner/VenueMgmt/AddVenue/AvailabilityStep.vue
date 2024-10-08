@@ -148,13 +148,13 @@ const availability = ref({ ...props.modelValue });
 
 // Days of the week with open/close times and time slots
 const daysOfWeek = ref(availability.value.days || [
-    { name: "Monday", timeSlots: [] },
-    { name: "Tuesday", timeSlots: [] },
-    { name: "Wednesday", timeSlots: [] },
-    { name: "Thursday", timeSlots: [] },
-    { name: "Friday", timeSlots: [] },
-    { name: "Saturday", timeSlots: [] },
-    { name: "Sunday", timeSlots: [] },
+    { name: "Senin", timeSlots: [] },
+    { name: "Selasa", timeSlots: [] },
+    { name: "Rabu", timeSlots: [] },
+    { name: "Kamis", timeSlots: [] },
+    { name: "Jumat", timeSlots: [] },
+    { name: "Sabtu", timeSlots: [] },
+    { name: "Minggu", timeSlots: [] },
 ]);
 
 // Batch time slot creation data

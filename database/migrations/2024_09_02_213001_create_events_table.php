@@ -13,8 +13,12 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id('event_id');
-            $table->foreignId('venue_id')->constrained('venues')->references('venue_id');
-            $table->foreignId('owner_id')->constrained('venue_owners')->references('owner_id');
+            $table->foreignId('venue_id')->constrained('venues')->references('venue_id')
+                ->onUpdate('CASCADE')
+                ->onDelete('NO ACTION');
+            $table->foreignId('owner_id')->constrained('venue_owners')->references('owner_id')
+                ->onUpdate('CASCADE')
+                ->onDelete('NO ACTION');
             $table->string('name');
             $table->text('description')->nullable();
             $table->date('event_date');

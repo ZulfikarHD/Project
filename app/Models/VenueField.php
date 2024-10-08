@@ -10,7 +10,7 @@ class VenueField extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['venue_id', 'name', 'image_url'];
+    protected $fillable = ['venue_id', 'name','description'];
 
     public function venue() : BelongsTo
     {

@@ -13,9 +13,15 @@ return new class extends Migration
     {
         Schema::create('matches', function (Blueprint $table) {
             $table->id('match_id');
-            $table->foreignId('tournament_id')->constrained('tournaments')->references('tournament_id');
-            $table->foreignId('team_a_id')->constrained('teams')->references('team_id');
-            $table->foreignId('team_b_id')->constrained('teams')->references('team_id');
+            $table->foreignId('tournament_id')->constrained('tournaments')->references('tournament_id')
+                ->onUpdate('CASCADE')
+                ->onDelete('NO ACTION');
+            $table->foreignId('team_a_id')->constrained('teams')->references('team_id')
+                ->onUpdate('CASCADE')
+                ->onDelete('NO ACTION');
+            $table->foreignId('team_b_id')->constrained('teams')->references('team_id')
+                ->onUpdate('CASCADE')
+                ->onDelete('NO ACTION');
             $table->date('match_date');
             $table->integer('score_team_a')->nullable();
             $table->integer('score_team_b')->nullable();

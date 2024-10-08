@@ -13,8 +13,12 @@ return new class extends Migration
     {
         Schema::create('instructor_sports', function (Blueprint $table) {
             $table->id('instructor_sports_id');
-            $table->foreignId('instructor_id')->constrained('instructors')->references('instructor_id');
-            $table->foreignId('sport_id')->constrained('sports')->references('sport_id');
+            $table->foreignId('instructor_id')->constrained('instructors')->references('instructor_id')
+                ->onUpdate('CASCADE')
+                ->onDelete('NO ACTION');
+            $table->foreignId('sport_id')->constrained('sports')->references('sport_id')
+                ->onUpdate('CASCADE')
+                ->onDelete('NO ACTION');
             $table->timestamps();
         });
     }

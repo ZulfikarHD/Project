@@ -22,15 +22,15 @@
             <div class="mb-4">
                 <label :for="'field-sports-' + index" class="block text-sm font-medium text-gray-700">Sports Type</label>
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
-                    <div v-for="sport in sportsList" :key="sport.id">
+                    <div v-for="sport in sportsList" :key="sport.sport_id">
                         <input
                             type="checkbox"
-                            :id="'sport-' + sport.id + '-' + index"
-                            :value="sport.id"
+                            :id="'sport-' + sport.sport_id + '-' + index"
+                            :value="sport.sport_id"
                             v-model="field.sports"
                             class="mr-2"
                         />
-                        <label :for="'sport-' + sport.id + '-' + index" class="text-sm text-gray-700">{{ sport.name }}</label>
+                        <label :for="'sport-' + sport.sport_id + '-' + index" class="text-sm text-gray-700">{{ sport.name }}</label>
                     </div>
                 </div>
             </div>
@@ -100,19 +100,14 @@ import Swal from "sweetalert2"; // SweetAlert for alerts
 // Props for passing data from the parent
 const props = defineProps({
     modelValue: Array, // Array for fields data passed from parent
+    sportList: Array,
 });
 
 // Define emits for two-way data binding and step navigation
 const emit = defineEmits(["update:modelValue", "next", "previous"]);
 
 // Sports list (static or dynamically loaded)
-const sportsList = ref([
-    { id: 1, name: "Football" },
-    { id: 2, name: "Basketball" },
-    { id: 3, name: "Tennis" },
-    { id: 4, name: "Volleyball" },
-]);
-
+const sportsList = ref(props.sportList);
 // Bind fields data from parent
 const fields = ref([...props.modelValue]);
 

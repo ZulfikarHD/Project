@@ -4,13 +4,14 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import OwAuthenticatedLayout from "@/Layouts/Owner/OwAuthenticatedLayout.vue";
 import VenueInfoStep from "./VenueInfoStep.vue";
-import FacilityStep from "./FacilityStep.vue";
+import FacilityStep from "./FieldFacility.vue";
 import AvailabilityStep from "./AvailabilityStep.vue";
 import SummaryStep from "./SummaryStep.vue";
 import { useForm, router } from "@inertiajs/vue3";
 
 const props = defineProps({
     user: Number,
+    sportList: Array,
 });
 
 // Step tracking
@@ -105,11 +106,12 @@ const submitVenue = () => {
           />
         </div>
 
-        <!-- Step 2: Facility Information -->
+        <!-- Step 2: Field Information-->
         <div v-if="step === 2">
           <FacilityStep
             :modelValue="venue.fields"
             @update:modelValue='venue.fields = $event'
+            :sportList='props.sportList'
             @previous="prevStep"
             @next="nextStep"
           />
