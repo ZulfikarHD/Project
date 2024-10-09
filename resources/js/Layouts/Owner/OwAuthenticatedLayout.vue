@@ -30,6 +30,7 @@ import 'animate.css'; // Import Animate.css
 const showingSideNav = ref(false);
 const showFinancialDropdown = ref(false);
 const showMarketingDropdown = ref(false);
+const showFieldDropdown = ref(false);
 
 // Computed property to check if any financial management route is active
 const isFinancialRouteActive = computed(() => {
@@ -94,13 +95,28 @@ if (isFinancialRouteActive.value) {
                     </span>
                 </SideNavLink>
 
-                <!-- Field Management -->
-                <SideNavLink :href="route('owner.fieldMgmt')" :active="route().current('owner.fieldMgmt')">
-                    <span class="flex items-center">
-                        <Map :size="18" class="mr-2" :stroke-width="route().current('owner.fieldMgmt') ? 2 : 1" />
-                        Field Management
-                    </span>
-                </SideNavLink>
+                <!-- Field Management Dropdown -->
+                <li class="py-1 px-2 rounded-md text-sm">
+                    <button @click="showFieldDropdown = !showFieldDropdown" class="flex items-center w-full">
+                        <span class="flex items-center">
+                            <Map :size="18" class="mr-2" :stroke-width="route().current('owner.field-management.filed-list') ? 2 : 1" />
+                            Field Management
+                        </span>
+                        <span class="ml-auto">
+                            <ChevronDown v-if="!showFieldDropdown" :size="18" />
+                            <ChevronUp v-if="showFieldDropdown" :size="18" />
+                        </span>
+                    </button>
+                    <ul v-if="showFieldDropdown" class="pl-4 mt-2 space-y-1 animate__animated animate__fadeIn">
+                        <!-- Field List -->
+                        <SideNavLink :href="route('owner.field-management.field-list')" :active="route().current('owner.field-management.field-list')">
+                            <span class="flex items-center">
+                                <Map :size="18" class="mr-2" :stroke-width="route().current('owner.field-management.field-list') ? 2 : 1" />
+                                Field Management
+                            </span>
+                        </SideNavLink>
+                    </ul>
+                </li>
 
                 <!-- Venue Management -->
                 <SideNavLink :href="route('owner.venue.add-venue')" :active="route().current('owner.venue.add-venue')">

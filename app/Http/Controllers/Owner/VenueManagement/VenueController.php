@@ -32,7 +32,7 @@ class VenueController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Owner/VenueMgmt/AddVenue/Index', [
+        return Inertia::render('Owner/VenueManagement/CreateVenue/Index', [
             'user' => Auth::user()->user_id,
             'sportList' => Sport::select('sport_id', 'name')->get(),
         ]);
@@ -43,7 +43,7 @@ class VenueController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
 
         DB::beginTransaction();
 
@@ -83,8 +83,7 @@ class VenueController extends Controller
                 ]);
 
                 // Store Field Image
-                // dd($field);
-                $fieldImage = $field->file('image');
+                $fieldImage = $field['image'];
                 $fieldImageName = $storeVenueFields->id . '-' . \Str::uuid() . '.' . $fieldImage->getClientOriginalExtension();
                 $fieldImagePath = $fieldImage->storeAs('field-images', $fieldImageName, 'public');
                 $fieldImageUrl  = Storage::url($fieldImagePath);
@@ -116,10 +115,10 @@ class VenueController extends Controller
 
             DB::commit();
 
-            return response()->json(['message' => 'Venue created successfully.'], 201);
+            // return response()->json(['message' => 'Venue created successfully.'], 201);
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(['error' => 'An error occurred while creating the venue.', 'details' => $e->getMessage()], 500);
+            // return response()->json(['error' => 'An error occurred while creating the venue.', 'details' => $e->getMessage()], 500);
         }
     }
 

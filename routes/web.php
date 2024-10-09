@@ -80,6 +80,17 @@ Route::middleware('auth')->group(function () {
             // Route::post('/owner/venues/store',    'VenueController@store')->name('owner.venue.store');
         });
 
+    /**
+     * -------------------------------
+     * Field Management Routes
+     * -------------------------------
+     */
+    route::namespace('App\Http\Controllers\Owner\FieldManagement')
+         ->group(function () {
+            Route::get('/owner/fields/field-list', 'FieldController@index')->name('owner.field-management.field-list');
+            // Route::post('/owner/venues/store',    'VenueController@store')->name('owner.venue.store');
+        });
+
     // Route::post('/owner/venues', [VenueController::class, 'storeBasicInfo']);
     // Route::post('/owner/venues/{id}/fields', [VenueController::class, 'storeFields']);
     // Route::post('/owner/venues/{id}/availability', [VenueController::class, 'storeAvailability']);
