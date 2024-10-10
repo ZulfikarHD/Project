@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class VenueField extends Model
 {
@@ -14,7 +15,17 @@ class VenueField extends Model
 
     public function venue() : BelongsTo
     {
-        return $this->belongsTo(Venue::class, 'venue_id');
+        return $this->belongsTo(Venue::class, 'venue_id', 'venue_id');
+    }
+
+    public function fieldImages() : HasMany
+    {
+        return $this->hasMany(FieldImage::class, 'field_id', 'field_id');
+    }
+
+    public function venueFieldSports() : HasMany
+    {
+        return $this->hasMany(VenueFieldSport::class, 'venue_field_id', 'field_id');
     }
 
     // Accessors for sports and equipment JSON

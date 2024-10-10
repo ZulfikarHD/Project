@@ -2,24 +2,38 @@
 
 namespace App\Http\Controllers\Owner\FieldManagement;
 
-use App\Http\Controllers\Controller;
 use App\Models\VenueField;
+use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Collection;
+
 use Inertia\Inertia;
 
 class FieldController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Owner/FieldManagement/FieldList/Index');
+        $fieldData = $this->fieldData();
+
+        return Inertia::render('Owner/FieldManagement/FieldList/Index',[
+            'fieldData' => $fieldData
+        ]);
     }
 
-    public function fieldData()
+    public function fieldData() : Collection
     {
         // venue,field_name,lokasi,gambar,sports_available
-        $venue = VenueField::query()
-                        ->join('venues','venue_fields.venue_id','venues.venue_id')
-                        ->join('field_images','venue_fields.field_id','field_images.field_id')
-                        ->join('venue_field_sports','venue_fields.field_id','venue_field_sports.venue_field_id');
+        $venue = VenueField::select('field_id', 'venue_id', 'name')
+                        ->with(
+                            'venue:venue_id,owner_id,name,address',
+                            'fieldImages:id,field_id,image_url',
+                            'venueFieldSports'
+                        )
+                        ->whereRelation('venue', 'owner_id', Auth::user()->user_id)
+                        ->get();
+
+        return $venue;
     }
 }

@@ -1,55 +1,18 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/Owner/OwAuthenticatedLayout.vue";
-import { ref, computed } from "vue";
+import { ref, defineProps } from "vue";
 
 const props = defineProps({
-    dataTable : Array,
+    dataTable : {
+        type : Array
+    },
 })
 
 const showModal = ref(false);
-const newField = ref({ name: "", type: "", location: "", availability: "" });
+const fields = ref(props.dataTable);
 
-const addField = () => {
-    // Assuming fields is accessible here or passed as a prop
-    fields.value.push({ ...newField.value, id: Date.now() });
-    newField.value = { name: "", type: "", location: "", availability: "" };
-    showModal.value = false;
-};
+console.log(fields)
 
-
-const fields = ref(dataTable.value);
-
-const searchQuery = ref("");
-const sortKey = ref("name");
-
-const filteredAndSortedFields = computed(() => {
-    return fields.value
-        .filter((field) => {
-            return (
-                field.name
-                    .toLowerCase()
-                    .includes(searchQuery.value.toLowerCase()) ||
-                field.type
-                    .toLowerCase()
-                    .includes(searchQuery.value.toLowerCase()) ||
-                field.location
-                    .toLowerCase()
-                    .includes(searchQuery.value.toLowerCase()) ||
-                field.availability
-                    .toLowerCase()
-                    .includes(searchQuery.value.toLowerCase())
-            );
-        })
-        .sort((a, b) => {
-            if (a[sortKey.value] < b[sortKey.value]) return -1;
-            if (a[sortKey.value] > b[sortKey.value]) return 1;
-            return 0;
-        });
-});
-
-const deleteField = (id) => {
-    fields.value = fields.value.filter((field) => field.id !== id);
-};
 </script>
 
 <template>
@@ -87,16 +50,17 @@ const deleteField = (id) => {
             <table class="min-w-full bg-white">
                 <thead>
                     <tr>
-                        <th class="py-2 px-4 border-b">Nama</th>
-                        <th class="py-2 px-4 border-b">Tipe</th>
+                        <th class="py-2 px-4 border-b">Venue</th>
                         <th class="py-2 px-4 border-b">Lokasi</th>
-                        <th class="py-2 px-4 border-b">Ketersediaan</th>
+                        <th class="py-2 px-4 border-b">Lapangan</th>
+                        <th class="py-2 px-4 border-b">Olahraga</th>
+                        <th class="py-2 px-4 border-b">Fasilitas</th>
                         <th class="py-2 px-4 border-b">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr
-                        v-for="field in filteredAndSortedFields"
+                        v-for="field in fields"
                         :key="field.id"
                         class="border-t"
                     >

@@ -19,6 +19,7 @@ export default {
     },
 
     plugins: [
+        require('@tailwindcss/forms'),
         forms,
         function ({ addUtilities }) {
             addUtilities({
