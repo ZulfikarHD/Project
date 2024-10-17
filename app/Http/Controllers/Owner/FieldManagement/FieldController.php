@@ -22,6 +22,11 @@ class FieldController extends Controller
         ]);
     }
 
+    public function createField()
+    {
+        return Inertia::render('Owner/FieldManagement/CreateField/Index');
+    }
+
     public function fieldData() : Collection
     {
         // venue,field_name,lokasi,gambar,sports_available

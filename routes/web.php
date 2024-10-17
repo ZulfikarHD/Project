@@ -87,7 +87,8 @@ Route::middleware('auth')->group(function () {
      */
     route::namespace('App\Http\Controllers\Owner\FieldManagement')
          ->group(function () {
-            Route::get('/owner/fields/field-list', 'FieldController@index')->name('owner.field-management.field-list');
+            Route::get('/owner/fields/field-list',   'FieldController@index')->name('owner.field-management.field-list');
+            Route::get('/owner/fields/create-field', 'FieldController@createField')->name('owner.field-management.create-field');
             // Route::post('/owner/venues/store',    'VenueController@store')->name('owner.venue.store');
         });
 

@@ -116,9 +116,9 @@ if (isFinancialRouteActive.value) {
                             </span>
                         </SideNavLink>
                         <!-- Field List -->
-                        <SideNavLink :href="route('owner.field-management.field-list')" :active="route().current('owner.field-management.field-list')">
+                        <SideNavLink :href="route('owner.field-management.create-field')" :active="route().current('owner.field-management.create-field')">
                             <span class="flex items-center">
-                                <Map :size="18" class="mr-2" :stroke-width="route().current('owner.field-management.field-list') ? 2 : 1" />
+                                <Map :size="18" class="mr-2" :stroke-width="route().current('owner.field-management.create-field') ? 2 : 1" />
                                 Add Field
                             </span>
                         </SideNavLink>
