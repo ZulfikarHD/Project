@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Owner\FieldManagement;
 
 use App\Models\VenueField;
 use App\Http\Controllers\Controller;
-
+use App\Models\Venue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Collection;
@@ -24,7 +24,10 @@ class FieldController extends Controller
 
     public function createField()
     {
-        return Inertia::render('Owner/FieldManagement/CreateField/Index');
+        $user = Auth::user();
+        return Inertia::render('Owner/FieldManagement/CreateField/Index',[
+            'listVenue' => Venue::where('owner_id',$user->id)->get(),
+        ]);
     }
 
     public function fieldData() : Collection

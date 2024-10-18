@@ -63,7 +63,7 @@ if (isFinancialRouteActive.value) {
         class="glass m-4 h-[96vh] w-64 pl-3 pr-4 py-6 transition-transform duration-300 lg:translate-x-0 lg:block overflow-hidden fixed left-0 top-0 z-10 shadow-md shadow-gray-500/25 antialiased rounded-lg">
         <!-- {{-- Header Side Bar --}} -->
         <div class="text-indigo-950 mb-6 text-2xl font-semibold">
-            Project Logo
+            Logo Proyek
         </div>
 
         <!-- {{-- Side Nav Link --}} -->
@@ -74,7 +74,7 @@ if (isFinancialRouteActive.value) {
                     <span class="flex items-center">
                         <LayoutDashboard :size="18" class="mr-2"
                             :stroke-width="route().current('owner.dashboard') ? 2 : 1" />
-                        Dashboard
+                        Dasbor
                     </span>
                 </SideNavLink>
 
@@ -83,7 +83,7 @@ if (isFinancialRouteActive.value) {
                     <span class="flex items-center">
                         <Calendar :size="18" class="mr-2"
                             :stroke-width="route().current('owner.bookingMgmt') ? 2 : 1" />
-                        Booking Management
+                        Manajemen Pemesanan
                     </span>
                 </SideNavLink>
 
@@ -91,7 +91,7 @@ if (isFinancialRouteActive.value) {
                 <SideNavLink :href="route('owner.customerMgmt')" :active="route().current('owner.customerMgmt')">
                     <span class="flex items-center">
                         <Users :size="18" class="mr-2" :stroke-width="route().current('owner.customerMgmt') ? 2 : 1" />
-                        Customer Management
+                        Manajemen Pelanggan
                     </span>
                 </SideNavLink>
 
@@ -100,7 +100,7 @@ if (isFinancialRouteActive.value) {
                     <button @click="showFieldDropdown = !showFieldDropdown" class="flex items-center w-full">
                         <span class="flex items-center">
                             <Map :size="18" class="mr-2" :stroke-width="route().current('owner.field-management.filed-list') ? 2 : 1" />
-                            Field Management
+                            Manajemen Lapangan
                         </span>
                         <span class="ml-auto">
                             <ChevronDown v-if="!showFieldDropdown" :size="18" />
@@ -112,14 +112,14 @@ if (isFinancialRouteActive.value) {
                         <SideNavLink :href="route('owner.field-management.field-list')" :active="route().current('owner.field-management.field-list')">
                             <span class="flex items-center">
                                 <Map :size="18" class="mr-2" :stroke-width="route().current('owner.field-management.field-list') ? 2 : 1" />
-                                Field List
+                                Daftar Lapangan
                             </span>
                         </SideNavLink>
                         <!-- Field List -->
                         <SideNavLink :href="route('owner.field-management.create-field')" :active="route().current('owner.field-management.create-field')">
                             <span class="flex items-center">
                                 <Map :size="18" class="mr-2" :stroke-width="route().current('owner.field-management.create-field') ? 2 : 1" />
-                                Add Field
+                                Tambah Lapangan
                             </span>
                         </SideNavLink>
                     </ul>
@@ -129,7 +129,7 @@ if (isFinancialRouteActive.value) {
                 <SideNavLink :href="route('owner.venue.add-venue')" :active="route().current('owner.venue.add-venue')">
                     <span class="flex items-center">
                         <Map :size="18" class="mr-2" :stroke-width="route().current('owner.venue.add-venue') ? 2 : 1" />
-                        Add Venue
+                        Tambah Venue
                     </span>
                 </SideNavLink>
 
@@ -137,7 +137,7 @@ if (isFinancialRouteActive.value) {
                 <SideNavLink :href="route('owner.staffMgmt')" :active="route().current('owner.staffMgmt')">
                     <span class="flex items-center">
                         <UserCheck :size="18" class="mr-2" :stroke-width="route().current('owner.staffMgmt') ? 2 : 1" />
-                        Staff Management
+                        Manajemen Staf
                     </span>
                 </SideNavLink>
 
@@ -147,7 +147,7 @@ if (isFinancialRouteActive.value) {
                         <span class="flex items-center">
                             <DollarSign :size="18" class="mr-2"
                                 :stroke-width="route().current('owner.fm.revenue') ? 2 : 1" />
-                            Financial Management
+                            Manajemen Keuangan
                         </span>
                         <span class="ml-auto">
                             <ChevronDown v-if="!showFinancialDropdown" :size="18" />
@@ -159,7 +159,7 @@ if (isFinancialRouteActive.value) {
                             <span class="flex items-center">
                                 <DollarSign :size="18" class="mr-2"
                                     :stroke-width="route().current('owner.fm.revenue') ? 2 : 1" />
-                                Revenue Overview
+                                Ikhtisar Pendapatan
                             </span>
                         </SideNavLink>
                         <SideNavLink :href="route('owner.fm.budgeting')"
@@ -167,42 +167,42 @@ if (isFinancialRouteActive.value) {
                             <span class="flex items-center">
                                 <PieChart :size="18" class="mr-2"
                                     :stroke-width="route().current('owner.fm.budgeting') ? 2 : 1" />
-                                Budgeting Planning
+                                Perencanaan Anggaran
                             </span>
                         </SideNavLink>
                         <SideNavLink :href="route('owner.fm.expenses')" :active="route().current('owner.fm.expenses')">
                             <span class="flex items-center">
                                 <CreditCard :size="18" class="mr-2"
                                     :stroke-width="route().current('owner.fm.expenses') ? 2 : 1" />
-                                Expenses
+                                Pengeluaran
                             </span>
                         </SideNavLink>
                         <SideNavLink :href="route('owner.fm.invoices')" :active="route().current('owner.fm.invoices')">
                             <span class="flex items-center">
                                 <FileText :size="18" class="mr-2"
                                     :stroke-width="route().current('owner.fm.invoices') ? 2 : 1" />
-                                Booking Invoices
+                                Faktur Pemesanan
                             </span>
                         </SideNavLink>
                         <SideNavLink :href="route('owner.fm.payments')" :active="route().current('owner.fm.payments')">
                             <span class="flex items-center">
                                 <CreditCard :size="18" class="mr-2"
                                     :stroke-width="route().current('owner.fm.payments') ? 2 : 1" />
-                                Payments Management
+                                Manajemen Pembayaran
                             </span>
                         </SideNavLink>
                         <SideNavLink :href="route('owner.fm.reports')" :active="route().current('owner.fm.reports')">
                             <span class="flex items-center">
                                 <BarChart :size="18" class="mr-2"
                                     :stroke-width="route().current('owner.fm.reports') ? 2 : 1" />
-                                Financial Reports
+                                Laporan Keuangan
                             </span>
                         </SideNavLink>
                         <SideNavLink :href="route('owner.fm.settings')" :active="route().current('owner.fm.settings')">
                             <span class="flex items-center">
                                 <Settings :size="18" class="mr-2"
                                     :stroke-width="route().current('owner.fm.settings') ? 2 : 1" />
-                                Financial Settings
+                                Pengaturan Keuangan
                             </span>
                         </SideNavLink>
                     </ul>
@@ -214,7 +214,7 @@ if (isFinancialRouteActive.value) {
                         <span class="flex items-center">
                             <Megaphone :size="18" class="mr-2"
                                 :stroke-width="route().current('owner.marketingTools') ? 1 : 0.5" />
-                            Marketing Tools
+                            Alat Pemasaran
                         </span>
                         <span class="ml-auto">
                             <ChevronDown v-if="!showMarketingDropdown" :size="18" />
@@ -227,7 +227,7 @@ if (isFinancialRouteActive.value) {
                             <span class="flex items-center">
                                 <BarChart2 :size="18" class="mr-2"
                                     :stroke-width="route().current('owner.marketingTools.analytics') ? 2 : 1" />
-                                Analytics
+                                Analitik
                             </span>
                         </SideNavLink>
                         <SideNavLink :href="route('owner.marketingTools.campaignManagement')"
@@ -235,7 +235,7 @@ if (isFinancialRouteActive.value) {
                             <span class="flex items-center">
                                 <Megaphone :size="18" class="mr-2"
                                     :stroke-width="route().current('owner.marketingTools.campaignManagement') ? 2 : 1" />
-                                Campaign Management
+                                Manajemen Kampanye
                             </span>
                         </SideNavLink>
                         <SideNavLink :href="route('owner.marketingTools.customerFeedback')"
@@ -243,7 +243,7 @@ if (isFinancialRouteActive.value) {
                             <span class="flex items-center">
                                 <User :size="18" class="mr-2"
                                     :stroke-width="route().current('owner.marketingTools.customerFeedback') ? 2 : 1" />
-                                Customer Feedback
+                                Umpan Balik Pelanggan
                             </span>
                         </SideNavLink>
                         <SideNavLink :href="route('owner.marketingTools.promotions')"
@@ -251,7 +251,7 @@ if (isFinancialRouteActive.value) {
                             <span class="flex items-center">
                                 <Tag :size="18" class="mr-2"
                                     :stroke-width="route().current('owner.marketingTools.promotions') ? 2 : 1" />
-                                Promotions
+                                Promosi
                             </span>
                         </SideNavLink>
                         <SideNavLink :href="route('owner.marketingTools.refferalProgram')"
@@ -259,7 +259,7 @@ if (isFinancialRouteActive.value) {
                             <span class="flex items-center">
                                 <Users :size="18" class="mr-2"
                                     :stroke-width="route().current('owner.marketingTools.refferalProgram') ? 2 : 1" />
-                                Referral Program
+                                Program Rujukan
                             </span>
                         </SideNavLink>
                         <SideNavLink :href="route('owner.marketingTools.socialMedia')"
@@ -267,7 +267,7 @@ if (isFinancialRouteActive.value) {
                             <span class="flex items-center">
                                 <Share2 :size="18" class="mr-2"
                                     :stroke-width="route().current('owner.marketingTools.socialMedia') ? 2 : 1" />
-                                Social Media
+                                Media Sosial
                             </span>
                         </SideNavLink>
                         <SideNavLink :href="route('owner.marketingTools.seoTools')"
@@ -275,7 +275,7 @@ if (isFinancialRouteActive.value) {
                             <span class="flex items-center">
                                 <Search :size="18" class="mr-2"
                                     :stroke-width="route().current('owner.marketingTools.seoTools') ? 2 : 1" />
-                                SEO Tools
+                                Alat SEO
                             </span>
                         </SideNavLink>
                         <SideNavLink :href="route('owner.marketingTools.settings')"
@@ -283,7 +283,7 @@ if (isFinancialRouteActive.value) {
                             <span class="flex items-center">
                                 <Settings :size="18" class="mr-2"
                                     :stroke-width="route().current('owner.marketingTools.settings') ? 2 : 1" />
-                                Marketing Settings
+                                Pengaturan Pemasaran
                             </span>
                         </SideNavLink>
                     </ul>
@@ -294,7 +294,7 @@ if (isFinancialRouteActive.value) {
                     <span class="flex items-center">
                         <BarChart2 :size="18" class="mr-2"
                             :stroke-width="route().current('owner.reportingTools') ? 2 : 1" />
-                        Reporting Tools
+                        Alat Pelaporan
                     </span>
                 </SideNavLink>
 
@@ -302,7 +302,7 @@ if (isFinancialRouteActive.value) {
                 <SideNavLink :href="route('owner.userMgmt')" :active="route().current('owner.userMgmt')">
                     <span class="flex items-center">
                         <User :size="18" class="mr-2" :stroke-width="route().current('owner.userMgmt') ? 2 : 1" />
-                        User Management
+                        Manajemen Pengguna
                     </span>
                 </SideNavLink>
             </ul>

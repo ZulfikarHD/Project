@@ -2,28 +2,33 @@
 import OwnerAuthenticatedLayout from "@/Layouts/Owner/OwAuthenticatedLayout.vue";
 import FormCard from "@/Components/Card/FormCard.vue";
 import { ref, defineEmits, defineProps, watch } from "vue";
-import Swal from "sweetalert2"; // SweetAlert for alerts
+import Swal from "sweetalert2"; // SweetAlert untuk alert
 
-// Props for passing data from the parent
+// Props untuk mengirim data dari parent
 const props = defineProps({
-    modelValue: Array, // Array for fields data passed from parent
+    modelValue: Array, // Array untuk data lapangan yang dikirim dari parent
     sportList: Array,
+    listVenue: Object,
 });
 
-// Define emits for two-way data binding and step navigation
+// Definisikan emits untuk binding data dua arah dan navigasi langkah
 const emit = defineEmits(["update:modelValue"]);
 
-// Sports list (static or dynamically loaded)
+// Daftar olahraga (statis atau dimuat secara dinamis)
 const sportsList = ref(props.sportList);
-// Bind fields data from parent
+// Mengikat data lapangan dari parent
 const fields = ref([]);
+const venue = ref();
+// Pantau perubahan pada lapangan dan kirim lapangan yang diperbarui ke parent
+watch(
+    fields,
+    (newFields) => {
+        emit("update:modelValue", newFields);
+    },
+    { deep: true }
+);
 
-// Watch for changes in fields and emit the updated fields to parent
-watch(fields, (newFields) => {
-    emit("update:modelValue", newFields);
-}, { deep: true });
-
-// Add a new field/court
+// Tambah lapangan/arena baru
 const addField = () => {
     fields.value.push({
         name: "",
@@ -34,25 +39,25 @@ const addField = () => {
     });
 };
 
-// Remove a field/court
+// Hapus lapangan/arena
 const removeField = (index) => {
     Swal.fire({
-        title: "Are you sure?",
-        text: "You won’t be able to revert this!",
+        title: "Apakah Anda yakin?",
+        text: "Anda tidak akan dapat mengembalikannya!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, remove it!",
+        confirmButtonText: "Ya, hapus!",
     }).then((result) => {
         if (result.isConfirmed) {
             fields.value.splice(index, 1);
-            Swal.fire("Removed!", "The field/court has been removed.", "success");
+            Swal.fire("Dihapus!", "Lapangan/arena telah dihapus.", "success");
         }
     });
 };
 
-// Add equipment to a field
+// Tambah peralatan ke lapangan
 const addEquipment = (index) => {
     fields.value[index].equipment.push({
         name: "",
@@ -60,52 +65,77 @@ const addEquipment = (index) => {
     });
 };
 
-// Handle image upload for each field
+// Tangani unggahan gambar untuk setiap lapangan
 const handleFieldImageUpload = (e, index) => {
     const file = e.target.files[0];
     if (file) {
         fields.value[index].image = file;
-        fields.value[index].imageUrl = URL.createObjectURL(file); // Create a preview URL
+        fields.value[index].imageUrl = URL.createObjectURL(file); // Buat URL pratinjau
     }
 };
-
 </script>
 <template>
     <OwnerAuthenticatedLayout>
         <div class="w-full max-w-5xl bg-white rounded-lg shadow-lg p-8">
             <h2 class="text-3xl font-bold mb-6 text-gray-800 text-center">
-                Facility Information
+                Tambah Lapangan
             </h2>
 
-            <!-- Add Fields/Courts Section -->
-            <div v-for="(field, index) in fields" :key="index" class="mb-8 p-6 border rounded-lg shadow-md bg-white">
+            <!-- Nama Lapangan -->
+            <div class="mb-6">
+                <label
+                    for="venue"
+                    class="block text-sm font-medium text-gray-700"
+                    >Venue</label
+                >
+                <select
+                    v-model="venue"
+                    id="venue"
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 p-2"
+                >
+                <option v-for="venue in props.listVenue" value="{{ venue.id }}">{{ venue.name }}</option>
+            </select>
+            </div>
+
+            <!-- Tambah Bagian Lapangan/Arena -->
+            <div
+                v-for="(field, index) in fields"
+                :key="index"
+                class="mb-8 p-6 border rounded-lg shadow-md bg-white"
+            >
                 <h3 class="text-2xl font-semibold mb-4 text-gray-800">
-                    Field/Court {{ index + 1 }}
+                    Lapangan/Arena {{ index + 1 }}
                 </h3>
 
-                <!-- Field Name -->
+                <!-- Nama Lapangan -->
                 <div class="mb-6">
                     <label
                         :for="'field-name-' + index"
                         class="block text-sm font-medium text-gray-700"
-                    >Field/Court Name</label>
+                        >Nama Lapangan/Arena</label
+                    >
                     <input
                         v-model="field.name"
                         :id="'field-name-' + index"
                         type="text"
                         class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 p-2"
-                        placeholder="Enter field/court name"
+                        placeholder="Masukkan nama lapangan/arena"
                     />
                 </div>
 
-                <!-- Sports Type (Checkboxes for better mobile experience) -->
+                <!-- Jenis Olahraga (Checkbox untuk pengalaman mobile yang lebih baik) -->
                 <div class="mb-6">
                     <label
                         :for="'field-sports-' + index"
                         class="block text-sm font-medium text-gray-700"
-                    >Sports Type</label>
+                        >Jenis Olahraga</label
+                    >
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                        <div v-for="sport in sportsList" :key="sport.sport_id" class="flex items-center">
+                        <div
+                            v-for="sport in sportsList"
+                            :key="sport.sport_id"
+                            class="flex items-center"
+                        >
                             <input
                                 type="checkbox"
                                 :id="'sport-' + sport.sport_id + '-' + index"
@@ -116,17 +146,19 @@ const handleFieldImageUpload = (e, index) => {
                             <label
                                 :for="'sport-' + sport.sport_id + '-' + index"
                                 class="text-sm text-gray-700"
-                            >{{ sport.name }}</label>
+                                >{{ sport.name }}</label
+                            >
                         </div>
                     </div>
                 </div>
 
-                <!-- Field Image Upload -->
+                <!-- Unggah Gambar Lapangan -->
                 <div class="mb-6">
                     <label
                         :for="'field-image-' + index"
                         class="block text-sm font-medium text-gray-700"
-                    >Field Image</label>
+                        >Gambar Lapangan</label
+                    >
                     <input
                         type="file"
                         :id="'field-image-' + index"
@@ -136,18 +168,19 @@ const handleFieldImageUpload = (e, index) => {
                     <div v-if="field.imageUrl" class="mt-2">
                         <img
                             :src="field.imageUrl"
-                            alt="Field Image"
+                            alt="Gambar Lapangan"
                             class="w-full h-40 object-cover rounded-md shadow-md"
                         />
                     </div>
                 </div>
 
-                <!-- Equipment for the Field -->
+                <!-- Peralatan untuk Lapangan -->
                 <div class="mb-6">
                     <label
                         :for="'field-equipment-' + index"
                         class="block text-sm font-medium text-gray-700"
-                    >Equipment</label>
+                        >Peralatan</label
+                    >
                     <div
                         v-for="(equipment, eqIndex) in field.equipment"
                         :key="eqIndex"
@@ -156,14 +189,14 @@ const handleFieldImageUpload = (e, index) => {
                         <input
                             v-model="equipment.name"
                             type="text"
-                            placeholder="Equipment name"
+                            placeholder="Nama peralatan"
                             class="mr-2 mb-2 md:mb-0 md:w-2/3 border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 p-2"
                         />
                         <input
                             v-model="equipment.quantity"
                             type="number"
                             min="1"
-                            placeholder="Quantity"
+                            placeholder="Jumlah"
                             class="w-full md:w-1/3 border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 p-2"
                         />
                     </div>
@@ -172,28 +205,28 @@ const handleFieldImageUpload = (e, index) => {
                         @click="addEquipment(index)"
                         class="text-green-500 hover:text-green-600 text-sm font-medium"
                     >
-                        + Add Equipment
+                        + Tambah Peralatan
                     </button>
                 </div>
 
-                <!-- Remove Field Button -->
+                <!-- Hapus Tombol Lapangan -->
                 <button
                     type="button"
                     @click="removeField(index)"
                     class="w-full py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition duration-200"
                 >
-                    Remove Field/Court
+                    Hapus Lapangan/Arena
                 </button>
             </div>
 
-            <!-- Add New Field/Court Button -->
+            <!-- Tambah Tombol Lapangan/Arena Baru -->
             <div class="flex justify-end">
                 <button
                     type="button"
                     @click="addField"
                     class="px-6 py-3 bg-green-500 text-white rounded-md hover:bg-green-600 transition duration-200"
                 >
-                    + Add New Field/Court
+                    + Tambah Lapangan/Arena Baru
                 </button>
             </div>
         </div>
