@@ -1,10 +1,10 @@
 <template>
-    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
-        <h2 class="text-xl font-semibold mb-4 text-gray-800">Facility Information</h2>
+    <div class="w-full max-w-5xl bg-white rounded-lg shadow-lg p-6 sm:p-8 mb-6">
+        <h2 class="text-2xl sm:text-3xl font-bold mb-6 text-gray-800">Facility Information</h2>
 
         <!-- Add Fields/Courts Section -->
-        <div v-for="(field, index) in fields" :key="index" class="mb-6">
-            <h3 class="text-lg font-semibold mb-2">Field/Court {{ index + 1 }}</h3>
+        <div v-for="(field, index) in fields" :key="index" class="mb-6 p-4 border rounded-lg shadow-md bg-gray-50">
+            <h3 class="text-lg sm:text-xl font-semibold mb-2">Field/Court {{ index + 1 }}</h3>
 
             <!-- Field Name -->
             <div class="mb-4">
@@ -22,7 +22,7 @@
             <div class="mb-4">
                 <label :for="'field-sports-' + index" class="block text-sm font-medium text-gray-700">Sports Type</label>
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
-                    <div v-for="sport in sportsList" :key="sport.sport_id">
+                    <div v-for="sport in sportsList" :key="sport.sport_id" class="flex items-center">
                         <input
                             type="checkbox"
                             :id="'sport-' + sport.sport_id + '-' + index"
@@ -73,7 +73,7 @@
             </div>
 
             <!-- Remove Field Button -->
-            <button type="button" @click="removeField(index)" class="text-red-500 hover:text-red-600 text-sm font-medium">
+            <button type="button" @click="removeField(index)" class="w-full py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition duration-200">
                 Remove Field/Court
             </button>
         </div>
@@ -86,8 +86,8 @@
         </div>
 
         <!-- Next and Previous Buttons -->
-        <div class="flex justify-between mt-6">
-            <button type="button" @click="previousStep" class="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400">Back</button>
+        <div class="flex flex-col sm:flex-row justify-between mt-6">
+            <button type="button" @click="previousStep" class="mb-2 sm:mb-0 sm:mr-2 px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400">Back</button>
             <button type="button" @click="nextStep" class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">Next</button>
         </div>
     </div>

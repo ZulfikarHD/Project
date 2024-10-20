@@ -1,30 +1,30 @@
 <template>
-    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
-        <h2 class="text-xl font-semibold mb-4 text-gray-800">Venue Information</h2>
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6 max-w-full sm:max-w-lg mx-auto min-w-0 md:min-w-full ">
+        <h2 class="text-2xl font-semibold mb-4 text-gray-800 text-center">Venue Information</h2>
 
         <!-- Venue Name -->
         <div class="mb-4">
             <label for="venue-name" class="block text-sm font-medium text-gray-700">Venue Name</label>
-            <input v-model="venue.name" type="text" id="venue-name" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500" placeholder="Enter venue name" />
+            <input v-model="venue.name" type="text" id="venue-name" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 p-2" placeholder="Enter venue name" />
         </div>
 
         <!-- Venue Address -->
         <div class="mb-4">
             <label for="venue-address" class="block text-sm font-medium text-gray-700">Venue Address</label>
-            <input v-model="venue.address" type="text" id="venue-address" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500" placeholder="Enter venue address" />
+            <input v-model="venue.address" type="text" id="venue-address" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 p-2" placeholder="Enter venue address" />
         </div>
 
         <!-- Venue Location on Map -->
         <div class="mb-4">
             <label for="venue-location" class="block text-sm font-medium text-gray-700">Venue Location</label>
-            <div id="map" class="h-64 w-full mb-2"></div>
-            <p class="text-xs text-gray-500">Click on the map to set the venue's location.</p>
+            <div id="map" class="h-64 w-full mb-2 rounded-md shadow-sm"></div>
+            <p class="text-xs text-gray-500 text-center">Click on the map to set the venue's location.</p>
         </div>
 
         <!-- Venue Description -->
         <div class="mb-4">
             <label for="venue-description" class="block text-sm font-medium text-gray-700">Venue Description</label>
-            <textarea v-model="venue.description" id="venue-description" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500" rows="4" placeholder="Enter a description for the venue"></textarea>
+            <textarea v-model="venue.description" id="venue-description" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 p-2" rows="4" placeholder="Enter a description for the venue"></textarea>
         </div>
 
         <!-- Venue Pictures -->
@@ -48,7 +48,7 @@
             </div>
             <div v-if="venue.pictures.length">
                 <p class="text-sm font-medium mt-2">Uploaded Pictures:</p>
-                <ul>
+                <ul class="list-disc pl-5">
                     <li v-for="(picture, index) in venue.pictures" :key="index" class="text-sm text-gray-600">{{ picture.name }}</li>
                 </ul>
             </div>
@@ -56,7 +56,7 @@
 
         <!-- Next Button -->
         <div class="flex justify-end mt-6">
-            <button @click="nextStep" class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">Next</button>
+            <button @click="nextStep" class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition duration-200">Next</button>
         </div>
     </div>
 </template>

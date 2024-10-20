@@ -1,22 +1,22 @@
 <template>
-    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
-        <h2 class="text-xl font-semibold mb-4 text-gray-800">Availability & Pricing</h2>
+    <div class="w-full max-w-5xl bg-white rounded-lg shadow-lg p-6 sm:p-8 mb-6 transition duration-300 ease-in-out transform hover:shadow-xl">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">Ketersediaan & Harga</h2>
 
         <!-- Time Slot Batch Creation with Day Selection -->
-        <div class="mb-6">
-            <h3 class="text-lg font-semibold mb-4">Auto-Generate Time Slots</h3>
+        <div class="mb-8">
+            <h3 class="text-xl font-semibold mb-4">Auto-Generate Time Slots</h3>
 
             <!-- Checkbox for Days Selection -->
-            <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="grid grid-cols-2 gap-4 mb-6 sm:gap-6">
                 <div v-for="(day, index) in daysOfWeek" :key="index" class="flex items-center">
-                    <input type="checkbox" v-model="daysSelected" :value="index" class="mr-2" />
-                    <label>{{ day.name }}</label>
+                    <input type="checkbox" v-model="daysSelected" :value="index" class="mr-3 h-5 w-5 text-green-600 border-gray-300 rounded focus:ring-green-500" />
+                    <label class="text-lg text-gray-800">{{ day.name }}</label>
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="grid grid-cols-2 gap-4 mb-6 sm:gap-6">
                 <div>
-                    <label for="start-time" class="block text-sm font-medium text-gray-700">Start Time</label>
+                    <label for="start-time" class="block text-sm font-medium text-gray-700">Waktu Mulai</label>
                     <input
                         type="time"
                         v-model="batchTime.start"
@@ -25,7 +25,7 @@
                     />
                 </div>
                 <div>
-                    <label for="end-time" class="block text-sm font-medium text-gray-700">End Time</label>
+                    <label for="end-time" class="block text-sm font-medium text-gray-700">Waktu Selesai</label>
                     <input
                         type="time"
                         v-model="batchTime.end"
@@ -34,7 +34,7 @@
                     />
                 </div>
                 <div>
-                    <label for="session-duration" class="block text-sm font-medium text-gray-700">Session Duration (minutes)</label>
+                    <label for="session-duration" class="block text-sm font-medium text-gray-700">Durasi Sesi (menit)</label>
                     <input
                         type="number"
                         v-model="batchTime.duration"
@@ -46,7 +46,7 @@
                     />
                 </div>
                 <div>
-                    <label for="default-price" class="block text-sm font-medium text-gray-700">Default Price per Session</label>
+                    <label for="default-price" class="block text-sm font-medium text-gray-700">Harga Default per Sesi</label>
                     <input
                         type="number"
                         v-model="batchTime.price"
@@ -58,7 +58,7 @@
                 </div>
             </div>
 
-            <button type="button" @click="generateTimeSlots" class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
+            <button type="button" @click="generateTimeSlots" class="px-6 py-3 bg-green-500 text-white rounded-md hover:bg-green-600 transition duration-200">
                 Auto-Generate Time Slots
             </button>
         </div>
@@ -68,15 +68,15 @@
             <div v-for="(day, index) in daysOfWeek" :key="index" class="mb-6">
                 <div
                     @click="toggleAccordion(index)"
-                    class="cursor-pointer bg-gray-200 px-4 py-2 rounded-md flex justify-between items-center"
+                    class="cursor-pointer bg-gray-100 px-4 py-3 rounded-md flex justify-between items-center transition duration-200 hover:bg-gray-200"
                 >
-                    <h3 class="text-lg font-semibold">{{ day.name }}</h3>
+                    <h3 class="text-lg font-semibold text-gray-800">{{ day.name }}</h3>
                     <svg
                         :class="{
                             'transform rotate-180': openAccordions.includes(index),
                         }"
                         xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5"
+                        class="h-5 w-5 text-gray-600"
                         viewBox="0 0 20 20"
                         fill="currentColor"
                     >
@@ -107,15 +107,15 @@
                                 v-model="slot.price"
                                 class="w-1/4 border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
                             />
-                            <button type="button" @click="removeTimeSlot(index, slotIndex)" class="text-red-500 hover:text-red-600 text-sm font-medium ml-2">
-                                Remove
+                            <button type="button" @click="removeTimeSlot(index, slotIndex)" class="text-red-600 hover:text-red-700 text-sm font-medium ml-2">
+                                Hapus
                             </button>
                         </div>
 
                         <!-- Option to remove the entire day with confirmation -->
                         <div class="mt-4">
-                            <button type="button" @click="confirmRemoveDay(index)" class="text-red-500 hover:text-red-600 text-sm font-medium">
-                                Remove {{ day.name }}
+                            <button type="button" @click="confirmRemoveDay(index)" class="text-red-600 hover:text-red-700 text-sm font-medium">
+                                Hapus {{ day.name }}
                             </button>
                         </div>
                     </div>
@@ -124,9 +124,9 @@
         </transition-group>
 
         <!-- Next and Previous Buttons -->
-        <div class="flex justify-between mt-6">
-            <button type="button" @click="previousStep" class="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400">Back</button>
-            <button type="button" @click="nextStep" class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">Next</button>
+        <div class="flex justify-between mt-8">
+            <button type="button" @click="previousStep" class="px-6 py-3 bg-gray-300 rounded-md hover:bg-gray-400 transition duration-200">Kembali</button>
+            <button type="button" @click="nextStep" class="px-6 py-3 bg-green-500 text-white rounded-md hover:bg-green-600 transition duration-200">Selanjutnya</button>
         </div>
     </div>
 </template>

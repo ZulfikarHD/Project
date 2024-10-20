@@ -26,7 +26,7 @@ class FieldController extends Controller
     {
         $user = Auth::user();
         return Inertia::render('Owner/FieldManagement/CreateField/Index',[
-            'listVenue' => Venue::where('owner_id',$user->id)->get(),
+            'listVenue' => Venue::where('owner_id',$user->user_id)->get(),
         ]);
     }
 
