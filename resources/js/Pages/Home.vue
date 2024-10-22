@@ -3,7 +3,16 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import SearchBarVenue from "@/Components/SearchBarVenue.vue";
 import VenueCard from "@/Components/Card/VenueCard.vue";
 import { Head } from "@inertiajs/vue3";
+import { ref } from "vue";
 
+const props = defineProps({
+    venues : Object,
+    recVenues : Object,
+});
+
+const venues = ref(props.venues);
+const recVenues = ref(props.recVenues);
+console.log(venues);
 </script>
 
 <template>
@@ -62,15 +71,15 @@ import { Head } from "@inertiajs/vue3";
         <!-- Rekomendasi Venue -->
         <section class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mt-10">
-                <h2 class="text-2xl font-semibold text-slate-800 mb-4">
+                <h2 class="text-3xl font-bold text-green-600 mb-6 text-center">
                     Rekomendasi Venue
                 </h2>
                 <!-- Scrollable Container -->
                 <div
-                    class="flex overflow-x-auto no-scrollbar gap-4 sm:gap-8 py-4 scroll-smooth rounded-lg"
+                    class="flex overflow-x-auto no-scrollbar gap-4 py-4 scroll-smooth rounded-lg"
                 >
-                    <template v-for="i in 8" :key="i">
-                       <VenueCard></VenueCard>
+                    <template v-for="recVenue in recVenues" :key="'reccomend' + recVenue.venue_id">
+                       <VenueCard :venueProps="recVenue" class="flex-shrink-0 w-56 sm:w-64 transition-transform transform hover:scale-105" />
                     </template>
                 </div>
             </div>
@@ -79,54 +88,15 @@ import { Head } from "@inertiajs/vue3";
         <!-- List Venue -->
         <section class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mt-10">
-                <h2 class="text-2xl font-semibold text-slate-800 mb-4">
+                <h2 class="text-3xl font-bold text-green-600 mb-6 text-center">
                     List Venue
                 </h2>
                 <!-- Scrollable Container -->
                 <div
-                    class="flex no-scrollbar gap-8 sm:gap-8 py-4 scroll-smooth rounded-lg flex-wrap justify-between"
+                    class="flex no-scrollbar gap-4 py-4 scroll-smooth rounded-lg flex-wrap justify-center"
                 >
-                    <template v-for="i in 8" :key="i">
-                        <a
-                            href="#"
-                            class="flex-shrink-0 bg-white rounded-lg shadow-lg overflow-hidden min-w-[12rem] sm:min-w-[16rem] relative hover:scale-105 transition transform ease-in-out duration-200"
-                        >
-                            <img
-                                src=""
-                                alt="venueimg"
-                                class="w-full h-32 sm:h-48 object-cover"
-                            />
-                            <div
-                                class="absolute top-0 left-0 bg-green-600 text-green-50 px-2 py-1 rounded-br-lg font-light text-xs flex items-center gap-1"
-                            >
-                                <Heart class="w-4 h-4" />
-                                Karawang
-                            </div>
-                            <div class="p-4">
-                                <h3
-                                    class="text-lg font-semibold text-slate-600 brightness-95"
-                                >
-                                    Sehat Futsal
-                                </h3>
-                                <p
-                                    class="text-green-700 brightness-110 text-lg mt-0.5"
-                                >
-                                    Rp 100.000
-                                </p>
-                                <p class="text-slate-400 text-xs">Per-Sesi</p>
-                                <div
-                                    class="flex justify-start mt-4 gap-2 items-center"
-                                >
-                                    <img src="" alt="user" class="size-5" />
-                                    <p class="text-green-700 brightness-110">
-                                        3
-                                    </p>
-                                    <p class="text-slate-400 text-xs -ml-1">
-                                        Lapangan
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
+                    <template v-for="venue in venues" :key="'list' + venue.venue_id">
+                       <VenueCard :venueProps="venue" class="flex-shrink-0 w-56 sm:w-64 transition-transform transform hover:scale-105" />
                     </template>
                 </div>
             </div>

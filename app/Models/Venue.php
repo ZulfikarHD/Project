@@ -44,7 +44,12 @@ class Venue extends Model
 
     public function timeSlots() : HasMany
     {
-        return $this->hasMany(TimeSlot::class);
+        return $this->hasMany(TimeSlot::class, 'venue_id','venue_id');
+    }
+
+    public function startingPrice() : HasMany
+    {
+        return $this->hasMany(TimeSlot::class, 'venue_id','venue_id')->limit(1);
     }
 
 }

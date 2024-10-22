@@ -14,6 +14,6 @@ class TimeSlot extends Model
 
     public function venue() : BelongsTo
     {
-        return $this->belongsTo(Venue::class, 'venue_id');
+        return $this->belongsTo(Venue::class, 'venue_id', 'venue_id');
     }
 }
