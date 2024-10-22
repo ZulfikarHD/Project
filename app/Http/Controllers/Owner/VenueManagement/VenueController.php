@@ -127,7 +127,16 @@ class VenueController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $fieldData = VenueField::with('fieldImages', 'venueFieldSports', 'venue.pictures')
+            ->where('field_id', $id)
+            ->get();
+
+        $totalVenueImages = VenuePicture::where('venue_id', $fieldData->first()->venue->venue_id)->count();
+
+        return Inertia::render('Venues/VenueDetail', [
+            'fields'    => $fieldData,
+            'totalVenueImages'  => $totalVenueImages
+        ]);
     }
 
     /**

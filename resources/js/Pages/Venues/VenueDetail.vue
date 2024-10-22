@@ -18,6 +18,16 @@ import {
   ChevronUp,
 } from "lucide-vue-next";
 
+const props = defineProps({
+    fields: Object,
+    totalVenueImages: Number,
+});
+
+const fields = ref(props.fields[0]);
+const venueImage = ref(fields.value.venue.pictures[0].image_url ?? "");
+const venueImages = ref(fields.value.venue.pictures ?? "");
+const totalVenueImages = ref(props.totalVenueImages ?? 0);
+
 const carousel = ref(null);
 
 // Scrolls the carousel to the right by the width of one card
@@ -43,6 +53,8 @@ const isAccordionOpen = ref(false);
 const toggleAccordion = () => {
   isAccordionOpen.value = !isAccordionOpen.value;
 };
+
+console.log(fields);
 </script>
 
 <template>
@@ -65,11 +77,13 @@ const toggleAccordion = () => {
     <section>
       <div class="max-w-6xl flex flex-col gap-6 mx-auto mt-14 px-4 lg:px-0 pb-16">
         <!-- Main Image -->
-        <div class="w-full rounded-lg h-48 lg:h-96 shadow-lg bg-slate-200"></div>
+        <div class="w-full rounded-lg h-48 lg:h-96 shadow-lg bg-slate-200 overflow-hidden">
+            <img :src="venueImage" class="object-cover w-full h-full" />
+        </div>
 
         <!-- Sub Image -->
-        <div class="md:flex gap-4 justify-between hidden">
-          <template v-for="i in 4" :key="i">
+        <div v-if="totalVenueImages > 1" class="md:flex gap-4 justify-between hidden">
+          <template v-for="venueImage in venueImages" :key="venueImage.venue_picture_id">
             <div class="rounded-lg h-32 w-64 shadow-lg bg-slate-200 flex-auto"></div>
           </template>
         </div>
@@ -82,12 +96,12 @@ const toggleAccordion = () => {
         <!-- Venue Description -->
         <div>
           <!-- Venue Name -->
-          <h1 class="font-bold text-xl text-green-600">Sehat Sport</h1>
+          <h1 class="font-bold text-xl text-green-600">{{ fields.venue.name }}</h1>
 
           <!-- Venue Location -->
           <div class="flex items-center mt-4 leading-tight">
             <MapPin class="size-4 text-slate-600 mr-3"></MapPin>
-            <p class="text-slate-700">Jawa Barat, Indonesia</p>
+            <p class="text-slate-700">{{ fields.venue.address }}</p>
           </div>
 
           <!-- Venue Operation Time -->
@@ -99,7 +113,7 @@ const toggleAccordion = () => {
           <!-- Venue Description -->
           <div class="mt-4 max-w-[60ch]">
             <p class="text-sm font-light text-slate-500">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus possimus nisi vero perspiciatis error eligendi quaerat eius quam est minus!
+              {{ fields.venue.description }}
             </p>
           </div>
         </div>
@@ -204,7 +218,7 @@ const toggleAccordion = () => {
         <div class="flex flex-col w-full flex-1 px-4">
           <div class="pt-4 pb-6 border-b border-slate-200 flex justify-between flex-wrap gap-4">
             <div>
-              <h1 class="font-bold text-xl">Lapangan 1</h1>
+              <h1 class="font-bold text-xl"></h1>
               <div class="mt-4 max-w-[30ch]">
                 <p class="text-sm font-light text-slate-500 line-clamp-3">
                   Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus possimus nisi vero perspiciatis error eligendi quaerat eius quam est minus!

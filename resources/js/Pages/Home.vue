@@ -21,7 +21,7 @@ console.log(venues);
     <AppLayout>
         <!-- Hero Image Section -->
         <div class="absolute top-0 w-full h-[50vh]">
-            <img src="" alt="tools" class="w-full h-full object-cover" />
+            <img src="/storage/images/hero-image.jpg" alt="tools" class="w-full h-full object-cover" />
         </div>
 
         <!-- Hero Image Overlay -->
