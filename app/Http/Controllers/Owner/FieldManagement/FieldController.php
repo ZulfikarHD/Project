@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Owner\FieldManagement;
 
-use App\Models\VenueField;
+use App\Models\Field;
 use App\Http\Controllers\Controller;
 use App\Models\Venue;
 use Illuminate\Http\Request;
@@ -33,11 +33,11 @@ class FieldController extends Controller
     public function fieldData() : Collection
     {
         // venue,field_name,lokasi,gambar,sports_available
-        $venue = VenueField::select('field_id', 'venue_id', 'name')
+        $venue = Field::select('field_id', 'venue_id', 'name')
                         ->with(
                             'venue:venue_id,owner_id,name,address',
                             'fieldImages:id,field_id,image_url',
-                            'venueFieldSports'
+                            'FieldSports'
                         )
                         ->whereRelation('venue', 'owner_id', Auth::user()->user_id)
                         ->get();

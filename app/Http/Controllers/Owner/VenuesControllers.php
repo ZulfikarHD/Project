@@ -7,7 +7,7 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Venue;
-use App\Models\VenueField;
+use App\Models\Field;
 use App\Models\TimeSlot;
 
 class VenuesController extends Controller
@@ -92,7 +92,7 @@ class VenuesController extends Controller
 
     //        // Create the fields
     //        foreach ($validatedData['fields'] as $fieldData) {
-    //            $field = new VenueField();
+    //            $field = new Field();
     //            $field->venue_id = $venue->id;
     //            $field->name = $fieldData['name'];
     //            $field->sports = json_encode($fieldData['sports'] ?? []);

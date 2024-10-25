@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Venue extends Model
 {
@@ -16,15 +17,17 @@ class Venue extends Model
     protected $fillable = [
         'owner_id',
         'name',
-        'address',
         'description',
-        'latitude',
-        'longitude',
     ];
 
     public function owner(): BelongsTo
     {
         return $this->belongsTo(Owner::class, 'owner_id');
+    }
+
+    public function address(): HasOne
+    {
+        return $this->hasOne(VenueAddress::class, 'venue_address_id');
     }
 
     public function sports(): HasMany
@@ -39,7 +42,7 @@ class Venue extends Model
 
     public function fields() : HasMany
     {
-        return $this->hasMany(VenueField::class);
+        return $this->hasMany(Field::class);
     }
 
     public function timeSlots() : HasMany

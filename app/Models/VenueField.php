@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class VenueField extends Model
+class Field extends Model
 {
     use HasFactory;
 
@@ -23,9 +23,9 @@ class VenueField extends Model
         return $this->hasMany(FieldImage::class, 'field_id', 'field_id');
     }
 
-    public function venueFieldSports() : HasMany
+    public function FieldSports() : HasMany
     {
-        return $this->hasMany(VenueFieldSport::class, 'venue_field_id', 'field_id');
+        return $this->hasMany(FieldSport::class, 'field_id', 'field_id');
     }
 
     // Accessors for sports and equipment JSON

@@ -11,8 +11,8 @@ use App\Models\FieldImage;
 use App\Models\Sport;
 use App\Models\TimeSlot;
 use App\Models\Venue;
-use App\Models\VenueField;
-use App\Models\VenueFieldSport;
+use App\Models\Field;
+use App\Models\FieldSport;
 use App\Models\VenuePicture;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -74,8 +74,8 @@ class VenueController extends Controller
                 $venueImagePaths[] = $venueImagePath;  // Save the path of the stored file
             }
 
-            foreach ($request->venueFields as $field) {
-                $storeVenueFields = VenueField::create([
+            foreach ($request->fields as $field) {
+                $storefields = Field::create([
                     'venue_id'  => $storeVenue->venue_id,
                     'name'      => $field['name'],
                     'image_url' => $field['imageUrl'],
@@ -84,18 +84,18 @@ class VenueController extends Controller
 
                 // Store Field Image
                 $fieldImage = $field['image'];
-                $fieldImageName = $storeVenueFields->id . '-' . \Str::uuid() . '.' . $fieldImage->getClientOriginalExtension();
+                $fieldImageName = $storeFields->id . '-' . \Str::uuid() . '.' . $fieldImage->getClientOriginalExtension();
                 $fieldImagePath = $fieldImage->storeAs('field-images', $fieldImageName, 'public');
                 $fieldImageUrl  = Storage::url($fieldImagePath);
                 $storeFieldUrl  = FieldImage::updateOrCreate(
-                    ['field_id'  => $storeVenueFields->id],
+                    ['field_id'  => $storeFields->id],
                     ['image_url' => $fieldImageUrl]
                 );
 
                 // Store Sports
                 foreach ($field['sports'] as $sport) {
-                    $storeVenueFieldSports = VenueFieldSport::create([
-                        'venue_field_id'    => $storeVenueFields->id,
+                    $storeFieldSports = FieldSport::create([
+                        'field_id'    => $storeFields->id,
                         'sport_id'  => $sport,
                     ]);
                 }
@@ -127,7 +127,7 @@ class VenueController extends Controller
      */
     public function show(string $id)
     {
-        $fieldData = VenueField::with('fieldImages', 'venueFieldSports', 'venue.pictures')
+        $fieldData = Field::with('fieldImages', 'fieldSports', 'venue.pictures')
             ->where('field_id', $id)
             ->get();
 

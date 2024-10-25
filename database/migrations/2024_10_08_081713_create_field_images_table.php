@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('field_images', function (Blueprint $table) {
             $table->id();
             $table->foreignId('field_id')
-                ->constrained('venue_fields')
+                ->constrained('fields')
                 ->references('field_id')
                 ->onUpdate('CASCADE')
                 ->onDelete('NO ACTION');

@@ -58,7 +58,7 @@ const submitVenue = () => {
       venueDescription: venue.description,
       venueOpenDay: venue.availability.days,
       venuePictures: venue.pictures,
-      venueFields: venue.fields,
+      fields: venue.fields,
     });
 
     router.post("/api/owner/venues", venueData);

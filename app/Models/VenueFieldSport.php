@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class VenueFieldSport extends Model
+class FieldSport extends Model
 {
     use HasFactory;
 
-    protected $table = "venue_field_sports";
+    protected $table = "field_sports";
 
     protected $fillable = [
-        'venue_field_id',
+        'field_id',
         'sport_id',
     ];
 

@@ -135,7 +135,7 @@ const deleteField = () => {
                         <td class="py-2 px-4 border-b">{{ field.venue.address }}</td>
                         <td class="py-2 px-4 border-b">
                             <div class="flex gap-2">
-                                <span v-for="sportType in field.venue_field_sports" class="px-3 py-1.5 bg-green-200 text-green-800 rounded-lg text-sm">{{ sportType.sport_id }}</span>
+                                <span v-for="sportType in field.field_sports" class="px-3 py-1.5 bg-green-200 text-green-800 rounded-lg text-sm">{{ sportType.sport_id }}</span>
                             </div>
                         </td>
                         <td class="py-2 px-4 border-b">-</td>
