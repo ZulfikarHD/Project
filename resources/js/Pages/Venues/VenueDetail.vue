@@ -155,6 +155,7 @@ console.log(fields);
     <section class="max-w-6xl flex flex-col gap-6 mx-auto mt-4 px-4 lg:px-0 pb-4 border-b border-slate-300">
       <h1 class="font-bold text-xl">Fasilitas</h1>
       <div class="flex gap-4 flex-wrap">
+
         <div class="flex gap-4 items-center mt-1.5 flex-wrap">
           <div class="flex flex-wrap gap-2 bg-slate-500 px-2 py-1 rounded-md">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-slate-50" viewBox="0 0 31.446 31.446">

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('venue_id')->constrained('venues')->references('venue_id')
                 ->onUpdate('CASCADE')
                 ->onDelete('NO ACTION');
-            $table->foreignId('owner_id')->constrained('venue_owners')->references('owner_id')
+            $table->foreignId('owner_id')->constrained('owners')->references('owner_id')
                 ->onUpdate('CASCADE')
                 ->onDelete('NO ACTION');
             $table->integer('rating');

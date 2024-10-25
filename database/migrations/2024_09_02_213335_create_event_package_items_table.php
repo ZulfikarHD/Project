@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('event_package_items', function (Blueprint $table) {
             $table->id('package_id');
-            $table->foreignId('owner_id')->constrained('venue_owners')->references('owner_id')
+            $table->foreignId('owner_id')->constrained('owners')->references('owner_id')
                 ->onUpdate('CASCADE')
                 ->onDelete('NO ACTION');
             $table->string('name');

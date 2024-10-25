@@ -22,7 +22,7 @@ class EventPackage extends Model
 
     public function owner() : BelongsTo
     {
-        return $this->belongsTo(VenueOwner::class, 'owner_id');
+        return $this->belongsTo(Owner::class, 'owner_id');
     }
 
     public function items(): HasMany

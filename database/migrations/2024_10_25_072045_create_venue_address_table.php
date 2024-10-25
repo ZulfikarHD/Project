@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('event_packages', function (Blueprint $table) {
-            $table->id('package_id');
-            $table->foreignId('owner_id')->constrained('owners')->references('owner_id');
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->decimal('base_price', 8, 2);
+        Schema::create('venue_address', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
         });
     }
@@ -26,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('event_packages');
+        Schema::dropIfExists('venue_address');
     }
 };
