@@ -5,10 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-use App\Models\Field;
-use App\Models\VenueImage;
-
-use App\Services\VenueService\VenueManagementService;
+use App\Services\VenueServices\VenueManagementService;
 
 class VenueController extends Controller
 {
@@ -27,12 +24,11 @@ class VenueController extends Controller
     public function venueDetail(string $id)
     {
         $venueData = $this->venueManagementService->getVenueData($id);
-
         dd($venueData);
 
         return Inertia::render('Venues/VenueDetail', [
-            'fields'    => $fieldData,
-            'totalVenueImages'  => $totalVenueImages
+            'fields'    => $venueData['fields'],
+            'totalVenueImages'  => $venueData['countedImages']
         ]);
     }
 }

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class FieldSport extends Model
 {
@@ -17,4 +19,9 @@ class FieldSport extends Model
     ];
 
     public $timestamps = false;
+
+    public function sportData() : HasOne
+    {
+        return $this->hasOne(Sport::class, 'sport_id', 'sport_id');
+    }
 }
