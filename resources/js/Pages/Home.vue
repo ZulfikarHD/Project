@@ -31,7 +31,7 @@ console.log(venues);
 
         <!-- Search Lapangan -->
         <div
-            class="relative z-10 mt-[30vh] container mx-auto px-4 sm:px-6 lg:px-8"
+            class="relative z-10 mt-[30vh] container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl"
         >
             <!-- Slogan -->
             <h1

@@ -16,7 +16,7 @@ class CreateTimeSlotsTable extends Migration
             $table->string('day'); // e.g., Monday, Tuesday
             $table->time('start_time');
             $table->time('end_time');
-            $table->decimal('price', 8, 2); // Pricing per session
+            $table->decimal('price', 10, 2); // Pricing per session
             $table->timestamps();
         });
     }
