@@ -127,7 +127,7 @@ class VenueController extends Controller
      */
     public function show(string $id)
     {
-        $fieldData = Field::with('fieldImages', 'fieldSports', 'venue.pictures')
+        $fieldData = Field::with('fieldImages', 'fieldSports', 'venue.images')
             ->where('field_id', $id)
             ->get();
 

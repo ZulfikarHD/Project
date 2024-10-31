@@ -35,7 +35,7 @@ class Venue extends Model
         return $this->hasMany(VenueSport::class, 'venue_id');
     }
 
-    public function pictures(): HasMany
+    public function images(): HasMany
     {
         return $this->hasMany(VenueImage::class, 'venue_id');
     }

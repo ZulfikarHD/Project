@@ -25,7 +25,7 @@ const venue = reactive({
   description: "",
   availability: [], // Open/close times and reservation slots with pricing
 
-  pictures: [], // Pictures for the venue
+  images: [], // images for the venue
   fields: [], // Facility info: fields/courts with sports type
   availability: [], // Open/close times and reservation slots with pricing
 });
@@ -57,7 +57,7 @@ const submitVenue = () => {
       venueLocation: venue.location,
       venueDescription: venue.description,
       venueOpenDay: venue.availability.days,
-      VenueImages: venue.pictures,
+      VenueImages: venue.images,
       fields: venue.fields,
     });
 

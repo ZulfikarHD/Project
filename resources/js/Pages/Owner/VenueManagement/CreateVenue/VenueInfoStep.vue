@@ -46,10 +46,10 @@
                     <p class="text-xs text-gray-500">PNG, JPG up to 5MB</p>
                 </div>
             </div>
-            <div v-if="venue.pictures.length">
+            <div v-if="venue.images.length">
                 <p class="text-sm font-medium mt-2">Uploaded Pictures:</p>
                 <ul class="list-disc pl-5">
-                    <li v-for="(picture, index) in venue.pictures" :key="index" class="text-sm text-gray-600">{{ picture.name }}</li>
+                    <li v-for="(picture, index) in venue.images" :key="index" class="text-sm text-gray-600">{{ picture.name }}</li>
                 </ul>
             </div>
         </div>
@@ -102,7 +102,7 @@ const initMap = () => {
 const handleFileUpload = (e) => {
     const files = e.target.files;
     for (let i = 0; i < files.length; i++) {
-        venue.value.pictures.push(files[i]);
+        venue.value.images.push(files[i]);
     }
 };
 

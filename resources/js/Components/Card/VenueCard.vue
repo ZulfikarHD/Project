@@ -16,7 +16,7 @@ const venueProps = ref(props.venueProps);
     >
         <!-- Venue Image -->
         <img
-            :src="venueProps.pictures[0].image_url"
+            :src="venueProps.images[0].image_url"
             alt="venueimg"
             class="w-full h-32 sm:h-48 object-cover rounded-t-lg transition-transform duration-300 ease-in-out hover:scale-105"
         />

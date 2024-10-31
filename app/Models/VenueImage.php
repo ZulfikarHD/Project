@@ -10,7 +10,8 @@ class VenueImage extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'venue_picture_id';
+    protected $primaryKey = 'venue_image_id';
+    protected $table = 'venue_images';
 
     protected $fillable = [
         'venue_id',
@@ -22,4 +23,10 @@ class VenueImage extends Model
     {
         return $this->belongsTo(Venue::class, 'venue_id');
     }
+
+    public static function countImagesByVenueId($venueId)
+    {
+        return self::where('venue_id', $venueId)->count();
+    }
+
 }

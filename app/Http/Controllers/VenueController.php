@@ -4,11 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+
 use App\Models\Field;
 use App\Models\VenueImage;
 
+use App\Services\VenueService\VenueManagementService;
+
 class VenueController extends Controller
 {
+    protected $venueManagementService;
+
+    public function __construct(VenueManagementService $venueManagementService)
+    {
+        $this->venueManagementService = $venueManagementService;
+    }
+
     public function index()
     {
 
@@ -16,11 +26,9 @@ class VenueController extends Controller
 
     public function venueDetail(string $id)
     {
-        $fieldData = Field::with('fieldImages', 'fieldSports', 'venue.pictures')
-            ->where('field_id', $id)
-            ->get();
+        $venueData = $this->venueManagementService->getVenueData($id);
 
-        $totalVenueImages = VenueImage::where('venue_id', $fieldData->first()->venue->venue_id)->count();
+        dd($venueData);
 
         return Inertia::render('Venues/VenueDetail', [
             'fields'    => $fieldData,

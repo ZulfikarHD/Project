@@ -2,12 +2,22 @@
 
 namespace App\Services\VenueService;
 
+use App\Models\Field;
 use App\Models\VenueImage;
 
 class VenueManagementService
 {
-    public function countVenueImageByUser(Integer $venueId)
+    public function getVenueData(Int $venueId)
     {
-        return VenueImage::where('venue_id', $fieldData->first()->venue->venue_id)->count();
+        $fieldData = Field::with('fieldImages', 'fieldSports', 'venue.images')
+            ->where('field_id', $venueId)
+            ->get();
+
+        $totalVenueImages = VenueImage::countImagesByVenueId($fieldData->first()->venue->venue_id);
+
+        return [
+            'fields' => $fieldData,
+            'totalVenueImages' => $totalVenueImages
+        ];
     }
 }

@@ -8,11 +8,11 @@
             <p class="text-gray-700"><strong>Name:</strong> {{ venue.name || 'N/A' }}</p>
             <p class="text-gray-700"><strong>Address:</strong> {{ venue.address || 'N/A' }}</p>
             <p class="text-gray-700"><strong>Description:</strong> {{ venue.description || 'N/A' }}</p>
-            <div v-if="venue.pictures && venue.pictures.length" class="mt-2">
+            <div v-if="venue.images && venue.images.length" class="mt-2">
                 <h4 class="font-medium">Pictures:</h4>
                 <div class="flex space-x-4">
                     <img
-                        v-for="(pic, index) in venue.pictures"
+                        v-for="(pic, index) in venue.images"
                         :key="index"
                         :src="getPictureUrl(pic)"
                         :alt="'Venue Picture ' + (index + 1)"

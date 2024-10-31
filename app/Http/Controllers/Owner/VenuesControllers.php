@@ -45,7 +45,7 @@ class VenuesController extends Controller
     //        'location.lat' => 'required|numeric',
     //        'location.lng' => 'required|numeric',
     //        'description' => 'nullable|string|max:1000',
-    //        'pictures.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120', // Max 5MB per image
+    //        'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120', // Max 5MB per image
 
     //        'fields' => 'required|array',
     //        'fields.*.name' => 'required|string|max:255',
@@ -79,14 +79,14 @@ class VenuesController extends Controller
     //        $venue->owner_id = auth()->id(); // Assuming the owner is the authenticated user
     //        $venue->save();
 
-    //        // Handle venue pictures
-    //        if ($request->hasFile('pictures')) {
+    //        // Handle venue images
+    //        if ($request->hasFile('images')) {
     //            $picturePaths = [];
-    //            foreach ($request->file('pictures') as $picture) {
-    //                $path = $picture->store('venue_pictures', 'public');
+    //            foreach ($request->file('images') as $picture) {
+    //                $path = $picture->store('venue_images', 'public');
     //                $picturePaths[] = $path;
     //            }
-    //            $venue->pictures = json_encode($picturePaths);
+    //            $venue->images = json_encode($picturePaths);
     //            $venue->save();
     //        }
 

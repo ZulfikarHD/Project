@@ -23,8 +23,8 @@ const props = defineProps({
 });
 
 const fields = ref(props.fields[0]);
-const venueImage = ref(fields.value.venue.pictures[0].image_url ?? "");
-const venueImages = ref(fields.value.venue.pictures ?? "");
+const venueImage = ref(fields.value.venue.images[0].image_url ?? "");
+const venueImages = ref(fields.value.venue.images ?? "");
 const totalVenueImages = ref(props.totalVenueImages ?? 0);
 
 const carousel = ref(null);
@@ -99,7 +99,7 @@ console.log(fields);
                 >
                     <template
                         v-for="venueImage in venueImages"
-                        :key="venueImage.venue_picture_id"
+                        :key="venueImage.venue_image_id"
                     >
                         <div
                             class="rounded-lg h-32 w-64 shadow-lg bg-slate-200 flex-auto"
