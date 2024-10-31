@@ -41,7 +41,7 @@ Route::get('/owner', function () {
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/find-venue ', [FindVenueController::class, 'index'])->name('home');
-Route::get('/venue-details/{id}', [VenueController::class, 'show'])->name('venue.venueDetails');
+Route::get('/venue-details/{id}', [App\Http\Controllers\VenueController::class, 'venueDetail'])->name('venue.venueDetails');
 
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');

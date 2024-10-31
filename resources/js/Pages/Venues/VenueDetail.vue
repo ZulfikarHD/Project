@@ -11,7 +11,6 @@ import {
     Clock,
     Search,
     Heart,
-    Link,
     ChevronRight,
     ChevronLeft,
     ChevronDown,
@@ -160,22 +159,6 @@ console.log(fields);
                             />
                             <span class="text-xs pl-6 text-green-800"
                                 >Futsal</span
-                            >
-                        </a>
-
-                        <a
-                            href="#"
-                            class="relative border border-green-600/70 px-2 py-0.5 rounded-md overflow-clip flex gap-2"
-                        >
-                            <div
-                                class="bg-green-500 rounded-xl -left-1 inset-y-0 h-[20px] w-[28px] z-0 ml-0.5 absolute"
-                            ></div>
-                            <img
-                                src="/svg/badminton.svg"
-                                class="absolute w-4 h-4 left-0 ml-1"
-                            />
-                            <span class="text-xs pl-6 text-green-800"
-                                >Badminton</span
                             >
                         </a>
                     </div>
