@@ -57,7 +57,7 @@ const submitVenue = () => {
       venueLocation: venue.location,
       venueDescription: venue.description,
       venueOpenDay: venue.availability.days,
-      venuePictures: venue.pictures,
+      VenueImages: venue.pictures,
       fields: venue.fields,
     });
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Field;
-use App\Models\VenuePicture;
+use App\Models\VenueImage;
 
 class VenueController extends Controller
 {
@@ -20,7 +20,7 @@ class VenueController extends Controller
             ->where('field_id', $id)
             ->get();
 
-        $totalVenueImages = VenuePicture::where('venue_id', $fieldData->first()->venue->venue_id)->count();
+        $totalVenueImages = VenueImage::where('venue_id', $fieldData->first()->venue->venue_id)->count();
 
         return Inertia::render('Venues/VenueDetail', [
             'fields'    => $fieldData,

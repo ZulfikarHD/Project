@@ -37,7 +37,7 @@ class Venue extends Model
 
     public function pictures(): HasMany
     {
-        return $this->hasMany(VenuePicture::class, 'venue_id');
+        return $this->hasMany(VenueImage::class, 'venue_id');
     }
 
     public function fields() : HasMany

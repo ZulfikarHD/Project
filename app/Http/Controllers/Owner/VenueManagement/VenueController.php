@@ -13,7 +13,7 @@ use App\Models\TimeSlot;
 use App\Models\Venue;
 use App\Models\Field;
 use App\Models\FieldSport;
-use App\Models\VenuePicture;
+use App\Models\VenueImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -60,13 +60,13 @@ class VenueController extends Controller
 
             // Store Venue Image
             $venueImagePaths = [];
-            foreach ($request->file('venuePictures') as $venueImage) {
+            foreach ($request->file('VenueImages') as $venueImage) {
                 $venueImageName = $storeVenue->venue_id . '-' . \Str::uuid() . '.' . $venueImage->getClientOriginalExtension();
 
                 $venueImagePath = $venueImage->storeAs('venue-images', $venueImageName, 'public');
                 $venueImageUrl  = Storage::url($venueImagePath);
 
-                $storeVenueUrl  = VenuePicture::updateOrCreate(
+                $storeVenueUrl  = VenueImage::updateOrCreate(
                     ['venue_id'  => $storeVenue->venue_id],
                     ['image_url' => $venueImageUrl, 'pic_num' => 1]
                 );
@@ -131,7 +131,7 @@ class VenueController extends Controller
             ->where('field_id', $id)
             ->get();
 
-        $totalVenueImages = VenuePicture::where('venue_id', $fieldData->first()->venue->venue_id)->count();
+        $totalVenueImages = VenueImage::where('venue_id', $fieldData->first()->venue->venue_id)->count();
 
         return Inertia::render('Venues/VenueDetail', [
             'fields'    => $fieldData,
