@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             OwnerSeeder::class,
             SportsSeeder::class,
+            // RegionDataSeeder::class
         ]);
     }
 }

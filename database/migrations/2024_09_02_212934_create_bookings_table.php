@@ -22,9 +22,9 @@ return new class extends Migration
             $table->foreignId('package_id')->nullable()->constrained('event_packages')->references('package_id')
                 ->onUpdate('CASCADE')
                 ->onDelete('NO ACTION');
-            $table->foreignId('pricing_rule_id')->nullable()->constrained('dynamic_pricing_rules')->references('pricing_rule_id')
-                ->onUpdate('CASCADE')
-                ->onDelete('NO ACTION');
+            // $table->foreignId('pricing_rule_id')->nullable()->constrained('custom_pricing_rules')->references('pricing_rule_id')
+            //     ->onUpdate('CASCADE')
+            //     ->onDelete('NO ACTION');
             $table->date('booking_date');
             $table->time('start_time');
             $table->time('end_time');

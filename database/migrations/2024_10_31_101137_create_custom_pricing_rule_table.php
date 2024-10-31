@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('custom_pricing_rule_id');
             $table->foreignId('time_slot_id')
                   ->constrained('time_slots')
-                  ->references('time_id')
+                  ->references('slot_id')
                   ->onUpdate('CASCADE')
                   ->onDelete('CASCADE');
             $table->date('date');
