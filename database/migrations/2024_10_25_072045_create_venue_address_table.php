@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('venue_address', function (Blueprint $table) {
             $table->id('venue_address_id');
+            $table->foreignId('venue_id')
+                  ->constrained('venues')
+                  ->references('venue_id')
+                  ->onUpdate('CASCADE')
+                  ->onDelete('CASCADE');
             $table->string('country');
             $table->string('province');
             $table->string('city');
@@ -20,7 +25,6 @@ return new class extends Migration
             $table->string('sub_district');
             $table->decimal('latitude', 10, 8);
             $table->decimal('longitude', 11, 8);
-            $table->timestamps();
         });
     }
 

@@ -18,13 +18,15 @@ import {
 } from "lucide-vue-next";
 
 const props = defineProps({
-    fields: Object,
+    venueData: Object,
     totalVenueImages: Number,
 });
 
-const fields = ref(props.fields[0]);
-const venueImage = ref(fields.value.venue.images[0].image_url ?? "");
-const venueImages = ref(fields.value.venue.images ?? "");
+console.log(props.venueData[0])
+
+const venueData = ref(props.venueData[0]);
+const venueImage = ref(venueData.value.images[0].image_url ?? "");
+const venueImages = ref(venueData.value.images ?? "");
 const totalVenueImages = ref(props.totalVenueImages ?? 0);
 
 const carousel = ref(null);
@@ -53,7 +55,7 @@ const toggleAccordion = () => {
     isAccordionOpen.value = !isAccordionOpen.value;
 };
 
-console.log(fields);
+console.log(venueData);
 </script>
 
 <template>
@@ -118,13 +120,13 @@ console.log(fields);
                 <div>
                     <!-- Venue Name -->
                     <h1 class="font-bold text-xl text-green-600">
-                        {{ fields.venue.name }}
+                        {{ venueData.name }}
                     </h1>
 
                     <!-- Venue Location -->
                     <div class="flex items-center mt-4 leading-tight">
                         <MapPin class="size-4 text-slate-600 mr-3"></MapPin>
-                        <p class="text-slate-700">{{ fields.venue.address }}</p>
+                        <p class="text-slate-700">{{ venueData.address }}</p>
                     </div>
 
                     <!-- Venue Operation Time -->
@@ -138,7 +140,7 @@ console.log(fields);
                     <!-- Venue Description -->
                     <div class="mt-4 max-w-[60ch]">
                         <p class="text-sm font-light text-slate-500">
-                            {{ fields.venue.description }}
+                            {{ venueData.description }}
                         </p>
                     </div>
                 </div>

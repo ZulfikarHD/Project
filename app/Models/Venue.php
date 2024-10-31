@@ -30,11 +30,6 @@ class Venue extends Model
         return $this->hasOne(VenueAddress::class, 'venue_address_id');
     }
 
-    public function sports(): HasMany
-    {
-        return $this->hasMany(VenueSport::class, 'venue_id');
-    }
-
     public function images(): HasMany
     {
         return $this->hasMany(VenueImage::class, 'venue_id');
@@ -42,7 +37,7 @@ class Venue extends Model
 
     public function fields() : HasMany
     {
-        return $this->hasMany(Field::class);
+        return $this->hasMany(Field::class, 'venue_id', 'venue_id');
     }
 
     public function timeSlots() : HasMany
@@ -53,6 +48,11 @@ class Venue extends Model
     public function startingPrice() : HasMany
     {
         return $this->hasMany(TimeSlot::class, 'venue_id','venue_id')->limit(1);
+    }
+
+    public static function countImage(Int $venueId)
+    {
+        return VenueImage::where('venue_id', $venueId)->count();
     }
 
 }
