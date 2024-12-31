@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\FindVenueController;
 use App\Http\Controllers\Owner\FinancialManagement\OwFmBudgetingController;
 use App\Http\Controllers\Owner\FinancialManagement\OwFmExpensesController;
 use App\Http\Controllers\Owner\FinancialManagement\OwFmInvoicesController;
@@ -24,42 +23,27 @@ use App\Http\Controllers\Owner\OwMarketingToolsController;
 use App\Http\Controllers\Owner\OwReportingToolsController;
 use App\Http\Controllers\Owner\OwStaffManagementController;
 use App\Http\Controllers\Owner\OwUserManagementController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Owner\VenueManagement\VenueController;
-// use App\Http\Controllers\Owner\VenueManagement\VenueController;
-use App\Http\Controllers\OwVenuesController;
-use App\Http\Controllers\Venue\AddVenuesController;
-use App\Http\Controllers\VenueDetailsController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
+
+Route::get('/', function () {
+    return Inertia::render('Owner/OwDashboard');
+});
+
+Route::get('/dashboard', function () {
+    return Inertia::render('Owner/OwDashboard');
+})->name('dashboard');
 
 Route::get('/owner', function () {
     return Inertia::render('Owner/OwDashboard');
 })->name('owner.dashboard');
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/find-venue ', [FindVenueController::class, 'index'])->name('home');
-Route::get('/venue-details/{id}', [App\Http\Controllers\VenueController::class, 'venueDetail'])->name('venue.venueDetails');
-
-// Route::get('/dashboard', function () {
-//     return Inertia::render('Dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-// Owner Routes
-
-Route::middleware('auth')->group(function () {
-    Route::get('/owner', function () {
-        return Inertia::render('Owner/OwDashboard');
-    })->name('owner.dashboard');
-
 
     Route::get('/owner/booking-management', [OwBookingManagementController::class, 'index'])->name('owner.bookingMgmt');
     Route::get('/owner/field-management', [OwFieldManagementController::class, 'index'])->name('owner.fieldMgmt');
@@ -69,16 +53,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/owner/reporting-tools', [OwReportingToolsController::class, 'index'])->name('owner.reportingTools');
     Route::get('/owner/customer-management', [OwCustomerManagementController::class, 'index'])->name('owner.customerMgmt');
 
-
     /**
      * -------------------------------
      * Venue Management Routes
      * -------------------------------
      */
-    route::namespace('App\Http\Controllers\Owner\VenueManagement')
+    Route::namespace('App\Http\Controllers\Owner\VenueManagement')
          ->group(function () {
             Route::get('/owner/venues/add-venue', 'VenueController@create')->name('owner.venue.add-venue');
-            // Route::post('/owner/venues/store',    'VenueController@store')->name('owner.venue.store');
         });
 
     /**
@@ -86,17 +68,11 @@ Route::middleware('auth')->group(function () {
      * Field Management Routes
      * -------------------------------
      */
-    route::namespace('App\Http\Controllers\Owner\FieldManagement')
+    Route::namespace('App\Http\Controllers\Owner\FieldManagement')
          ->group(function () {
             Route::get('/owner/fields/field-list',   'FieldController@index')->name('owner.field-management.field-list');
             Route::get('/owner/fields/create-field', 'FieldController@createField')->name('owner.field-management.create-field');
-            // Route::post('/owner/venues/store',    'VenueController@store')->name('owner.venue.store');
         });
-
-    // Route::post('/owner/venues', [VenueController::class, 'storeBasicInfo']);
-    // Route::post('/owner/venues/{id}/fields', [VenueController::class, 'storeFields']);
-    // Route::post('/owner/venues/{id}/availability', [VenueController::class, 'storeAvailability']);
-    // Route::post('/owner/venues/{id}/submit', [VenueController::class, 'submitVenue']);
 
     /**
      * -------------------------------
